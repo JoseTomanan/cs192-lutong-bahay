@@ -1,0 +1,60 @@
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.lock
+*.swp
+*.swo
+*.swn
+
+### FOR DJANGO
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+*.venv
+
+# Django secret settings and database
+.env
+config/settings_local.py
+
+# Migrations cache
+db.sqlite3
+media/
+
+### FOR SVELTE-TAILWIND
+# Node.js dependencies
+node_modules/
+
+# Build output
+dist/
+public/build/
+
+# Vite cache
+.vite/
+.vitepress/
+
+# Tailwind purge cache
+.purgecss/
+
+### FOR DOCKER
+# Docker files
+docker-compose.override.yml
+.dockerignore
+
+### FOR VSCODE
+# VSCode settings
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# Sublime Text
+*.sublime-workspace
