@@ -1,0 +1,25 @@
+{
+  "name": "cs192-lutong-bahay",
+  "version": "1.0.0",
+  "description": "This is a course requirement for CS 191/CS192 Software Engineering Courses of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman under the guidance of Prof. Ma. Rowena C. Solamo for the AY 2024-2025.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoseTomanan/cs192-lutong-bahay.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoseTomanan/cs192-lutong-bahay/issues"
+  },
+  "homepage": "https://github.com/JoseTomanan/cs192-lutong-bahay#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.1"
+  }
+}

@@ -58,3 +58,9 @@ docker-compose.override.yml
 
 # Sublime Text
 *.sublime-workspace
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
