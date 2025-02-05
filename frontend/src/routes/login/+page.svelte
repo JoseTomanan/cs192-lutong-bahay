@@ -9,40 +9,47 @@
   }
 </script>
 
+<style>
+  * {
+    font-family: "Inter"
+  }
+</style> 
+ 
 
 <div 
   class="flex min-h-screen items-center justify-center bg-gradient-to-br bg-white"
 >
   <div class="bg-white w-full flex flex-col h-screen justify-center max-w-xl space-y-3 rounded-lg border px-12 py-12 shadow-xl"
   style="background: url(/liempo_edited.xpng); background-size:cover">
-    <form on:submit|preventDefault={handleSubmit} class="space-y-3">
-      <h1 class="text-3xl font-bold -mb-2 text-emerald-800">Lutong Bahay</h1>
-      <h2 class="text-gray-600 pb-4 italic">Your database for Filipino recipes</h2>
+    <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+      <h1 class="text-4xl font-bold -mb-4 text-emerald-800">Lutong Bahay</h1>
+      <h2 class="text-gray-600 pb-7 text-lg italic">Your database for Filipino recipes</h2>
       <div class="space-y-2">
-        <input
-          type="email" 
-          bind:value={email}
-          placeholder="Email"
-          class="w-full rounded border p-2"
-          required
-        />
+        <div class="space-y-2">
+          <input
+            type="email"
+            bind:value={email}
+            placeholder="Email"
+            class="w-full rounded border p-2"
+            required
+          />
+        </div>
+        <div class="space-y-2 mb-">
+          <input
+            type="password"
+            bind:value={password}
+            placeholder="Password"
+            class="w-full rounded border p-2"
+            required
+          />
+        </div>
       </div>
-    
-      <div class="space-y-2">
-        <input
-          type="password"
-          bind:value={password}
-          placeholder="Password"
-          class="w-full rounded border p-2"
-          required
-        /> 
-      </div>
-      <button type="submit" class="mt-3 w-full rounded bg-emerald-500 p-2 text-white hover:bg-emerald-600">
+      <button type="submit" class="w-full rounded bg-emerald-500 p-2 text-white hover:bg-emerald-600">
         Log in
       </button>
     
     
-      <div class="flex items-center justify-center pt-5 pb-3">
+      <div class="flex items-center justify-center pt-7 pb-4">
         <hr class="flex-grow border-gray-200">
         <span class="px-4 text-gray-500">OR</span>
         <hr class="flex-grow border-gray-200">
@@ -60,10 +67,7 @@
     </div>
  
     <div class="flex justify-end">
-      <span class="text-blue-500 mt-2 hover:text-blue-700">Don't have an account?</span>
+      <span class="mt-2 text-blue-500 hover:text-blue-700 hover:underline">Don't have an account?</span>
     </div>
   </div>
-
-
-
 </div> 
