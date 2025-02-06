@@ -1,3 +1,10 @@
+<style> 
+  * {
+    font-family: "Inter" 
+  }
+</style> 
+
+
 <script lang="ts">
   let loginMethods = [
     { name: 'Google', icon: '/google.webp' },
@@ -31,7 +38,7 @@
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->  
 
 <div class="p-10 border space-y-5">
-  <form class="max-w-md">
+  <form class="max-w-md"> 
     <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     <div class="relative">
         <div class="absolute inset-y-0 start-0 flex  ps-3 pointer-events-none">
