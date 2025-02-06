@@ -8,6 +8,6 @@
   <nav class="flex flex-col space-y-2">
     {#each pages as page}
       <a href="/{page}" class="text-blue-500 hover:text-blue-700">{page}</a>
-    {/each}
-  </nav>  
+    {/each}  
+  </nav>
 </div> 

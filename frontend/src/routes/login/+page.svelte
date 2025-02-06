@@ -2,29 +2,33 @@
   let email = '';
   let password = '';
   
-  let loginMethods = ['Google', 'Facebook']
+  let loginMethods = [
+    {name: 'Google', icon: '/google.webp'}, 
+    {name: 'Facebook', icon: '/facebook.png'}, 
+  ] 
+
+
 
   function handleSubmit() {
     console.log('Login attempted:', { email, password });
   }
 </script>
 
-<style>
+<style> 
   * {
-    font-family: "Inter"
+    font-family: "Inter" 
   }
 </style> 
- 
 
 <div 
   class="flex min-h-screen items-center justify-center bg-gradient-to-br bg-white"
 >
-  <div class="bg-white w-full flex flex-col h-screen justify-center max-w-xl space-y-3 rounded-lg border px-12 py-12 shadow-xl"
+  <div class="bg-white w-full flex flex-col h-screen justify-center max-w-xl space-y-3 rounded-lg px-12 py-12 shadow-xl border"
   style="background: url(/liempo_edited.xpng); background-size:cover">
     <form on:submit|preventDefault={handleSubmit} class="space-y-4">
       <h1 class="text-4xl font-bold -mb-4 text-emerald-800">Lutong Bahay</h1>
       <h2 class="text-gray-600 pb-7 text-lg italic">Your database for Filipino recipes</h2>
-      <div class="space-y-2">
+      <div class="space-y-2"> 
         <div class="space-y-2">
           <input
             type="email"
@@ -59,14 +63,16 @@
     </form>
 
     <div class="space-y-3 flex flex-col items-center ">
-      {#each loginMethods as loginMethod}
-        <button type="submit" class="w-full rounded-full bg-white p-2 text-gray-700 border shadow-sm">
-          Sign in with {loginMethod} 
-        </button>
-      {/each} 
-    </div>
- 
-    <div class="flex justify-end">
+      {#each loginMethods as {name, icon}} 
+        <button type="submit" class="w-full rounded-full bg-white p-2 text-gray-700 border
+        hover:bg-gray-100 flex items-center gap-3 justify-center">
+          <img src={icon} alt={name} class="w-6 h-6">
+          Sign in with {name} 
+        </button>  
+      {/each}   
+    </div> 
+  
+    <div class="flex justify-end"> 
       <span class="mt-2 text-blue-500 hover:text-blue-700 hover:underline">Don't have an account?</span>
     </div>
   </div>
