@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss';
 
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
-
+ 
 	theme: {
 		extend: {
 			colors: {
@@ -12,7 +12,7 @@ export default {
 				secondary: "#D94D48",
 				bg: "#F5F4E9",
 			}
-		}
+		} 
 	},
 
 	plugins: []
