@@ -1,6 +1,7 @@
 <script lang="ts">
   let email = '';
   let password = '';
+  let error = '';
   
   let loginMethods = [
     {name: 'Google', icon: '/google.webp'}, 
@@ -9,9 +10,31 @@
 
 
 
-  function handleSubmit() {
-    console.log('Login attempted:', { email, password });
-  }
+  async function handleSubmit() {
+    console.log(email, password)
+    try {
+      const response = await fetch('http://localhost:8000/api/index/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password })
+      });
+      
+      if (!response.ok) {
+        const data = await response.json();
+        error = data.error;
+        return;
+      }
+      
+      const { token } = await response.json();
+      localStorage.setItem('token', token);
+      // goto('/dashboard');
+    } catch (err) {
+      error = 'Login failed';
+      console.log(error)
+    }
+  } 
 </script>
 
 <style> 
