@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 
 
-test('User table', ()=>{
+test.describe('User table', ()=>{
     test('should reflect added user entry in database', ()=>{
         // TODO
     });
@@ -12,7 +12,7 @@ test('User table', ()=>{
     });
 });
 
-test('Recipes table', ()=>{
+test.describe('Recipes table', ()=>{
     test('should reflect added recipe entry in database', ()=>{
         // TODO
     });

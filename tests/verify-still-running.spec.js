@@ -1,7 +1,7 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
 
-test('Assure webpages still working', () => {
+test.describe('Assure webpages still working', () => {
     test('should load login page', async ({ page }) => {
         // await page.goto('http://localhost:5173/login');
 

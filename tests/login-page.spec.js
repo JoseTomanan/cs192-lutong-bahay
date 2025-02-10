@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 
 
-test('Login page', () => {
+test.describe('Login page', () => {
     test('should show user is not registered', () => {
         // FILL THIS
     });
