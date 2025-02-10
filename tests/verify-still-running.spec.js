@@ -18,16 +18,3 @@ test('Assure webpages still working', () => {
     });
 });
 
-test('Login function', () => {
-    test('should show user is not registered', () => {
-        // FILL THIS
-    });
-
-    test('should disallow wrong password', () => {
-        // FILL THIS
-    });
-
-    test('should show success when valid credentials are entered', () => {
-        // FILL THIS
-    })
-});
