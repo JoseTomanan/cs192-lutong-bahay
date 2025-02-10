@@ -49,7 +49,7 @@
 <div 
   class="flex min-h-screen items-center justify-center bg-gradient-to-br bg-white"
 >
-  <div class="bg-white w-full flex flex-col h-screen justify-center max-w-xl space-y-3 rounded-lg px-12 py-12 shadow-xl border"
+  <div class="bg-white w-full flex flex-col h-5/6 justify-center max-w-xl space-y-3 rounded-lg px-12 py-12 shadow-xl border"
   style="background: url(/liempo_edited.xpng); background-size:cover">
     <form on:submit|preventDefault={handleSubmit} class="space-y-4">
       <h1 class="text-4xl font-bold -mb-4 text-emerald-800">Lutong Bahay</h1>
