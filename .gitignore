@@ -64,3 +64,4 @@ docker-compose.override.yml
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/tests-examples/
