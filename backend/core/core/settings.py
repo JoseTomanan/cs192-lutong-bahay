@@ -92,12 +92,15 @@ DATABASES = {
     #     "PORT": "",
     # }
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "lutongBahayDatabase",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "postgres",
         "USER": "postgres.axtannicwyjvnmseteyb",
         "PASSWORD": "F2syBANXxz-!vrE",
         "HOST": "aws-0-ap-southeast-1.pooler.supabase.com",
         "PORT": "6543",
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 
@@ -126,7 +129,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+# TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Manila"
 
 USE_I18N = True
 
