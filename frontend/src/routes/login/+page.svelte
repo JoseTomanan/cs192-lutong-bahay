@@ -104,9 +104,9 @@
         </div> 
 
         <div class="flex justify-end"> 
-            <span class="mt-2 text-blue-500 hover:text-blue-700 hover:underline">
+            <a class="mt-2 text-blue-500 hover:text-blue-700 hover:underline" href="#top">
                 Don't have an account?
-            </span>
+            </a>
         </div>
     </div>
 </section> 
