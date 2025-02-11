@@ -1,6 +1,4 @@
-// @ts-check
 import { test, expect } from '@playwright/test';
-
 
 test.describe('Login page', () => {
     test('should show user is not registered', () => {
