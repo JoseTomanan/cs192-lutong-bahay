@@ -32,7 +32,9 @@
             const { token } = await response.json();
             localStorage.setItem('token', token);
             // goto('/dashboard');
-        } catch (err) {
+        }
+        
+        catch (err) {
             error = 'Login failed';
             console.log(error)
         }
