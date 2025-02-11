@@ -41,12 +41,6 @@
     } 
 </script>
 
-<style> 
-    * {
-        font-family: "Inter" 
-    }
-</style> 
-
 <section 
     class="flex min-h-screen items-center justify-center bg-gradient-to-br bg-white"
 >
