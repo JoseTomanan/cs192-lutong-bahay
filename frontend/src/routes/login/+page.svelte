@@ -45,7 +45,7 @@
     }
 </style> 
 
-<div 
+<section 
     class="flex min-h-screen items-center justify-center bg-gradient-to-br bg-white"
 >
     <div
@@ -61,25 +61,21 @@
             </h2>
             
             <div class="space-y-2"> 
-                <div class="space-y-2">
-                    <input
-                        type="email"
-                        bind:value={email}
-                        placeholder="Email"
-                        class="w-full rounded border p-2"
-                        required
-                    />
-                </div>
+                <input
+                    type="email"
+                    bind:value={email}
+                    placeholder="Email"
+                    class="space-y-2 w-full rounded border p-2"
+                    required
+                />
                 
-                <div class="space-y-2 mb-">
-                    <input
-                        type="password"
-                        bind:value={password}
-                        placeholder="Password"
-                        class="w-full rounded border p-2"
-                        required
-                    />
-                </div>
+                <input
+                    type="password"
+                    bind:value={password}
+                    placeholder="Password"
+                    class="space-y-2 w-full rounded border p-2"
+                    required
+                />
             </div>
 
             <button type="submit" class="w-full rounded bg-emerald-500 p-2 text-white hover:bg-emerald-600">
@@ -106,7 +102,9 @@
         </div> 
 
         <div class="flex justify-end"> 
-            <span class="mt-2 text-blue-500 hover:text-blue-700 hover:underline">Don't have an account?</span>
+            <span class="mt-2 text-blue-500 hover:text-blue-700 hover:underline">
+                Don't have an account?
+            </span>
         </div>
     </div>
-</div> 
+</section> 
