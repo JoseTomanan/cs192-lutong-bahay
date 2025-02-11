@@ -3,3 +3,18 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    body {}
+}
+
+@layer components {
+
+}
+
+@layer utilities {
+
+}
