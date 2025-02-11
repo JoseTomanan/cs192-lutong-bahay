@@ -1,6 +1,4 @@
-// @ts-check
 import { test, expect } from '@playwright/test';
-
 
 test.describe('User table', ()=>{
     test('should reflect added user entry in database', ()=>{
