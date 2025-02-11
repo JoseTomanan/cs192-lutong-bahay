@@ -41,9 +41,7 @@
     } 
 </script>
 
-<section 
-    class="flex min-h-screen items-center justify-center bg-gradient-to-br bg-white"
->
+<section>
     <div
         class="bg-white w-full flex flex-col h-5/6 justify-center max-w-xl space-y-3 rounded-lg px-12 py-12 shadow-xl border"
         style="background: url(/liempo_edited.xpng); background-size:cover"
@@ -98,7 +96,7 @@
         </div> 
 
         <div class="flex justify-end"> 
-            <a class="mt-2 text-blue-500 hover:text-blue-700 hover:underline" href="#top">
+            <a class="mt-2 hoverable-link" href="#top">
                 Don't have an account?
             </a>
         </div>
