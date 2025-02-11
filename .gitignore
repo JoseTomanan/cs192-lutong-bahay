@@ -60,11 +60,11 @@ docker-compose.override.yml
 *.sublime-workspace
 
 # Playwright
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/tests-examples/
+/tests/test-results/
+/tests/playwright-report/
+/tests/blob-report/
+/tests/playwright/.cache/
+/tests/tests-examples/
 
 # Gitkeep (for folder segregation)
 **/*/.gitkeep
