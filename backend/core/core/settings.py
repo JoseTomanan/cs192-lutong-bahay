@@ -83,13 +83,21 @@ DATABASES = {
 #         "ENGINE": "django.db.backends.sqlite3",
 #         "NAME": BASE_DIR / "db.sqlite3",
 #     }
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql_psycopg2",
+    #     "NAME": "lutongBahayDatabase",
+    #     "USER": "postgres",
+    #     "PASSWORD": "11789",
+    #     "HOST": "localhost",
+    #     "PORT": "",
+    # }
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "lutongBahayDatabase",
-        "USER": "postgres",
-        "PASSWORD": "11789",
-        "HOST": "localhost",
-        "PORT": "",
+        "USER": "postgres.axtannicwyjvnmseteyb",
+        "PASSWORD": "F2syBANXxz-!vrE",
+        "HOST": "aws-0-ap-southeast-1.pooler.supabase.com",
+        "PORT": "6543",
     }
 }
 
