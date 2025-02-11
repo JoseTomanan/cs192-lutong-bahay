@@ -4,6 +4,10 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
  
 	theme: {
+		fontFamily: {
+			'heading': ["Inter"],
+			'sans': ["Inter", "sans-serif"],
+		},
 		extend: {
 			/**
 			 * Elijah, not sure if you noticed but I already defined our

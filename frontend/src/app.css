@@ -10,7 +10,7 @@
     }
     body {
         * {
-            font-family: "Inter" 
+            @apply font-sans;
         }
     }
 }
