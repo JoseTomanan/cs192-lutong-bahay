@@ -7,3 +7,6 @@ class User(models.Model):
     password = models.CharField(max_length=100)
 
     objects = models.Manager()
+
+class Recipe(models.Model):
+    name = models.CharField(max_length=100)
