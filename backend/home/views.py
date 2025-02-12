@@ -2,7 +2,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import User
-from .forms import UserAddForm
 from home.serializer import UserSerializer
 
 from django.views.decorators.csrf import csrf_exempt
@@ -52,13 +51,16 @@ def get_users(request):
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
-@csrf_exempt 
 @api_view(['POST'])
 def add_user(request):
-    data = request.data
-    print(data)
-    newUser = User()
-    newUser.email = data["email"]
-    newUser.password = data["password"]
-    newUser.save()
-    return HttpResponseRedirect('dbtest')
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors)
+
+@api_view(['POST'])
+def delete_user(request):
+    user = User.objects.filter(id=request.data['id'])
+    user.delete()
+    return Response({"message": "User delete successful"})
