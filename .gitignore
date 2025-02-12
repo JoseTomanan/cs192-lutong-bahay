@@ -64,7 +64,9 @@ docker-compose.override.yml
 /tests/playwright-report/
 /tests/blob-report/
 /tests/playwright/.cache/
+
 /frontend/test-results/
+/test-results/
 
 */tests-examples/
 
