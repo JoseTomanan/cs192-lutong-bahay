@@ -1,5 +1,6 @@
 <script>
 	import { goto } from "$app/navigation";
+  import UserRow from "./UserRow.svelte";
 
   let users = [];
   let inputEmail = "";
@@ -76,25 +77,7 @@
           </thead>
           <tbody class="divide-y divide-gray-200">
             {#each users as user}
-            <tr>
-              <td 
-                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{user.id}
-              </td>
-              <td 
-                class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{user.email}
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{user.password}
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                <button 
-                  type="submit" 
-                  class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none"
-                  on:click={() => functionDeleteUserForm(user.id)}
-                  >
-                  Delete
-                </button>
-              </td>
-            </tr>
+              <UserRow userProp={user} functionProp={functionDeleteUserForm} />
             {/each}  
             <tr>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><form id="form1">x</form></td>
