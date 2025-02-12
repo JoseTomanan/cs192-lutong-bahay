@@ -21,8 +21,10 @@ jobs:
       with:
         node-version: 18
 
-    - name: Install dependencies
-      run: npm ci
+    - name: Install all dependencies
+      run: |
+        npm ci
+        cd ../frontend && npm ci
 
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
