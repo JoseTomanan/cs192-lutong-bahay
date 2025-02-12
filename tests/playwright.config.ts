@@ -12,7 +12,8 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-    testDir: './tests/e2e',
+    testDir: './e2e',
+    testMatch: '**/*.spec.ts',
 
     /* Run tests in files in parallel */
     fullyParallel: true,
@@ -30,12 +31,12 @@ export default defineConfig({
     reporter: 'html',
 
     /* Run your local dev server before starting the tests */
-    // webServer: {
-    //     command: 'npm run dev',
-    //     url: 'http://localhost:5173',
-    //     timeout: 120 * 1000,
-    //     reuseExistingServer: !process.env.CI,
-    // },
+    webServer: {
+        command: 'cd ../frontend && npm run dev',
+        url: 'http://localhost:5173',
+        timeout: 120 * 1000,
+        reuseExistingServer: !process.env.CI,
+    },
 
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
