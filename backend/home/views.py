@@ -42,3 +42,9 @@ def person(request):
             return Response(serializer.data)
 
         return Response(serializer.errors)
+
+@api_view(['GET'])
+def get_users(request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
