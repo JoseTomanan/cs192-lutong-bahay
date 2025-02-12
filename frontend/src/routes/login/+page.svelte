@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
+
   let email = '';
   let password = '';
   let error = '';
@@ -21,19 +23,20 @@
         body: JSON.stringify({ email, password })
       });
 
-      const data = await response.json();
-      alert(JSON.stringify(data.message))
-      console.log(data)
-      
-      if (!response.ok) {
-        const data = await response.json();
-        error = data.error;
-        return;
+      const data = await response.json()
+  
+      const success = data.success
+
+      if (success) {
+        goto('/dashboard')
+      } else {
+        alert(data.message)
       }
-      
+
+
+
       const { token } = await response.json();
       localStorage.setItem('token', token);
-      // goto('/dashboard');
     } catch (err) {
       error = 'Login failed';
       console.log(error)
