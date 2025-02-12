@@ -2,8 +2,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import User
+from .forms import UserAddForm
 from home.serializer import UserSerializer
 
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect
 
 @api_view(["POST", "GET"])
 def index(request):
@@ -48,3 +51,14 @@ def get_users(request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
+
+@csrf_exempt 
+@api_view(['POST'])
+def add_user(request):
+    data = request.data
+    print(data)
+    newUser = User()
+    newUser.email = data["email"]
+    newUser.password = data["password"]
+    newUser.save()
+    return HttpResponseRedirect('dbtest')
