@@ -64,7 +64,8 @@ docker-compose.override.yml
 /tests/playwright-report/
 /tests/blob-report/
 /tests/playwright/.cache/
-/tests/tests-examples/
+
+*/tests-examples/
 
 # Gitkeep (for folder segregation)
 **/*/.gitkeep
