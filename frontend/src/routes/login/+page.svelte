@@ -22,6 +22,7 @@
       });
 
       const data = await response.json();
+      alert(JSON.stringify(data.message))
       console.log(data)
       
       if (!response.ok) {
