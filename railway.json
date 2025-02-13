@@ -1,7 +1,7 @@
 {
     "services": {
         "frontend": {
-            "buildCommand": "npm run build",
+            "buildCommand": "npm ci && npm run build",
             "startCommand": "npm run preview",
             "root": "frontend"
         },
