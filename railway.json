@@ -7,7 +7,7 @@
         },
         "backend": {
             "buildCommand": "pip install -r requirements.txt",
-            "startCommand": "python manage.py runserver",
+            "startCommand": "gunicorn mybackend.wsgi:application --bind 0.0.0.0:8000",
             "root": "backend"
         }
     }
