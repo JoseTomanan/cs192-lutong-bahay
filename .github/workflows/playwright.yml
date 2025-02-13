@@ -27,10 +27,14 @@ jobs:
       run: npm ci
         
     - name: Install frontend dependencies
-      run: cd ../frontend && npm ci
+      run: |
+        cd ../frontend
+        npm ci
 
     - name: Install backend dependencies
-      run: cd ../backend && pip install -r requirements.txt
+      run: |
+        cd ../backend
+        pip install -r requirements.txt
 
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
