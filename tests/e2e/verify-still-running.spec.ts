@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Working pages', () => {
+test.describe('All loading pages', () => {
     test('should load login page', async ({ page }) => {
         await page.goto('http://localhost:5173/login', { waitUntil: 'domcontentloaded' });
 
