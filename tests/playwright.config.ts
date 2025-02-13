@@ -39,7 +39,7 @@ export default defineConfig({
             reuseExistingServer: !process.env.CI,
         },
         {
-            command: 'cd ../backend && python manage.py runserver',
+            command: 'cd ../backend && python3 manage.py runserver',
             port: 8000,
             timeout: 120 * 1000,
             reuseExistingServer: !process.env.CI,
