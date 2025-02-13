@@ -1,0 +1,14 @@
+{
+    "services": {
+        "frontend": {
+            "buildCommand": "npm run build",
+            "startCommand": "npm run preview",
+            "root": "frontend"
+        },
+        "backend": {
+            "buildCommand": "pip install -r requirements.txt",
+            "startCommand": "python manage.py runserver",
+            "root": "backend"
+        }
+    }
+}
