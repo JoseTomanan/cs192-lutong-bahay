@@ -31,12 +31,20 @@ export default defineConfig({
     reporter: 'html',
 
     /* Run your local dev server before starting the tests */
-    webServer: {
-        command: 'cd ../frontend && npm run dev && cd ../backend && python manage.py runserver',
-        port: 5173,
-        timeout: 120 * 1000,
-        reuseExistingServer: !process.env.CI,
-    },
+    webServer: [
+        {
+            command: 'cd ../frontend && npm run dev',
+            port: 5173,
+            timeout: 120 * 1000,
+            reuseExistingServer: !process.env.CI,
+        },
+        {
+            command: 'cd ../backend && python manage.py runserver',
+            port: 8000,
+            timeout: 120 * 1000,
+            reuseExistingServer: !process.env.CI,
+        },
+    ],
 
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
