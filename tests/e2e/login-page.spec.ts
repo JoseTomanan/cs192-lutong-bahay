@@ -6,7 +6,7 @@ test.describe('Login page', () => {
 
         page.on('console', (msg) => {
             consoleMessages.push(msg.text());
-        });
+            });
 
         await page.goto('/login');
 
@@ -17,7 +17,8 @@ test.describe('Login page', () => {
         await page.waitForTimeout(1000); // Ensure logs are captured
         console.log('Captured console messages:', consoleMessages);
 
-        expect(consoleMessages.some(msg => msg.includes('Invalid username'))).toBeTruthy();
+        expect(consoleMessages.some(msg => msg.includes('Invalid username')))
+            .toBeTruthy();
     });
 
     test('should disallow wrong password', async ({ page }) => {
@@ -25,7 +26,7 @@ test.describe('Login page', () => {
 
         page.on('console', (msg) => {
             consoleMessages.push(msg.text());
-        });
+            });
 
         await page.goto('/login');
 
@@ -36,7 +37,8 @@ test.describe('Login page', () => {
         await page.waitForTimeout(1000);
         console.log('Captured console messages:', consoleMessages);
 
-        expect(consoleMessages.some(msg => msg.includes('Invalid password'))).toBeTruthy();
+        expect(consoleMessages.some(msg => msg.includes('Invalid password')))
+            .toBeTruthy();
     });
 
     test('should show success when valid credentials are entered', async ({ page }) => {
@@ -44,7 +46,7 @@ test.describe('Login page', () => {
 
         page.on('console', (msg) => {
             consoleMessages.push(msg.text());
-        });
+            });
 
         await page.goto('/login');
 
@@ -55,6 +57,7 @@ test.describe('Login page', () => {
         await page.waitForTimeout(1000);
         console.log('Captured console messages:', consoleMessages);
 
-        expect(consoleMessages.some(msg => msg.includes('Login successful'))).toBeTruthy();
+        expect(consoleMessages.some(msg => msg.includes('Login successful')))
+            .toBeTruthy();
     });
 });
