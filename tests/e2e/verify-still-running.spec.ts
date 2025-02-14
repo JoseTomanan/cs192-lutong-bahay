@@ -23,7 +23,7 @@ test.describe('All loading pages', () => {
         await page.goto(
             '/dashboard',
             { waitUntil: 'domcontentloaded' }
-        );
+            );
 
         // Verify title
         // await expect(page).toHaveTitle('');
@@ -41,7 +41,7 @@ test.describe('All loading pages', () => {
         await page.goto(
             '/search',
             { waitUntil: 'domcontentloaded' }
-        );
+            );
 
         // Verify title
         await expect(page)
