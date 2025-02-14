@@ -46,7 +46,7 @@ test.describe('Login page', () => {
             consoleMessages.push(msg.text());
         });
 
-        await page.goto('http://localhost:5173/login');
+        await page.goto('/login');
 
         await page.fill('input[type="email"]', 'john123@gmail.com');
         await page.fill('input[type="password"]', 'password');
