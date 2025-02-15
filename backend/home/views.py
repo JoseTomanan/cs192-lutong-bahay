@@ -7,26 +7,27 @@ from home.serializer import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
 
-@api_view(["POST", "GET"])
+@api_view(['GET', 'POST'])
 def index(request):
-    users = {"john123@gmail.com": "password"}
-    
-    if request.method == "GET":
-        return Response({"message": "Welcome to the login page"})
-    
+    users = {'john123@gmail.com': 'password'}
     data = request.data
-    print("HELLO")
+    
+    response = {
+        'success': False,
+        'message': '',
+    }
 
-    if data:
-        if data["email"] in users:
-            if data["password"] == users[data["email"]]:
-                return Response({"message": "Login successful"})
-            else:
-                return Response({"message": "Invalid password"})
-            
-        else:
-            return Response({"message": "Invalid username"})
+    if not data: 
+        response['mesage'] = 'An error occurred'
+    elif data['email'] not in users:
+        response['message'] = 'User does not exist'
+    elif data['password'] != users[data['email']]:
+        response['message'] = 'Invalid password'
+    else: 
+        response['message'] = 'Log in successful'
+        response['success'] = True  
 
+    return Response(response)
 
 @api_view(["POST", "GET"])
 def person(request):
@@ -50,7 +51,7 @@ def get_users(request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
-
+ 
 @api_view(['POST'])
 def add_user(request):
     serializer = UserSerializer(data=request.data)
@@ -63,4 +64,4 @@ def add_user(request):
 def delete_user(request):
     user = User.objects.filter(id=request.data['id'])
     user.delete()
-    return Response({"message": "User delete successful"})
+    return Response({"message": "User delete successful"}) 
