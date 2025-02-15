@@ -1,5 +1,5 @@
 <script>
-    let pages = ['dashboard', 'login', 'search']
+  let pages = ['dashboard', 'login', 'search', 'dbtest']
 </script>
 
 

@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Assure webpages still working', () => {
+test.describe('Working pages', () => {
     test('should load login page', async ({ page }) => {
-        await page.goto('http://localhost:8000/login', { waitUntil: 'domcontentloaded' });
+        await page.goto('http://localhost:5173/login', { waitUntil: 'domcontentloaded' });
 
         // Verify title
         await expect(page).toHaveTitle('');
@@ -14,7 +14,7 @@ test.describe('Assure webpages still working', () => {
     });
 
     test('should load dashboard page', async ({ page }) => {
-        await page.goto('http://localhost:8000/dashboard', { waitUntil: 'domcontentloaded' });
+        await page.goto('http://localhost:5173/dashboard', { waitUntil: 'domcontentloaded' });
 
         // Verify title
         // await expect(page).toHaveTitle('');
@@ -28,7 +28,7 @@ test.describe('Assure webpages still working', () => {
 
 
     test('should load search page', async ({ page }) => {
-        await page.goto('http://localhost:8000/search', { waitUntil: 'domcontentloaded' });
+        await page.goto('http://localhost:5173/search', { waitUntil: 'domcontentloaded' });
 
         // Verify title
         await expect(page).toHaveTitle('');

@@ -1,0 +1,15 @@
+# Core Django & DRF dependencies
+django
+djangorestframework
+
+# PostgreSQL adapter (for Supabase or Railway DB)
+psycopg2-binary
+
+# Deployment & WSGI server
+gunicorn
+
+# CORS for API access
+django-cors-headers
+
+# Optional: Environment variable management
+python-dotenv
