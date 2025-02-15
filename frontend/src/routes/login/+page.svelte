@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
+  import { isAuthenticated } from '$lib/stores/auth'
 
   let email = '';
   let password = '';
@@ -24,9 +25,10 @@
       const success = data.success 
       const message = data.message
 
-      if (success == false) {
+      if (!success) {
         alert(message)
       } else {
+        $isAuthenticated = true 
         goto('/dashboard')
       }
       
