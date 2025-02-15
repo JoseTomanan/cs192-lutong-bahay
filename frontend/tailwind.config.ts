@@ -19,6 +19,7 @@ export default {
 				transparent: "transparent",
 				current: "currentColor",
 				main: "#8FBF64",
+				main_dark: "#6f964e",
 				secondary: "#D94D48",
 				bg: "#F5F4E9",
 			}
