@@ -4,7 +4,17 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
  
 	theme: {
+		fontFamily: {
+			'heading': ["Inter"],
+			'sans': ["Inter", "sans-serif"],
+		},
 		extend: {
+			/**
+			 * Elijah, not sure if you noticed but I already defined our
+			 * project's main colors in the Tailwind config;
+			 * If you need to use them you can just use these terms.
+			 * (You may erase these lines when you're done reading)
+			 */
 			colors: {
 				transparent: "transparent",
 				current: "currentColor",
