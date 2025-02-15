@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from '$app/state';
+    import { logout } from '$lib/stores/auth'
     
     let pages = ['home', 'recipes', 'users', 'profile']
   </script>
@@ -16,5 +17,10 @@
           {route}
         </a> 
       {/each}
+
+      <button 
+        on:click={logout}
+        class="px-3 py-2 rounded-md text-white bg-red-500 hover:bg-red-600"
+      >Log out</button>
     </div>
   </nav>

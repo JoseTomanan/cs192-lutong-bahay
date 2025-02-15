@@ -5,11 +5,10 @@
 	import { page } from '$app/state'
     import { goto } from '$app/navigation'
     import { onMount } from 'svelte'
-
+	import { initAuth } from '$lib/stores/auth' 
+	
 	onMount(() => {
-        if (!$isAuthenticated && page.url.pathname !== '/login') {
-            goto('/login');
-        }
+        initAuth()
     });
 
 	let { children } = $props()

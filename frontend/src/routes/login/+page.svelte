@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
-  import { isAuthenticated } from '$lib/stores/auth'
+  import { isAuthenticated, setAuth } from '$lib/stores/auth'
 
   let identifier = '';
   let password = '';
@@ -28,8 +28,8 @@
       if (!success) {
         alert(message)
       } else {
-        $isAuthenticated = true 
-        goto('/home')
+        setAuth(true)
+        goto('/home') 
       }
       
       if (!response.ok) { 
