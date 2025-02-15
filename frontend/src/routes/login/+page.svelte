@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
+
   let email = '';
   let password = '';
   let error = '';
@@ -7,37 +9,37 @@
       {name: 'Google', icon: '/google.webp'}, 
       {name: 'Facebook', icon: '/facebook.png'}, 
   ] 
-  
-  async function handleSubmit()
-  {
-      console.log(email, password)
-      try {
-          const response = await fetch('http://localhost:8000/api/index/', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ email, password })
-          });
-          
-          const data = await response.json();
-          console.log(data)
-          
-          if (!response.ok) {
-              const data = await response.json();
-              error = data.error;
-              return;
-          }
-          
-          const { token } = await response.json();
-          localStorage.setItem('token', token);
-          // goto('/dashboard');
+
+  async function handleSubmit() {
+    try { 
+      const response = await fetch('http://localhost:8000/api/login/', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+      const success = data.success 
+      const message = data.message
+
+      if (success == false) {
+        alert(message)
+      } else {
+        goto('/dashboard')
       }
       
-      catch (err) {
-          error = 'Login failed';
-          console.log(error)
+      if (!response.ok) { 
+        const data = await response.json();
+        const error = data.error;
+        return;
       }
+      
+    } catch (err) {
+      console.log('Login failed')
+    }
+
   } 
 </script>
 

@@ -48,7 +48,7 @@
       const data = await response.json();
       console.log(data)
       
-      if (response.ok) {
+      if (response.ok) { 
         console.log("User delete successful");
         goto('dbtest')
         return;
