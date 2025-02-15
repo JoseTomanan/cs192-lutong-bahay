@@ -9,19 +9,23 @@ from django.http import HttpResponseRedirect
 
 @api_view(['GET', 'POST'])
 def login(request):
-    users = {'john123@gmail.com': 'password'}
+    users = {
+        'john123@gmail.com': 'password', 
+        '2@2': '2',
+        'a': 'a'
+    }
     data = request.data
     
     response = {
         'success': False,
-        'message': '',
+        'message': '', 
     } 
 
     if not data:  
         response['mesage'] = 'An error occurred'
-    elif data['email'] not in users:
+    elif data['identifier'] not in users:
         response['message'] = 'User does not exist'
-    elif data['password'] != users[data['email']]:
+    elif data['password'] != users[data['identifier']]:
         response['message'] = 'Invalid password'
     else: 
         response['message'] = 'Log in successful'

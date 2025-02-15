@@ -2,7 +2,7 @@
 	import { goto } from "$app/navigation";
   import { isAuthenticated } from '$lib/stores/auth'
 
-  let email = '';
+  let identifier = '';
   let password = '';
   let error = '';
   
@@ -18,7 +18,7 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ identifier, password })
       });
 
       const data = await response.json();
@@ -29,7 +29,7 @@
         alert(message)
       } else {
         $isAuthenticated = true 
-        goto('/dashboard')
+        goto('/home')
       }
       
       if (!response.ok) { 
@@ -60,9 +60,9 @@
           
           <div class="space-y-2"> 
               <input
-                  type="email"
-                  bind:value={email}
-                  placeholder="Email"
+                  type="text"
+                  bind:value={identifier}
+                  placeholder="Email or username"
                   class="space-y-2 w-full rounded border p-2"
                   required
               />

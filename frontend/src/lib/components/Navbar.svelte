@@ -1,7 +1,7 @@
 <script lang="ts">
     import { page } from '$app/state';
     
-    let pages = ['dashboard', 'login', 'search', 'dbtest'];
+    let pages = ['home', 'recipes', 'users', 'profile']
   </script>
   
   <nav class="p-4 bg-white shadow">
@@ -14,7 +14,7 @@
             : 'text-black hover:bg-blue-100'}"
         >
           {route}
-        </a>
+        </a> 
       {/each}
     </div>
   </nav>
