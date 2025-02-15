@@ -80,7 +80,7 @@
               Log in
           </button>
           
-          <div class="flex items-center justify-center pt-7 pb-4">
+          <div class="flex items-center justify-center pt-3 pb-2">
               <hr class="flex-grow border-gray-200">
               <span class="px-4 text-gray-500">OR</span>
               <hr class="flex-grow border-gray-200">
