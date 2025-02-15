@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
 
 @api_view(['GET', 'POST'])
-def index(request):
+def login(request):
     users = {'john123@gmail.com': 'password'}
     data = request.data
     
