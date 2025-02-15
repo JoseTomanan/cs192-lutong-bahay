@@ -10,8 +10,8 @@
         <a 
           href="/{route}" 
           class="px-3 py-2 rounded-md {page.url.pathname === '/' + route 
-            ? 'bg-blue-500 text-white' 
-            : 'text-gray-600 hover:bg-blue-100'}"
+            ? 'bg-main text-white' 
+            : 'text-black hover:bg-blue-100'}"
         >
           {route}
         </a>
