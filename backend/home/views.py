@@ -15,9 +15,9 @@ def index(request):
     response = {
         'success': False,
         'message': '',
-    }
+    } 
 
-    if not data: 
+    if not data:  
         response['mesage'] = 'An error occurred'
     elif data['email'] not in users:
         response['message'] = 'User does not exist'

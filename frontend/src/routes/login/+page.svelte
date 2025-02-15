@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
+
   let email = '';
   let password = '';
   let error = '';
@@ -11,10 +13,9 @@
 
 
   async function handleSubmit() {
-    console.log(email, password)
-    try {
+    try { 
       const response = await fetch('http://localhost:8000/api/index/', {
-        method: 'POST',
+        method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
         },
@@ -22,20 +23,26 @@
       });
 
       const data = await response.json();
-      console.log(data)
+      const success = data.success 
+      const message = data.message
+
+      if (success == false) {
+        alert(message)
+      } else {
+        goto('/dashboard')
+      }
+
+
       
-      if (!response.ok) {
+      if (!response.ok) { 
         const data = await response.json();
-        error = data.error;
+        const error = data.error;
         return;
       }
       
-      const { token } = await response.json();
-      localStorage.setItem('token', token);
-      // goto('/dashboard');
+
     } catch (err) {
-      error = 'Login failed';
-      console.log(error)
+      console.log('Login failed')
     }
   } 
 </script>
