@@ -62,7 +62,7 @@
               <input
                   type="text"
                   bind:value={identifier}
-                  placeholder="Email or username"
+                  placeholder="Username of email"
                   class="space-y-2 w-full rounded border p-2"
                   required
               />
@@ -70,7 +70,7 @@
               <input
                   type="password"
                   bind:value={password}
-                  placeholder="Password"
+                  placeholder="Password" 
                   class="space-y-2 w-full rounded border p-2"
                   required
               />
