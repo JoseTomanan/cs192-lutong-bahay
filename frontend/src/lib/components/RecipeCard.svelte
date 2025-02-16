@@ -5,7 +5,7 @@
     export let price: string;
 </script>
 
-<div class="max-w-sm rounded overflow-hidden border-2 border-solid border-secondary border-opacity-80">
+<div class="max-w-sm rounded overflow-hidden border-2 border-solid border-black">
     <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2 text-main">{name}</div>
         <p class="text-gray-600 text-sm mb-2">
