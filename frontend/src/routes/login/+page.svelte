@@ -47,7 +47,7 @@
 
 <section>
   <div
-      class="bg-background w-full flex flex-col h-5/6 justify-center max-w-xl space-y-3 rounded-lg px-12 py-12 shadow-xl border"
+      class="bg-background w-full flex flex-col h-5/6 justify-center max-w-xl space-y-3 rounded-lg px-12 py-12 shadow-xl border-2 "
       style="background: url(/liempo_edited.xpng); background-size:cover"
   >
       <form on:submit|preventDefault={handleSubmit} class="space-y-4">
