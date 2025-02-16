@@ -62,7 +62,7 @@
               <input
                   type="text"
                   bind:value={identifier}
-                  placeholder="Username of email"
+                  placeholder="Username or email"
                   class="space-y-2 w-full rounded border p-2 focus:outline-secondary focus:ring-0"
                   required
               />
