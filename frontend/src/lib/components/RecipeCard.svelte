@@ -5,9 +5,9 @@
     export let price: string;
 </script>
 
-<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow">
+<div class="max-w-sm rounded overflow-hidden border-2 border-solid border-secondary border-opacity-80">
     <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2 text-gray-800">{name}</div>
+        <div class="font-bold text-xl mb-2 text-main">{name}</div>
         <p class="text-gray-600 text-sm mb-2">
             <span class="font-semibold">Cooking Time:</span> {cooking_time}
         </p>
