@@ -51,7 +51,7 @@
         <input 
           type="search" 
           id="default-search" 
-          class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-secondary focus:ring-0"
+          class="block w-full p-4 ps-10 text-sm text-gray-900 border border-light_gray rounded-lg bg-white focus:outline-secondary focus:ring-0"
           placeholder="Search Recipes..." required />
         <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-main hover:bg-main_dark font-medium rounded-lg text-sm px-4 py-2">Search</button>
     </div>
