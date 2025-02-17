@@ -3,3 +3,26 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        * {
+            @apply font-sans;
+        }
+    }
+}
+
+@layer components {
+    section {
+        @apply flex min-h-screen items-center justify-center bg-gradient-to-br bg-white;
+    }
+}
+
+@layer utilities {
+    a.hoverable-link {
+        @apply text-blue-500 hover:text-blue-700 hover:underline;
+    }
+}

@@ -6,9 +6,9 @@ test.describe('Login page', () => {
 
         page.on('console', (msg) => {
             consoleMessages.push(msg.text());
-        });
+            });
 
-        await page.goto('http://localhost:5173/login');
+        await page.goto('/login');
 
         await page.fill('input[type="email"]', 'nonexistentuser@gmail.com');
         await page.fill('input[type="password"]', 'wrongpassword');
@@ -17,7 +17,8 @@ test.describe('Login page', () => {
         await page.waitForTimeout(1000); // Ensure logs are captured
         console.log('Captured console messages:', consoleMessages);
 
-        expect(consoleMessages.some(msg => msg.includes('Invalid username'))).toBeTruthy();
+        expect(consoleMessages.some(msg => msg.includes('Invalid username')))
+            .toBeTruthy();
     });
 
     test('should disallow wrong password', async ({ page }) => {
@@ -25,9 +26,9 @@ test.describe('Login page', () => {
 
         page.on('console', (msg) => {
             consoleMessages.push(msg.text());
-        });
+            });
 
-        await page.goto('http://localhost:5173/login');
+        await page.goto('/login');
 
         await page.fill('input[type="email"]', 'john123@gmail.com');
         await page.fill('input[type="password"]', 'wrongpassword');
@@ -36,7 +37,8 @@ test.describe('Login page', () => {
         await page.waitForTimeout(1000);
         console.log('Captured console messages:', consoleMessages);
 
-        expect(consoleMessages.some(msg => msg.includes('Invalid password'))).toBeTruthy();
+        expect(consoleMessages.some(msg => msg.includes('Invalid password')))
+            .toBeTruthy();
     });
 
     test('should show success when valid credentials are entered', async ({ page }) => {
@@ -44,9 +46,9 @@ test.describe('Login page', () => {
 
         page.on('console', (msg) => {
             consoleMessages.push(msg.text());
-        });
+            });
 
-        await page.goto('http://localhost:5173/login');
+        await page.goto('/login');
 
         await page.fill('input[type="email"]', 'john123@gmail.com');
         await page.fill('input[type="password"]', 'password');
@@ -55,6 +57,7 @@ test.describe('Login page', () => {
         await page.waitForTimeout(1000);
         console.log('Captured console messages:', consoleMessages);
 
-        expect(consoleMessages.some(msg => msg.includes('Login successful'))).toBeTruthy();
+        expect(consoleMessages.some(msg => msg.includes('Login successful')))
+            .toBeTruthy();
     });
 });

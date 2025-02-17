@@ -72,3 +72,6 @@ test-results/
 
 # Gitkeep (for folder segregation)
 **/*/.gitkeep
+
+# Bash scripts
+*.sh 

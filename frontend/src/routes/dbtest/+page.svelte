@@ -55,7 +55,7 @@
 		} else {
 			console.log('User add fail');
 		}
-	}
+  }
 </script>
 
 <div class="flex">
