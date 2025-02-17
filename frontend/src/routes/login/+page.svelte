@@ -31,7 +31,7 @@
         alert(message)
       } else {
         alert(message) // Hamdi's addition for testing
-        setAuth(true)
+        // setAuth(true)
         goto('/home') 
       }
       
