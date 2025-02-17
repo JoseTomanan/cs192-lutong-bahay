@@ -25,7 +25,7 @@
       const success = data.success 
       const message = data.message
 
-      console.log(login status:${message}) // don't remove; for testing
+      // console.log(login status:${message}) // don't remove; for testing
 
       if (!success) {
         alert(message)
