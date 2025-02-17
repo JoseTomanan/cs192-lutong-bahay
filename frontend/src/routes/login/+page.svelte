@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
-  import { isAuthenticated, setAuth } from '$lib/stores/auth'
-
+  
   let identifier = '';
   let password = '';
   let error = '';
@@ -25,13 +24,12 @@
       const success = data.success 
       const message = data.message
 
-      // console.log(login status:${message}) // don't remove; for testing
 
       if (!success) {
         alert(message)
       } else {
         alert(message) // Hamdi's addition for testing
-        setAuth(true)
+        // setAuth(true)
         goto('/home') 
       }
       
