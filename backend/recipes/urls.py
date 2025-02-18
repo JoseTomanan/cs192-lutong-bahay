@@ -17,14 +17,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from home.views import get_users, add_user, delete_user
 from recipes.views import get_recipes
-
 urlpatterns = [
-    path("api/", include("api.urls")),
-    path("admin/", admin.site.urls),
-    path("users/", get_users),
-    path("add-user/", add_user, name="add-user"),
-    path("delete-user/", delete_user, name="delete-user"),
-    path("recipes/", include("recipes.urls")),
+    path("get-recipes/", get_recipes),
+    
 ]
