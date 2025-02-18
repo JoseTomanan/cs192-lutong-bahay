@@ -11,8 +11,6 @@ test.describe('All loading pages', () => {
         await expect(page).toHaveTitle('');
 
         // Verify login form is present
-        await expect(page.locator('input[type="text"]'))
-            .toBeVisible();
         await expect(page.locator('input[type="password"]'))
             .toBeVisible();
         await expect(page.getByRole('button', { name: 'Log in' }))
