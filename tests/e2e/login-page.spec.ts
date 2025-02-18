@@ -51,10 +51,10 @@ test.describe('Login page', () => {
             await dialog.dismiss(); // Dismiss the dialog
           });
         
-          await page.click('button[type="submit"]'); // Trigger the alert
-        
-          // Add a timeout to ensure that Playwright waits long enough
-          await page.waitForTimeout(2000);
+        await page.click('button[type="submit"]'); // Trigger the alert
+      
+        // Add a timeout to ensure that Playwright waits long enough
+        await page.waitForTimeout(2000);
 
     });
 });
