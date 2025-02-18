@@ -1,7 +1,10 @@
 from django.urls import path
-from home.views import login, person
+import home.users as users
+import home.recipes as recipes
 
 urlpatterns = [
-    path("login/", login),
-    path("person/", person),
+    path("users/login/", users.login),
+    path("users/get_users/", users.get_users),
+    path("users/add_user/", users.add_user),
+    path("users/delete_user/", users.delete_user),
 ]
