@@ -2,8 +2,6 @@ from django.urls import path, include
 from home.views import login, person
 
 from home.views import get_users, add_user, delete_user
-from recipes.views import get_recipes
-
 
 urlpatterns = [
     path("login/", login),
