@@ -3,6 +3,7 @@
     export let ingredients: string;
     export let cooking_time: string;
     export let price: string;
+    export let id: number;
 </script>
 
 <div class="max-w-sm rounded overflow-hidden border-2 border-solid border-black">
@@ -21,7 +22,7 @@
     </div>
     <div class="px-6 py-4">
         <button class="bg-main hover:bg-main_dark text-white font-bold py-2 px-4 rounded">
-            View Recipe
+            View Recipe <a href="/recipes/{id}">CLICK</a>
         </button>
     </div>
 </div>
