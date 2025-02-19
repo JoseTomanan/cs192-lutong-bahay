@@ -18,9 +18,9 @@ export const handle: Handle = async ({ event, resolve }) => {
         }
     } else {
         if (!publicRoutes.includes(path)) {
-            throw redirect(303, '/login');
+            throw redirect(303, '/login'); 
         }
-    }
+    } 
 
     return resolve(event);
 };  
