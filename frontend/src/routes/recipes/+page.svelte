@@ -7,7 +7,15 @@
 
 <script lang="ts">
   import RecipeCard from '$lib/components/RecipeCard.svelte'
-  
+  let recipes = []
+
+  async function fetchRecipes() {
+		const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/');
+		recipes = await response.json();
+	}
+
+	fetchRecipes();
+
   async function searchRecipes() {
     // currently hardcoded; this should make a request to the backend
     recipes = [
@@ -34,7 +42,6 @@
     ]
   }
 
-  let recipes = []
 </script> 
 
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->  
