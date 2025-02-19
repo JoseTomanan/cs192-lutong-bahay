@@ -2,7 +2,7 @@
 	import { goto } from "$app/navigation";
   import { isAuthenticated, setAuth } from '$lib/stores/auth'
 
-  let identifier = '';
+  let email = '';
   let password = '';
   let error = '';
   
@@ -18,7 +18,7 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ identifier, password })
+        body: JSON.stringify({ email, password })
       });
 
       const data = await response.json();
@@ -60,8 +60,8 @@
           
           <div class="space-y-2"> 
               <input
-                  type="text"
-                  bind:value={identifier}
+                  type="email"
+                  bind:value={email}
                   placeholder="Username or email"
                   class="space-y-2 w-full rounded border p-2 focus:outline-secondary focus:ring-0"
                   required
