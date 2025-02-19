@@ -39,19 +39,20 @@
 
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->  
 
-<div class="p-10 border space-y-5">
+<div class="p-5 space-y-5">
   <form on:submit|preventDefault={searchRecipes} class="max-w-md"> 
-    <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+    <label for="search" class="mb-2 text-sm font-medium text-black sr-only">Search</label>
     <div class="relative">
         <div class="absolute inset-y-0 start-0 flex  ps-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <svg class="w-4 h-4 text-dark_gray" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
             </svg>
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
         </div>
         <input 
           type="search" 
           id="default-search" 
-          class="block w-full p-4 ps-10 text-sm text-gray-900 border border-light_gray rounded-lg bg-white focus:outline-secondary focus:ring-0"
+          class="block w-full p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-secondary focus:ring-0"
+
           placeholder="Search Recipes..." required />
         <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-main hover:bg-main_dark font-medium rounded-lg text-sm px-4 py-2">Search</button>
     </div>

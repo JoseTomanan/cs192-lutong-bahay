@@ -2,7 +2,7 @@
 	import { goto } from "$app/navigation";
   import { isAuthenticated, setAuth } from '$lib/stores/auth'
 
-  let identifier = '';
+  let email = '';
   let password = '';
   let error = '';
   
@@ -13,12 +13,12 @@
 
   async function handleSubmit() {
     try { 
-      const response = await fetch('http://localhost:8000/api/login/', {
+      const response = await fetch('http://localhost:8000/api/users/login/', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ identifier, password })
+        body: JSON.stringify({ email, password })
       });
 
       const data = await response.json();
@@ -47,7 +47,7 @@
 
 <section>
   <div
-      class="bg-background w-full flex flex-col h-5/6 justify-center max-w-xl space-y-3 rounded-lg px-12 py-12 shadow-xl border"
+      class="bg-background w-full flex flex-col h-5/6 justify-center max-w-xl space-y-3 rounded-lg px-12 py-12 shadow-xl border-2 "
       style="background: url(/liempo_edited.xpng); background-size:cover"
   >
       <form on:submit|preventDefault={handleSubmit} class="space-y-4">
@@ -60,9 +60,9 @@
           
           <div class="space-y-2"> 
               <input
-                  type="text"
-                  bind:value={identifier}
-                  placeholder="Username of email"
+                  type="email"
+                  bind:value={email}
+                  placeholder="Username or email"
                   class="space-y-2 w-full rounded border p-2 focus:outline-secondary focus:ring-0"
                   required
               />

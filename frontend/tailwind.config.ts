@@ -16,6 +16,7 @@ export default {
 				main_dark: "#6f964e",
 				secondary: "#D94D48",
 				secondary_dark: "#bf443f",
+				secondary_light: "#f0718d",
 				light_gray: "#bdbdbd", // gray-400
 				dark_gray: "#757575",  // gray-600
 				bg: "#F5F4E9",
