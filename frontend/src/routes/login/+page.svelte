@@ -18,7 +18,7 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ identifier, password })
+        body: JSON.stringify({ identifier, password }) 
       });
 
       const data = await response.json();
@@ -39,7 +39,7 @@
       }
       
     } catch (err) {
-      console.log('Login failed')
+      console.error('Login failed')
     }
 
   } 
