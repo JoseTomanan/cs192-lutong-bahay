@@ -2,11 +2,7 @@
 	import { goto } from "$app/navigation";
   import { isAuthenticated, setAuth } from '$lib/stores/auth'
 
-<<<<<<< HEAD
   let username = '';
-=======
-  let email = '';
->>>>>>> 4e5bb534d0a1628b681cbf4df1d3606dee3cd2e0
   let password = '';
   let error = '';
   
@@ -22,11 +18,7 @@
         headers: {
           'Content-Type': 'application/json',
         },
-<<<<<<< HEAD
         body: JSON.stringify({ username, password })
-=======
-        body: JSON.stringify({ email, password })
->>>>>>> 4e5bb534d0a1628b681cbf4df1d3606dee3cd2e0
       });
 
       const data = await response.json();
@@ -69,13 +61,8 @@
           <div class="space-y-2"> 
               <input
                   type="text"
-<<<<<<< HEAD
                   bind:value={username}
                   placeholder="Username"
-=======
-                  bind:value={email}
-                  placeholder="Username of email"
->>>>>>> 4e5bb534d0a1628b681cbf4df1d3606dee3cd2e0
                   class="space-y-2 w-full rounded border p-2 focus:outline-secondary focus:ring-0"
                   required
               />
