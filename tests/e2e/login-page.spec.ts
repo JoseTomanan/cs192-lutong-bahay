@@ -2,59 +2,59 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Login page', () => {
     test('should show user is not registered', async ({ page }) => {
-        const consoleMessages: string[] = [];
-
-        page.on('console', (msg) => {
-            consoleMessages.push(msg.text());
-        });
-
-        await page.goto('http://localhost:5173/login');
-
-        await page.fill('input[type="email"]', 'nonexistentuser@gmail.com');
+        await page.goto('/login');
+        
+        await page.fill('input[type="text"]', 'nonexistentuser@gmail.com');
         await page.fill('input[type="password"]', 'wrongpassword');
-        await page.click('button[type="submit"]');
-
-        await page.waitForTimeout(1000); // Ensure logs are captured
-        console.log('Captured console messages:', consoleMessages);
-
-        expect(consoleMessages.some(msg => msg.includes('Invalid username'))).toBeTruthy();
-    });
+      
+        // Listen for dialog immediately after button click
+        page.on('dialog', async (dialog) => {
+          console.log('Dialog message:', dialog.message()); // Log the message to check if the dialog is triggered
+          expect(dialog.message()).toBe('User does not exist'); // Check if the message matches
+          await dialog.dismiss(); // Dismiss the dialog
+        });
+      
+        await page.click('button[type="submit"]'); // Trigger the alert
+      
+        // Add a timeout to ensure that Playwright waits long enough
+        await page.waitForTimeout(2000);
+      });
 
     test('should disallow wrong password', async ({ page }) => {
-        const consoleMessages: string[] = [];
+        await page.goto('/login');
 
-        page.on('console', (msg) => {
-            consoleMessages.push(msg.text());
-        });
-
-        await page.goto('http://localhost:5173/login');
-
-        await page.fill('input[type="email"]', 'john123@gmail.com');
-        await page.fill('input[type="password"]', 'wrongpassword');
-        await page.click('button[type="submit"]');
-
-        await page.waitForTimeout(1000);
-        console.log('Captured console messages:', consoleMessages);
-
-        expect(consoleMessages.some(msg => msg.includes('Invalid password'))).toBeTruthy();
+        await page.fill('input[type="text"]', 'john123@gmail.com');
+        await page.fill('input[type="password"]', 'wrongpassword'); 
+        // Listen for dialog immediately after button click
+        page.on('dialog', async (dialog) => {
+            console.log('Dialog message:', dialog.message()); // Log the message to check if the dialog is triggered
+            expect(dialog.message()).toBe('Invalid password'); // Check if the message matches
+            await dialog.dismiss(); // Dismiss the dialog
+          });
+        
+          await page.click('button[type="submit"]'); // Trigger the alert
+        
+          // Add a timeout to ensure that Playwright waits long enough
+          await page.waitForTimeout(2000);
     });
 
     test('should show success when valid credentials are entered', async ({ page }) => {
-        const consoleMessages: string[] = [];
-
-        page.on('console', (msg) => {
-            consoleMessages.push(msg.text());
-        });
-
-        await page.goto('http://localhost:5173/login');
-
-        await page.fill('input[type="email"]', 'john123@gmail.com');
+        await page.goto('/login');
+    
+        await page.fill('input[type="text"]', 'john123@gmail.com');
         await page.fill('input[type="password"]', 'password');
-        await page.click('button[type="submit"]');
 
-        await page.waitForTimeout(1000);
-        console.log('Captured console messages:', consoleMessages);
+        // Listen for dialog immediately after button click
+        page.on('dialog', async (dialog) => {
+            console.log('Dialog message:', dialog.message()); // Log the message to check if the dialog is triggered
+            expect(dialog.message()).toBe('Login successful'); // Check if the message matches
+            await dialog.dismiss(); // Dismiss the dialog
+          });
+        
+        await page.click('button[type="submit"]'); // Trigger the alert
+      
+        // Add a timeout to ensure that Playwright waits long enough
+        await page.waitForTimeout(2000);
 
-        expect(consoleMessages.some(msg => msg.includes('Login successful'))).toBeTruthy();
     });
 });
