@@ -62,7 +62,7 @@
               <input
                   type="text"
                   bind:value={username}
-                  placeholder="Email"
+                  placeholder="Username or email"
                   class="space-y-2 w-full rounded border p-2 hover:border-gray-700 focus:shadow-md"
                   required
               />
