@@ -2,7 +2,7 @@
 	import { goto } from "$app/navigation";
   import { isAuthenticated, setAuth } from '$lib/stores/auth'
 
-  let email = '';
+  let username = '';
   let password = '';
   let error = '';
   
@@ -18,7 +18,7 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ username, password })
       });
 
       const data = await response.json();
