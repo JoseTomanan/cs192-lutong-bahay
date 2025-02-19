@@ -60,7 +60,7 @@
           <div class="space-y-2">  
               <input
                   type="email"
-                  bind:value={email}
+                  bind:value={username}
                   placeholder="Email"
                   class="space-y-2 w-full rounded border p-2"
                   required
