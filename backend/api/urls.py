@@ -1,11 +1,12 @@
-from django.urls import path
-import home.users as users
-import home.recipes as recipes
+from django.urls import path, include
+from home.views import login
+
+from home.views import get_users, add_user, delete_user
 
 urlpatterns = [
-    path("users/login/", users.login),
-    path("users/get_users/", users.get_users),
-    path("users/add_user/", users.add_user),
-    path("users/delete_user/", users.delete_user),
-    path("recipes/search", recipes.search),
+    path("login/", login),
+    path("users/", get_users),
+    path("add-user/", add_user, name="add-user"),
+    path("delete-user/", delete_user, name="delete-user"),
+    path("recipes/", include("recipes.urls")),
 ]
