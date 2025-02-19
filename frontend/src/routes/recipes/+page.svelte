@@ -24,7 +24,7 @@
       recipes = data.recipes 
     
     } catch { 
-      console.log('2')
+      alert('Search failed')
     }
   }
 
