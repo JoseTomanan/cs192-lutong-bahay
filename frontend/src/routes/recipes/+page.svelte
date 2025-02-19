@@ -22,7 +22,6 @@
       })
       const data = await response.json()
       recipes = data.recipes 
-    
     } catch { 
       alert('Search failed')
     }
