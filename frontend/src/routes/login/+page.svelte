@@ -39,7 +39,7 @@
       }
       
     } catch (err) {
-      console.log('Login failed')
+      console.error('Login failed')
     }
 
   } 
