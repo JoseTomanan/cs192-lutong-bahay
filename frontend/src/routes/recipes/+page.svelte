@@ -46,7 +46,10 @@
 
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->  
 
-<div class="p-5 space-y-5">
+{#if recipes === []}
+<div class="border"></div>
+{:else}
+<div class="space-y-5">
   <form on:submit|preventDefault={searchRecipes} class="max-w-md"> 
     <label for="search" class="mb-2 text-sm font-medium text-black sr-only">Search</label>
     <div class="relative">
@@ -58,7 +61,7 @@
         <input 
           type="search" 
           id="default-search" 
-          class="block w-full p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-secondary focus:ring-0"
+          class="block w-full p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
 
           placeholder="Search Recipes..." required />
         <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-main hover:bg-main_dark font-medium rounded-lg text-sm px-4 py-2">Search</button>
@@ -74,3 +77,4 @@
 </div>
 
 </div>
+{/if}

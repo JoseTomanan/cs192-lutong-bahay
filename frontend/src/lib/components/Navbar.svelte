@@ -5,7 +5,7 @@
     let pages = ['home', 'recipes', 'users', 'profile']
   </script>
   
-<nav class="p-4 bg-white shadow">
+<!-- <nav class="p-4 bg-white shadow">
   <div class="flex space-x-4">
     
     {#each pages as route}
@@ -25,6 +25,42 @@
       on:click={logout}
       class="px-3 py-2 rounded-md text-gray"
     >Log out</button>
+  </div>
+</nav> -->
+
+
+
+<nav class="fixed top-0 left-0 h-screen w-64 border-r bg-white flex flex-col z-50
+pt-8 px-2">
+  <!-- <div class="p-6 border-b">
+      <h1 class="text-2xl font-semibold text-main">Lutong Bahay</h1>
+  </div> -->
+
+  <div class="flex-1 p-2">
+      <div class="flex flex-col space-y-2">
+          {#each pages as route}
+              <a 
+                  href="/{route}" 
+                  class="px-5 py-3 rounded-lg {
+                      page.url.pathname === '/' + route 
+                      ? 'bg-gradient-to-bl from-gray-600 to-gray-700 text-white' 
+                      : 'text-gray-700 bg-white hover:bg-gray-100'
+                  }"
+              >
+                  {route[0].toUpperCase() + route.slice(1)}
+              </a>
+          {/each}
+      </div>
+  </div>
+
+  <div class="p-2">
+      <button 
+          on:click={logout}
+          class="w-full px-4 py-3 rounded-lg bg-gray-800 text-white
+             hover:bg-gray-700 "
+      >
+          Logout
+      </button>
   </div>
 </nav>
 
