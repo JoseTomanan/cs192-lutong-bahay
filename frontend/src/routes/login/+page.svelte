@@ -13,7 +13,7 @@
 
   async function handleSubmit() {
     try { 
-      const response = await fetch('http://localhost:8000/api/users/login/', {
+      const response = await fetch('http://localhost:8000/api/login/', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +39,7 @@
       }
       
     } catch (err) {
-      console.log('Login failed')
+      console.error('Login failed')
     }
 
   } 
