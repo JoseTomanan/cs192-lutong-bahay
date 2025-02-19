@@ -7,6 +7,7 @@ export default {
 		fontFamily: {
 			'heading': ["Inter"],
 			'sans': ["Inter", "sans-serif"],
+			'mono': ['Fira Code', 'monospace']
 		},
 		extend: {
 			colors: {

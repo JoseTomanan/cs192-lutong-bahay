@@ -13,7 +13,7 @@
 
   async function handleSubmit() {
     try { 
-      const response = await fetch('http://localhost:8000/api/login/', {
+      const response = await fetch('http://localhost:8000/api/users/login/', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -41,28 +41,29 @@
     } catch (err) {
       console.error('Login failed')
     }
-
   } 
 </script>
 
 <section class="bg-gradient-to-br from-white to-lime-50">
   <div
-      class="bg-white w-full flex flex-col justify-center max-w-xl space-y-3 rounded-lg px-12 py-12 shadow-xl border-gray-200 border"
+      class="w-full flex flex-col justify-center max-w-xl space-y-3 rounded-lg 
+      px-12 py-12 shadow-xl border-gray-200 border
+      bg-gradient-to-br from-white to-gray-50"
   >
       <form on:submit|preventDefault={handleSubmit} class="space-y-4">
-          <h1 class="text-4xl font-semibold -mb-4 text-main">
+          <h1 class="text-4xl font-bold -mb-4 text-main bg-gradient-to-br pb-0.5 from-main to-lime-600 text-transparent bg-clip-text">
               Lutong Bahay
           </h1>
-          <h2 class="text-gray-600 pb-7 text-lg italic">
+          <h2 class="text-gray-600 pb-5 text-lg italic">
               Your database for Filipino recipes
           </h2>
           
           <div class="space-y-2">  
               <input
-                  type="email"
+                  type="text"
                   bind:value={username}
                   placeholder="Email"
-                  class="space-y-2 w-full rounded border p-2"
+                  class="space-y-2 w-full rounded border p-2 hover:border-gray-700 focus:shadow-md"
                   required
               />
               
@@ -70,12 +71,13 @@
                   type="password"
                   bind:value={password}
                   placeholder="Password" 
-                  class="space-y-2 w-full rounded border p-2 focus:outline-gray-700 focus:ring-0 hover:border-gray-700"
+                  class="space-y-2 w-full rounded border p-2 focus:outline-gray-700 focus:ring-0 hover:border-gray-700
+                  focus:shadow-md"
                   required
               />
           </div>
 
-          <button type="submit" class="w-full rounded bg-main p-2 text-white hover:bg-main_dark">
+          <button type="submit" class="w-full rounded bg-main hover:shadow-md p-2 text-white hover:bg-main_dark">
               Log in
           </button>
           
@@ -90,7 +92,8 @@
           {#each loginMethods as {name, icon}} 
               <button
                   type="submit"
-                  class="w-full rounded-full hover:border-gray-700 bg-white p-2 text-gray-700 border hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100 flex items-center gap-3 justify-center"
+                  class="w-full rounded-full hover:border-gray-700 bg-white p-2 text-gray-700 border hover:bg-gradient-to-br
+                   hover:from-gray-50 hover:to-gray-100 flex items-center gap-3 justify-center hover:shadow-md"
               >
                   <img src={icon} alt={name} class="w-6 h-6">
                   Sign in with {name} 
@@ -99,8 +102,8 @@
       </div> 
 
       <div class="flex justify-end"> 
-          <a class="mt-2 text-gray-700 hover:text-gray-900 hover:underline text-opacity-90" href="#top">
-              Don't have an account?
+          <a class="mt-2 text-gray-800 hover:text-gray-900 hover:underline text-opacity-90" href="/register"> 
+            Don't have an account? 
           </a>
       </div>
   </div>
