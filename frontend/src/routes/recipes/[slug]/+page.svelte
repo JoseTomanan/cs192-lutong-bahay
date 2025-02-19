@@ -35,6 +35,6 @@ functionFetchRecipeById(data.id);
 </script>
 
 <h1>Recipe title: {recipeTitle}</h1>
-<!-- <p>Ingredients: {recipe.ingredients}</p> -->
-<!-- <h1>Recipe name: {recipeName}</h1>
+<!-- <p>Ingredients: {recipe.ingredients}</p>
+<h1>Recipe name: {recipeName}</h1>
 <h1>Ingredients:</h1> -->

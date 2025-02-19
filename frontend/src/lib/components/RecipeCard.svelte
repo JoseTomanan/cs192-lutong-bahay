@@ -21,9 +21,12 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50">
             {ingredients}
         </p>
     </div>
+    <a href="/recipes/{id}" >
     <div class="px-6 py-4">
         <button class="bg-main hover:bg-main_dark text-white font-bold py-2 px-4 rounded">
-            View Recipe <a href="/recipes/{id}">CLICK</a>
+            View Recipe 
         </button>
+        
     </div>
+    </a> 
 </div>
