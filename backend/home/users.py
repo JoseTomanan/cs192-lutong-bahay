@@ -1,50 +1,40 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .models import User
-from home.serializer import UserSerializer
-
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
 
-@api_view(["GET", "POST"])
+@api_view(["POST"])
 def login(request):
-    users = {"john123@gmail.com": "password", "2@2": "2", "a": "a"}
-    data = request.data
 
-    response = {
-        "success": False,
-        "message": "",
-    }
+    username = request.data["email"]
+    password = request.data["password"]
 
-    if not data:
-        response["mesage"] = "An error occurred"
-    elif data["identifier"] not in users:
-        response["message"] = "User does not exist"
-    elif data["password"] != users[data["identifier"]]:
-        response["message"] = "Invalid password"
+    print(username, password)
+    user = authenticate(username=username, password=password)
+
+    if user is not None:
+        auth_login(request, user)
+        return Response({"message": "Login successful"})
     else:
-        response["message"] = "Log in successful"
-        response["success"] = True
-
-    return Response(response)
-
-
-@api_view(["GET"])
-def get_users(request):
-    users = User.objects.all()
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
+        return Response({"message": "Invalid credentials"})
 
 
 @api_view(["POST"])
 def add_user(request):
-    serializer = UserSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors)
+    data = request.data
+
+    if not data:
+        return Response({"message": "An error occurred"})
+
+    User.objects.create_user(
+        username=data["username"],
+        email=data["email"],
+        password=data["password"],
+    )
+
+    return Response({"message": "User added successfully"})
 
 
 @api_view(["POST"])
