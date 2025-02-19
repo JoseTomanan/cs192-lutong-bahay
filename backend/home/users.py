@@ -20,9 +20,9 @@ def login(request):
 
     if not data:
         response["mesage"] = "An error occurred"
-    elif data["identifier"] not in users:
+    elif data["email"] not in users:
         response["message"] = "User does not exist"
-    elif data["password"] != users[data["identifier"]]:
+    elif data["password"] != users[data["email"]]:
         response["message"] = "Invalid password"
     else:
         response["message"] = "Log in successful"
