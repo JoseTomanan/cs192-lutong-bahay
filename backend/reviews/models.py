@@ -7,4 +7,8 @@ class Review(models.Model):
     rating = models.IntegerField()
     reviewString = models.CharField(max_length=200)
     
+    @classmethod
+    def create(cls, recipeId, reviewerId, rating, reviewString):
+        review = cls(recipeId=recipeId, reviewerId=reviewerId, rating=rating, reviewString=reviewString)
+        return review
     
