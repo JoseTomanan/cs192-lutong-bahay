@@ -6,41 +6,27 @@
 
 
 <script lang="ts">
+  import { onMount } from 'svelte'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
-  
-  async function searchRecipes() {
-    // currently hardcoded; this should make a request to the backend
-    recipes = [
-      {name: 'Sinigang', ingredients: 'pork, tomatoes, onion, kangkong, gabi', cooking_time: '45 minutes', price: 'Php 800'},
-      {name: 'Tinola', ingredients: 'chicken, sayote, ginger, malunggay', cooking_time: '40 minutes', price: 'Php 600'},
-      {name: 'Sisig', ingredients: 'pork face, onion, chili, calamansi', cooking_time: '35 minutes', price: 'Php 450'},
-      {name: 'Bicol Express', ingredients: 'pork, coconut milk, chili, bagoong', cooking_time: '50 minutes', price: 'Php 550'},
-      {name: 'Kare-kare', ingredients: 'oxtail, peanut butter, eggplant, pechay', cooking_time: '2 hours', price: 'Php 900'},
-      {name: 'Pinakbet', ingredients: 'squash, okra, eggplant, bitter gourd, bagoong', cooking_time: '30 minutes', price: 'Php 350'},
-      {name: 'Dinuguan', ingredients: 'pork blood, meat, garlic, chili', cooking_time: '1 hour', price: 'Php 450'},
-      {name: 'Laing', ingredients: 'dried taro leaves, coconut milk, chili, dried fish', cooking_time: '45 minutes', price: 'Php 400'},
-      {name: 'Bulalo', ingredients: 'beef shank, corn, potatoes, pechay', cooking_time: '3 hours', price: 'Php 1200'},
-      {name: 'Palabok', ingredients: 'rice noodles, shrimp sauce, tofu, shrimp', cooking_time: '40 minutes', price: 'Php 500'},
-      {name: 'Kaldereta', ingredients: 'goat meat, liver spread, potatoes, carrots', cooking_time: '2 hours', price: 'Php 850'},
-      {name: 'Ginataang Manok', ingredients: 'chicken, coconut milk, ginger, green chili', cooking_time: '50 minutes', price: 'Php 600'},
-      {name: 'Inihaw na Liempo', ingredients: 'pork belly, soy sauce, calamansi, garlic', cooking_time: '1 hour', price: 'Php 550'},
-      {name: 'Ginisang Munggo', ingredients: 'mung beans, spinach, garlic, pork', cooking_time: '45 minutes', price: 'Php 300'},
-      {name: 'Mechado', ingredients: 'beef, potatoes, carrots, tomato sauce', cooking_time: '1.5 hours', price: 'Php 750'},
-      {name: 'Pancit Canton', ingredients: 'egg noodles, chicken, vegetables, soy sauce', cooking_time: '30 minutes', price: 'Php 400'},
-      {name: 'Binagoongang Baboy', ingredients: 'pork, bagoong, eggplant, chili', cooking_time: '1 hour', price: 'Php 500'},
-      {name: 'Pinapaitan', ingredients: 'goat innards, bile, ginger, garlic', cooking_time: '1.5 hours', price: 'Php 600'},
-      {name: 'Ginataang Kuhol', ingredients: 'snails, coconut milk, malunggay, chili', cooking_time: '45 minutes', price: 'Php 400'},
-      {name: 'Pinangat', ingredients: 'tuna, gabi leaves, coconut milk, chili', cooking_time: '1 hour', price: 'Php 450'}
-    ]
-  }
-
   let recipes = []
+
+  async function fetchRecipes() {
+		const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/');
+		recipes = await response.json();
+	}
+
+  fetchRecipes()
+  
+
 </script> 
 
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->  
 
-<div class="p-5 space-y-5">
-  <form on:submit|preventDefault={searchRecipes} class="max-w-md"> 
+{#if recipes === []}
+<div class="border"></div>
+{:else}
+<div class="space-y-5">
+  <form on:submit|preventDefault={fetchRecipes} class="max-w-md"> 
     <label for="search" class="mb-2 text-sm font-medium text-black sr-only">Search</label>
     <div class="relative">
         <div class="absolute inset-y-0 start-0 flex  ps-3 pointer-events-none">
@@ -51,7 +37,7 @@
         <input 
           type="search" 
           id="default-search" 
-          class="block w-full p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-secondary focus:ring-0"
+          class="block w-full p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
 
           placeholder="Search Recipes..." required />
         <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-main hover:bg-main_dark font-medium rounded-lg text-sm px-4 py-2">Search</button>
@@ -67,3 +53,4 @@
 </div>
 
 </div>
+{/if}
