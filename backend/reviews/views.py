@@ -12,8 +12,8 @@ def post_review(request):
     recipeId = request.data['recipeId']
     reviewerId = request.data['reviewerId']
     reviewRating = request.data['reviewRating']
-    reviewString = request.data['reviiewString']
-    review = Review.create(recipeId=recipeId, reviewerId=reviewerId, reviewText=reviewRating, reviewString=reviewString)
-    review.save()
+    reviewString = request.data['reviewString']
+    review = Review.create(recipeId=recipeId, reviewerId=reviewerId, reviewRating=reviewRating, reviewString=reviewString)
+    # review.save()
     return Response({"message": "Review posted successfully"})
     
