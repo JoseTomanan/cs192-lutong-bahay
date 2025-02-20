@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "recipes",
     "users",
+    "reviews",
 ]
 
 MIDDLEWARE = [
