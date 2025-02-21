@@ -15,8 +15,14 @@
 </script>
 
 {#if $isAuthenticated}
-	<Navbar />
+    <div class="flex">
+        <Navbar />
+        <main class="p-12 flex-1 ml-64 min-h-screen
+		bg-gradient-to-tl from-white to-gray-50">
+            {@render children()}
+        </main>
+    </div>
+{:else}
+    {@render children()}
 {/if}
-
-{@render children()}
   

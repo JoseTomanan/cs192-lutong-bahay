@@ -7,6 +7,7 @@ export default {
 		fontFamily: {
 			'heading': ["Inter"],
 			'sans': ["Inter", "sans-serif"],
+			'mono': ['Fira Code', 'monospace']
 		},
 		extend: {
 			colors: {
@@ -20,9 +21,10 @@ export default {
 				light_gray: "#bdbdbd", // gray-400
 				dark_gray: "#757575",  // gray-600
 				bg: "#F5F4E9",
+				bg_gradient: "#ecfcde"
 			}
 		} 
 	},
-
-	plugins: []
+ 
+	plugins: [] 
 } satisfies Config;

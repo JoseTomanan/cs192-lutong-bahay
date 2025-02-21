@@ -1,16 +1,3 @@
 {
-    "services": [
-        {
-            "name": "frontend",
-            "buildCommand": "npm ci && npm run build",
-            "startCommand": "npm run preview",
-            "root": "frontend"
-        },
-        {
-            "name": "backend",
-            "buildCommand": "pip install -r requirements.txt",
-            "startCommand": "gunicorn core.wsgi:application --bind 0.0.0.0:8000",
-            "root": "backend"
-        }
-    ]
+    "$schema": "https://railway.com/railway.schema.json"
 }
