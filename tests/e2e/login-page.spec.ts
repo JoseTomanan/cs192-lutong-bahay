@@ -41,8 +41,8 @@ test.describe('Login page', () => {
     test('should show success when valid credentials are entered', async ({ page }) => {
         await page.goto('/login');
     
-        await page.fill('input[type="text"]', 'john123@gmail.com');
-        await page.fill('input[type="password"]', 'password');
+        await page.fill('input[type="text"]', 'testuser');
+        await page.fill('input[type="password"]', 'thisispw');
 
         // Listen for dialog immediately after button click
         page.on('dialog', async (dialog) => {
