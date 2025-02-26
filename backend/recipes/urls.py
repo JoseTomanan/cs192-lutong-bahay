@@ -20,6 +20,6 @@ from django.urls import path, include
 import recipes.views as recipe
 
 urlpatterns = [
-    path("get-recipes/", recipe.get_recipes),
+    path("get-recipes/", recipe.get_recipes, name="get-recipes"),
     path("sort-recipes/", recipe.sort_recipes),
 ]
