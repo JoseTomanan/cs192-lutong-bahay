@@ -10,6 +10,7 @@
   import RecipeCard from '$lib/components/RecipeCard.svelte'
   let recipes = []
   let recipeName = '' 
+  let direction = 'ascending'
   let is_negative = true
   let sort= 'recipeName'
 
@@ -25,17 +26,27 @@
       })
 
       const data = await response.json()
-      recipes = [data] 
-      console.log(recipes.length)
+      if (data.hasOwnProperty('error')) {
+        alert('No recipes found')
+      } else {
+        recipes = [data] 
+        console.log(data)
+        console.log(recipes.length)
+      }
+      
+      
+ 
+     
       
     } catch { 
-      console.log('fetch recipes failed') 
+      alert('No database connection')
     } 
 	}
 
-  async function sortRecipes() {
+  async function sortRecipes() { 
     console.log(sort)
     try {
+      is_negative = direction == 'ascending' ? true : false
       const response = await fetch('http://127.0.0.1:8000/api/recipes/sort-recipes/', {
         method: 'POST',
         headers: {
@@ -49,7 +60,7 @@
       recipes = data 
       console.log(recipes) 
     } catch {
-      console.log('sort failed')
+      alert('No database connection')
     } 
   }
 </script> 
@@ -80,13 +91,23 @@
 <!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
 <select
   bind:value={sort} 
-  on:change={() => recipes = sortRecipes()}
+  on:change={() => sortRecipes()}
   class="bg-white border border-gray-200 text-gray-700 text-sm rounded focus:ring-main focus:border-2 focus:border-gray-700 block w-3/12 p-2.5">
 
-  {#each ['id', 'recipeName', 'price', 'difficulty', 'rating', 'ingredients'] as sortMethod}
+  {#each ['id', 'recipeName', 'price', 'cookDifficulty', 'ratings', 'ingredients'] as sortMethod}
     <option value={sortMethod}>sort by {sortMethod}</option>
   {/each} 
 </select>
+
+<select
+  bind:value={direction}  
+  on:change={() => sortRecipes()} 
+  class="bg-white border border-gray-200 text-gray-700 text-sm rounded focus:ring-main focus:border-2 focus:border-gray-700 block w-3/12 p-2.5">
+
+  {#each ['ascending', 'descending'] as sortMethod} 
+    <option value={sortMethod}>sort by {sortMethod}</option>
+  {/each} 
+</select> 
  
 
 
