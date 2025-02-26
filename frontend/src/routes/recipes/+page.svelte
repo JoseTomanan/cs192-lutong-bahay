@@ -33,7 +33,7 @@
 
   async function sortRecipes() {
     try {
-      const reponse = await fetch('https://127.0.0.1:800/api/recipes/sort-recipes/', {
+      const response = await fetch('https://127.0.0.1:800/api/recipes/sort-recipes/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
