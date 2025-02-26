@@ -1,24 +1,24 @@
 <script lang="ts">
-    export let title: string;
-    export let ingredients: string;
-    export let cooking_time: string;
-    export let price: string;
-    export let id: number;
+    export let cookDifficulty: string
+    export let equipment: string
+    export let id: number
+    export let ingredients
+    export let recipeName: string
+    export let servings: number
+
 </script>
 
 <div class="rounded-2 duration-75 shadow-sm hover:shadow-lg border hover:border-primary overflow-hidden w-full
 hover:bg-gradient-to-br hover:from-white hover:to-amber-50">
     <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2 text-main">{title}</div>
+        <div class="font-bold text-xl mb-2 text-main">{recipeName}</div>
         <p class="text-gray-600 text-sm mb-2">
-            <span class="font-semibold">Cooking Time:</span> {cooking_time}
-        </p>
-        <p class="text-gray-600 text-sm mb-4">
-            <span class="font-semibold">Price:</span> {price}
-        </p>
+            <span class="font-semibold">Cooking Difficult:</span> {cookDifficulty}
+        </p>    
+
         <p class="text-gray-700 text-base">
-            <span class="font-semibold">Ingredients:</span><br>
-            {ingredients}
+            <span class="font-semibold">Servings:</span><br>
+            {servings}
         </p>
     </div>
     <a href="/recipes/{id}" >
