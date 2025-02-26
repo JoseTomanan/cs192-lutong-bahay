@@ -1,3 +1,29 @@
-{
-    
-}
+[
+    {
+        "id": 1,
+        "recipeName": "Hotdog",
+        "cookDifficulty": "1",
+        "servings": 1,
+        "equipment": "",
+        "instructions": "- slice hotdog\n- fry hotdog on pan until cooked",
+        "ingredients": []
+    },
+    {
+        "id": 2,
+        "recipeName": "Fried egg",
+        "cookDifficulty": "1",
+        "servings": 1,
+        "equipment": "",
+        "instructions": "- crack egg\n- fry egg on pan until cooked",
+        "ingredients": []
+    },
+    {
+        "id": 3,
+        "recipeName": "Tortang talong",
+        "cookDifficulty": "1",
+        "servings": 1,
+        "equipment": "",
+        "instructions": "- crack egg on eggplant\n- fry on pan until cooked",
+        "ingredients": []
+    }
+]
