@@ -22,4 +22,5 @@ import recipes.views as recipe
 urlpatterns = [
     path("get-recipes/", recipe.get_recipes, name="get-recipes"),
     path("sort-recipes/", recipe.sort_recipes),
+    path("add-recipe/", recipe.add_recipe),
 ]

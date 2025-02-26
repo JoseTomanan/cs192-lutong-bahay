@@ -23,7 +23,10 @@ def get_recipes(request):
 
 @api_view(["POST"])
 def sort_recipes(request):
-    recipes = Recipe.objects.order_by(request.data["sort"])
+    is_negative = "" if request.data["is_negative"] else "-"
+    sort_parameter = (is_negative + request.data["sort"]).replace(" ", "")
+    print(sort_parameter)
+    recipes = Recipe.objects.all().order_by(sort_parameter)
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
@@ -34,3 +37,13 @@ def check_database_status():
     
     except OperationalError:
         return False
+
+@api_view(["POST"])
+def add_recipe(request):
+    serializer = RecipeSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors)
+
+
