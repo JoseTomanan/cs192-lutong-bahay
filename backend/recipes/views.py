@@ -1,9 +1,11 @@
 from rest_framework.decorators import api_view
-from django.shortcuts import render
 from rest_framework.response import Response
 
-from recipes.models import Recipe
-from recipes.serializer import RecipeSerializer
+from django.shortcuts import render
+from django.db import OperationalError, connection
+
+from .models import Recipe
+from .serializer import RecipeSerializer
 
 
 # Create your views here.
@@ -14,7 +16,17 @@ def get_recipes(request):
         serializer = RecipeSerializer(recipes, many=True)
         return Response(serializer.data)
     else:
-        recipe = Recipe.objects.get(recipeName=request.data["recipeName"])
+        # recipe = Recipe.objects.get(recipeName=request.data["recipeName"])
+        # serializer = RecipeSerializer(recipe, many=False)
+        # return Response(serializer.data)
+        recipe_name = request.data.get("recipeName", None)
+        if not recipe_name:
+            return Response({"error": "recipeName is required"}, status=400)
+
+        recipe = Recipe.objects.filter(recipeName=recipe_name).first()
+        if not recipe:
+            return Response({"error": "Recipe not found"}, status=404)
+
         serializer = RecipeSerializer(recipe, many=False)
         return Response(serializer.data)
 
@@ -28,6 +40,13 @@ def sort_recipes(request):
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
+def check_database_status():
+    try:
+        connection.cursor()
+        return True
+    
+    except OperationalError:
+        return False
 
 @api_view(["POST"])
 def add_recipe(request):
@@ -36,3 +55,5 @@ def add_recipe(request):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors)
+
+

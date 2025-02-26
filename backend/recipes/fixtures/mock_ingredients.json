@@ -1,0 +1,18 @@
+[
+    {
+        "ingredientName": "egg",
+        "ingredientMeasurementUnit": "piece",
+        "caloriesPerUnit": 100,
+        "proteinPerUnit": 50,
+        "fatPerUnit": 25,
+        "carbsPerUnit": 25
+    },
+    {
+        "ingredientName": "hotdog",
+        "ingredientMeasurementUnit": "piece",
+        "caloriesPerUnit": 100,
+        "proteinPerUnit": 50,
+        "fatPerUnit": 25,
+        "carbsPerUnit": 25
+    }
+]
