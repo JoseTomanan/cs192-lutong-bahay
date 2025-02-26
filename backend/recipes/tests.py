@@ -18,6 +18,7 @@ class TestRecipes(APITestCase):
             equipment="pan",
             instructions="- slice hotdog\n- fry hotdog on pan until cooked",
             ratings=4,
+            ingredients="hotdog"
             )
         Recipe.objects.create(
             id=2,
@@ -28,6 +29,7 @@ class TestRecipes(APITestCase):
             equipment="pan",
             instructions="- crack egg\n- fry egg on pan until cooked",
             ratings=5,
+            ingredients="egg,salt"
             )
         Recipe.objects.create(
             id=3,
@@ -38,6 +40,7 @@ class TestRecipes(APITestCase):
             equipment="pan",
             instructions="- crack egg on eggplant\n- fry on pan until cooked",
             ratings=2,
+            ingredients="eggplant"
             )
 
     @patch("Recipe.views.check_connection_status")
