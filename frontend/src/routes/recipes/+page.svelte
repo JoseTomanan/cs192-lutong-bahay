@@ -9,10 +9,11 @@
   import { onMount } from 'svelte'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
   let recipes = []
-  let recipeName = ''
+  let recipeName = '' 
   let sort= 'name'
 
-  async function fetchRecipes() {
+  async function fetchRecipes() { 
+    console.log(recipeName)
     try {
       const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
         method: 'POST',
@@ -23,7 +24,7 @@
       })
 
       const data = await response.json()
-      recipes = [data]
+      recipes = [data] 
       console.log(recipes.length)
       
     } catch { 
@@ -32,6 +33,7 @@
 	}
 
   async function sortRecipes() {
+    console.log(sort)
     try {
       const response = await fetch('https://127.0.0.1:800/api/recipes/sort-recipes/', {
         method: 'POST',
@@ -78,11 +80,11 @@
 <select
   bind:value={sort} 
   on:change={() => recipes = sortRecipes()}
-  class="bg-white border border-gray-200 text-gray-900 text-sm rounded focus:ring-main focus:border-2 focus:border-gray-700 block w-5/12 p-2.5"
->
-  <option value="name">Sort by Name</option>
-  <option value="price">Sort by Price</option> 
-  <option value="time">Sort by Cooking Time</option>
+  class="bg-white border border-gray-200 text-gray-700 text-sm rounded focus:ring-main focus:border-2 focus:border-gray-700 block w-3/12 p-2.5">
+
+  {#each ['id', 'name', 'price', 'difficulty', 'rating', 'ingredients'] as sortMethod}
+    <option value={sortMethod}>sort by {sortMethod}</option>
+  {/each} 
 </select>
  
 
