@@ -20,10 +20,6 @@ def get_recipes(request):
 
 
 @api_view(["POST"])
-def get_recipe_by_name(request):
-
-
-@api_view(["POST"])
 def sort_recipes(request):
     recipes = Recipe.objects.order_by(request.data["sort"])
     serializer = RecipeSerializer(recipes, many=True)
