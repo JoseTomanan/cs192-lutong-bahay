@@ -3,6 +3,9 @@
     export let equipment: string
     export let id: number
     export let ingredients
+    export let instruction
+    export let price
+    export let ratings
     export let recipeName: string
     export let servings: number
 
@@ -13,12 +16,17 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50">
     <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2 text-main">{recipeName}</div>
         <p class="text-gray-600 text-sm mb-2">
-            <span class="font-semibold">Cooking Difficult:</span> {cookDifficulty}
+            <span class="font-semibold">Cooking Difficulty:</span> {cookDifficulty}
         </p>    
 
         <p class="text-gray-700 text-base">
-            <span class="font-semibold">Servings:</span><br>
-            {servings}
+            <span class="font-semibold">Rating:</span><br>
+            {ratings}
+        </p>
+
+        <p class="text-gray-700 text-base">
+            <span class="font-semibold">Price:</span><br>
+            {price}
         </p>
     </div>
     <a href="/recipes/{id}" >
