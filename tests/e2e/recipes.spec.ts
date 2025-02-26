@@ -2,12 +2,19 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Recipe search', ()=>{
     test('should show no results when invalid', async ({ page }) => {
+        
+        await page.goto('/login');
+        await page.fill('input[type="text"]', 'testuser');
+        await page.fill('input[type="password"]', 'thisispw');
+        await page.click('button[type="submit"]');
+        await page.waitForTimeout(3000);
+
         await page.goto('/recipes');
         await page.waitForLoadState('networkidle'); // Wait for page to fully load
         await page.waitForSelector('input[type="search"]'); // Ensure the search input exists before interacting with it
         await page.fill('input[type="search"]', 'nonexistentrecipe');
         await page.click('button[type="submit"]');
-        await page.waitForTimeout(1000); // Give time for API response
+        await page.waitForTimeout(1000);
         await expect(page.locator('.RecipeCard')).toHaveCount(0); // Expect no recipe cards to be displayed
     });
 
