@@ -12,29 +12,32 @@ class TestRecipes(APITestCase):
         Recipe.objects.create(
             id=1,
             recipeName="Hotdog",
+            price=5,
             cookDifficulty="1",
             servings=1,
-            equipment="",
+            equipment="pan",
             instructions="- slice hotdog\n- fry hotdog on pan until cooked",
-            ingredients=[]
+            ratings=4,
             )
         Recipe.objects.create(
             id=2,
             recipeName="Fried egg",
+            price=4,
             cookDifficulty="1",
             servings=1,
-            equipment="",
+            equipment="pan",
             instructions="- crack egg\n- fry egg on pan until cooked",
-            ingredients=[]
+            ratings=5,
             )
         Recipe.objects.create(
             id=3,
             recipeName="Tortang talong",
+            price=3,
             cookDifficulty="1",
             servings=1,
-            equipment="",
+            equipment="pan",
             instructions="- crack egg on eggplant\n- fry on pan until cooked",
-            ingredients=[]
+            ratings=2,
             )
 
     @patch("Recipe.views.check_connection_status")

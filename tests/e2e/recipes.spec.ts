@@ -15,6 +15,7 @@ test.describe('Recipe search', ()=>{
         await page.fill('input[type="search"]', 'nonexistentrecipe');
         await page.click('button[type="submit"]');
         await page.waitForTimeout(1000);
+        await page.waitForTimeout(1000);
         await expect(page.locator('.RecipeCard')).toHaveCount(0); // Expect no recipe cards to be displayed
     });
 
