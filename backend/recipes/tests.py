@@ -4,9 +4,12 @@ from django.urls import reverse
 from unittest.mock import patch
 from .models import Recipe
 
+MOCK_DATA = {}
+
 class TestRecipes(APITestCase):
     def setup(self):
-        ...
+        for item in MOCK_DATA:
+            Recipe.objects.create()
 
     # @patch(Recipe.views.check_connection_status)
     def test_no_database_connection(self, mock_status):
