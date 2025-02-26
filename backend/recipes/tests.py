@@ -39,7 +39,12 @@ class TestRecipes(APITestCase):
 
     @patch("Recipe.views.check_connection_status")
     def test_no_database_connection(self, mock_status):
-        ...
+        mock_status.return_value = False
+
+        self._recipe_url = reverse("get-recipes")
+        result = self.client.get(self._recipe_url)
+
+        self.assertEqual(result.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
 
     def test_get_all_recipes(self):
         ...
