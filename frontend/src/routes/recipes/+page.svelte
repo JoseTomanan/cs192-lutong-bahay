@@ -9,23 +9,54 @@
   import { onMount } from 'svelte'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
   let recipes = []
+  let recipeName = '' 
+  let sort= 'name'
 
-  async function fetchRecipes() {
-		const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/');
-		recipes = await response.json();
+  async function fetchRecipes() { 
+    console.log(recipeName)
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify({recipeName})
+      })
+
+      const data = await response.json()
+      recipes = [data] 
+      console.log(recipes.length)
+      
+    } catch { 
+      console.log('fetch recipes failed') 
+    } 
 	}
 
-  fetchRecipes()
-  
+  async function sortRecipes() {
+    console.log(sort)
+    try {
+      const response = await fetch('https://127.0.0.1:800/api/recipes/sort-recipes/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({sort})
+      }) 
 
+      console.log(JSON.stringify({sort}))
+      const data = await response.json()
+      recipes = data 
+      console.log(recipes) 
+    } catch {
+      console.log('sort failed')
+    } 
+  }
 </script> 
 
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->  
 
-{#if recipes === []}
-<div class="border"></div>
-{:else}
-<div class="space-y-5">
+<div class="flex gap-2">
+<div class="space-y-5 w-1/3">
   <form on:submit|preventDefault={fetchRecipes} class="max-w-md"> 
     <label for="search" class="mb-2 text-sm font-medium text-black sr-only">Search</label>
     <div class="relative">
@@ -38,19 +69,34 @@
           type="search" 
           id="default-search" 
           class="block w-full p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
-
+          bind:value={recipeName}
           placeholder="Search Recipes..." required />
         <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-main hover:bg-main_dark font-medium rounded-lg text-sm px-4 py-2">Search</button>
-    </div>
+    </div> 
   </form> 
+</div>
 
+<!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
+<select
+  bind:value={sort} 
+  on:change={() => recipes = sortRecipes()}
+  class="bg-white border border-gray-200 text-gray-700 text-sm rounded focus:ring-main focus:border-2 focus:border-gray-700 block w-3/12 p-2.5">
+
+  {#each ['id', 'name', 'price', 'difficulty', 'rating', 'ingredients'] as sortMethod}
+    <option value={sortMethod}>sort by {sortMethod}</option>
+  {/each} 
+</select>
+ 
+
+
+</div>
 <!-- FLOWBITE https://flowbite.com/docs/components/tables/ -->  
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   {#each recipes as recipe}
-      <RecipeCard {...recipe} />
-  {/each}
+      <RecipeCard {...recipe} /> 
+  {/each} 
 </div>
 
-</div>
-{/if}
+
+
