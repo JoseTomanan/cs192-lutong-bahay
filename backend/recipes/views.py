@@ -1,9 +1,11 @@
 from rest_framework.decorators import api_view
-from django.shortcuts import render
 from rest_framework.response import Response
 
-from recipes.models import Recipe
-from recipes.serializer import RecipeSerializer
+from django.shortcuts import render
+from django.db import OperationalError, connection
+
+from .models import Recipe
+from .serializer import RecipeSerializer
 
 
 # Create your views here.
@@ -24,3 +26,11 @@ def sort_recipes(request):
     recipes = Recipe.objects.order_by(request.data["sort"])
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
+
+def check_database_status():
+    try:
+        connection.cursor()
+        return True
+    
+    except OperationalError:
+        return False
