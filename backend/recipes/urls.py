@@ -18,8 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import recipes.views as recipe
+from .views import get_recipes, sort_recipes  # Import the correct views
 
 urlpatterns = [
-    path("get-recipes/", recipe.get_recipes, name="get-recipes"),
-    path("sort-recipes/", recipe.sort_recipes),
+    # path("get-recipes/", recipe.get_recipes, name="get-recipes"),
+    # path("sort-recipes/", recipe.sort_recipes),
+    path("recipes/", get_recipes, name="recipe-list"),  # Fix the incorrect reference
+    path("recipes/sort/", sort_recipes, name="recipe-sort"),  # Add sorting API
 ]
