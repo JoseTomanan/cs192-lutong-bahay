@@ -17,9 +17,9 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from recipes.views import get_recipes, get_recipe_by_id
+import recipes.views as recipe
 
 urlpatterns = [
-    path("get-recipes/", get_recipes),
-    path("get-recipe-by-id/", get_recipe_by_id),
+    path("get-recipes/", recipe.get_recipes),
+    path("sort-recipes/", recipe.sort_recipes),
 ]
