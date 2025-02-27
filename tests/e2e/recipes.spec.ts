@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Recipe search', ()=>{
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/login');
-    await page.fill('input[type="text"]', 'testuser');
-    await page.fill('input[type="password"]', 'thisispw');
-    await page.click('button[type="submit"]');
-    await page.waitForTimeout(3000);
-  });
+test.beforeEach(async ({ page }) => {
+  await page.goto('/login');
+  await page.fill('input[type="text"]', 'testuser');
+  await page.fill('input[type="password"]', 'thisispw');
+  await page.click('button[type="submit"]');
+  await page.waitForTimeout(3000);
+});
 
+test.describe('Recipe search', ()=>{
   test('should show no results when invalid', async ({ page }) => {
     await page.goto('/recipes');
 
@@ -37,15 +37,6 @@ test.describe('Recipe search', ()=>{
 });
 
 test.describe('Recipe sort', ()=>{
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/login');
-    await page.fill('input[type="text"]', 'testuser');
-    await page.fill('input[type="password"]', 'thisispw');
-    await page.click('button[type="submit"]');
-
-    await page.waitForTimeout(3000);
-  });
-
   test('should properly display sort by difficulty, ascending', async ({ page }) => {
     await page.goto('/recipes');
     await page.waitForLoadState('networkidle');
