@@ -52,7 +52,7 @@
       }
       
     } catch (err) {
-      console.error('Login failed')
+      alert('No database connection')
     }
   }
   function loginWithGoogle() {
