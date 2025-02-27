@@ -1,15 +1,28 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
   import { isAuthenticated, setAuth } from '$lib/stores/auth'
+  import { onMount } from "svelte";
 
   let username = '';
   let password = '';
   let error = '';
   
   let loginMethods = [
-      {name: 'Google', icon: '/google.webp'}, 
-      {name: 'Facebook', icon: '/facebook.png'}, 
+      {name: 'Google', icon: '/google.webp', loginFunction: loginWithGoogle}, 
+      {name: 'Facebook', icon: '/facebook.png', loginFunction: ()=>{}}, 
   ] 
+
+  onMount(async () => {
+        const params = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = params.get("access_token");
+
+        if (accessToken) {
+            // console.log("Google Access Token:", accessToken);
+            await handleGoogleLogin(accessToken);
+        } else {
+            console.error("No access token found!");
+        }
+    });
 
   async function handleSubmit() {
     try { 
@@ -41,7 +54,53 @@
     } catch (err) {
       console.error('Login failed')
     }
-  } 
+  }
+  function loginWithGoogle() {
+    const clientId = '408545476434-o2bvopje0mbmad7blibvl0l2pkm7g1kp.apps.googleusercontent.com'
+    const redirectUri = "http://localhost:5173"; // Change if needed
+
+    const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
+
+    window.location.href = authUrl;
+}
+  
+  async function handleGoogleLogin(accessToken: string) {
+    try { 
+      console.log("\ngoogleFunction called\n")
+      console.log("Google Access Token:", accessToken)
+      const response = await fetch('http://localhost:8000/auth/social/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ provider: "google", access_token: accessToken })
+      });
+
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+
+      if (data.key) {
+        console.log("Django Token:", data.key);
+        localStorage.setItem("authToken", data.key);
+        console.log("Stored Token:", localStorage.getItem("authToken"));
+        setAuth(true)
+        goto('/home') 
+        // setTimeout(() => {
+        //           window.location.href = "http://localhost:5173/home";
+        //       }, 2000);  // 500ms delay
+        // // window.location.href = "/home"; // Redirect after login
+      }
+      
+      
+    } catch (err) {
+      console.error('Login failed')
+    }
+  }
 </script>
 
 <section class="bg-gradient-to-br from-white to-lime-50">
@@ -89,11 +148,12 @@
       </form>
 
       <div class="space-y-3 flex flex-col items-center ">
-          {#each loginMethods as {name, icon}} 
+          {#each loginMethods as {name, icon, loginFunction}} 
               <button
                   type="submit"
                   class="w-full rounded-full hover:border-gray-700 bg-white p-2 text-gray-700 border hover:bg-gradient-to-br
                    hover:from-gray-50 hover:to-gray-100 flex items-center gap-3 justify-center hover:shadow-md"
+                   on:click={loginFunction}
               >
                   <img src={icon} alt={name} class="w-6 h-6">
                   Sign in with {name} 
