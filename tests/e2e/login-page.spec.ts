@@ -9,7 +9,7 @@ test.describe('Login page', () => {
 
     page.on('dialog', async (dialog) => {
       console.log('Dialog message:', dialog.message());
-      expect(dialog.message()).toBe('User does not exist');
+      expect(dialog.message()).toBe('Invalid credentials');
       await dialog.dismiss();
     });
 
@@ -26,7 +26,7 @@ test.describe('Login page', () => {
     
     page.on('dialog', async (dialog) => {
       console.log('Dialog message:', dialog.message());
-      expect(dialog.message()).toBe('Invalid password');
+      expect(dialog.message()).toBe('Invalid credentials');
       await dialog.dismiss();
     });
     
