@@ -132,53 +132,53 @@ test.describe('Recipe sort', ()=>{
   });
 
   test('should properly display sort by ratings, descending', async ({ page }) => {
-      await page.goto('/recipes');
-      await page.waitForLoadState('networkidle');
-      await page.waitForSelector('input[type="search"]');
+    await page.goto('/recipes');
+    await page.waitForLoadState('networkidle');
+    await page.waitForSelector('input[type="search"]');
 
-      await page.getByRole('combobox').first().selectOption('ratings');
-      await page.getByRole('combobox').nth(1).selectOption('descending');
-  
-      await page.waitForTimeout(2000);
-  
-      const difficulties = await page.$$eval('.RecipeCard .ratings', nodes =>
-        nodes.map(n => n.textContent?.trim())
-        );
+    await page.getByRole('combobox').first().selectOption('ratings');
+    await page.getByRole('combobox').nth(1).selectOption('descending');
 
-      expect(difficulties).toEqual([...difficulties].sort());
+    await page.waitForTimeout(2000);
+
+    const difficulties = await page.$$eval('.RecipeCard .ratings', nodes =>
+      nodes.map(n => n.textContent?.trim())
+      );
+
+    expect(difficulties).toEqual([...difficulties].sort());
   });
 
   test('should properly display sort by ingredients, ascending', async ({ page }) => {
-      await page.goto('/recipes');
-      await page.waitForLoadState('networkidle');
-      await page.waitForSelector('input[type="search"]');
+    await page.goto('/recipes');
+    await page.waitForLoadState('networkidle');
+    await page.waitForSelector('input[type="search"]');
 
-      await page.getByRole('combobox').first().selectOption('ingredients');
-      await page.getByRole('combobox').nth(1).selectOption('ascending');
-  
-      await page.waitForTimeout(2000);
-  
-      const difficulties = await page.$$eval('.RecipeCard .ingredients', nodes =>
-        nodes.map(n => n.textContent?.trim())
-        );
+    await page.getByRole('combobox').first().selectOption('ingredients');
+    await page.getByRole('combobox').nth(1).selectOption('ascending');
 
-      expect(difficulties).toEqual([...difficulties].sort());
+    await page.waitForTimeout(2000);
+
+    const difficulties = await page.$$eval('.RecipeCard .ingredients', nodes =>
+      nodes.map(n => n.textContent?.trim())
+      );
+
+    expect(difficulties).toEqual([...difficulties].sort());
   });
 
   test('should properly display sort by ingredients, descending', async ({ page }) => {
-      await page.goto('/recipes');
-      await page.waitForLoadState('networkidle');
-      await page.waitForSelector('input[type="search"]');
+    await page.goto('/recipes');
+    await page.waitForLoadState('networkidle');
+    await page.waitForSelector('input[type="search"]');
 
-      await page.getByRole('combobox').first().selectOption('ingredients');
-      await page.getByRole('combobox').nth(1).selectOption('descending');
-  
-      await page.waitForTimeout(2000);
-  
-      const difficulties = await page.$$eval('.RecipeCard .ingredients', nodes =>
-        nodes.map(n => n.textContent?.trim())
-        );
-        
-      expect(difficulties).toEqual([...difficulties].sort());
+    await page.getByRole('combobox').first().selectOption('ingredients');
+    await page.getByRole('combobox').nth(1).selectOption('descending');
+
+    await page.waitForTimeout(2000);
+
+    const difficulties = await page.$$eval('.RecipeCard .ingredients', nodes =>
+      nodes.map(n => n.textContent?.trim())
+      );
+      
+    expect(difficulties).toEqual([...difficulties].sort());
   });
 });
