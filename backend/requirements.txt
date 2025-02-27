@@ -13,3 +13,7 @@ django-cors-headers
 
 # Optional: Environment variable management
 python-dotenv
+
+# Google authentication
+dj_rest_auth
+jwt
