@@ -1,8 +1,16 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+from urllib.parse import urljoin
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
+
 
 
 @api_view(["POST"])
@@ -40,3 +48,11 @@ def logout(request):
 
 
 # Create your views here.
+
+# Google Auth
+#@api_view(["POST"])
+#@api_view(["POST", "GET"])
+class GoogleLoginView(SocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
+    callback_url = 'http://localhost:5173/'
+    client_class = OAuth2Client

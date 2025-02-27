@@ -17,8 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from users.views import GoogleLoginView
 
 urlpatterns = [
     path("api/", include("api.urls")),
     path("admin/", admin.site.urls),
+    path("accounts/", include("allauth.urls")),
+    path('auth/', include('dj_rest_auth.urls')),  # Login, logout, password reset
+    path('auth/registration/', include('dj_rest_auth.registration.urls')),  # Signup
+    path('auth/social/', include('allauth.socialaccount.urls')),  # Social auth
+
+    path("auth/social/login/", GoogleLoginView.as_view(), name="google_login"),
+    path("accounts/google/login/", GoogleLoginView.as_view(), name="google_login"),
 ]
