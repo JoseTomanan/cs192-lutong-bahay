@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+    "rest_framework.authtoken",
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -55,6 +65,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -82,18 +94,6 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-    # "default": {
-    #     "ENGINE": "django.db.backends.postgresql_psycopg2",
-    #     "NAME": "lutongBahayDatabase",
-    #     "USER": "postgres",
-    #     "PASSWORD": "11789",
-    #     "HOST": "localhost",
-    #     "PORT": "",
-    # }
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": "postgres",
@@ -126,9 +126,34 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+AUTHENTICATION_BACKENDS = {
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+}
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
+
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         "APP": {
+#         "client_id": os.environ.get("GOOGLE_CLIENT_ID"),
+#         "secret": os.environ.get("GOOGLE_SECRET_KEY"),
+#         "key": ""
+#     },
+#         'SCOPE': ['profile', 'email'],
+#         'AUTH_PARAMS': {'access_type': 'online'},
+#     }
+# }
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+    }
+}
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 LANGUAGE_CODE = "en-us"
 
@@ -151,3 +176,19 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+#ALL AUTH
+ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = "optional"
+# ACCOUNT_UNIQUE_EMAIL = True
+# SOCIALACCOUNT_QUERY_EMAIL = True
+# SOCIALACCOUNT_AUTO_SIGNUP = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
