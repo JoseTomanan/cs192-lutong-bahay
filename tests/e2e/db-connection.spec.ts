@@ -1,16 +1,19 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.goto('/login');
+  await page.fill('input[type="text"]', 'testuser');
+  await page.fill('input[type="password"]', 'thisispw');
+  await page.click('button[type="submit"]');
+
+  await page.waitForTimeout(5000);
+});
+
+test.afterEach(async ({ page }) => {
+  await page.unroute('/api/recipes/get-recipes/');
+});
 
 test.describe('Database connection', ()=>{
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/login');
-    await page.fill('input[type="text"]', 'testuser');
-    await page.fill('input[type="password"]', 'thisispw');
-    await page.click('button[type="submit"]');
-
-    await page.waitForTimeout(5000);
-  });
-
   test('should alert when cannot connect to database', async ({ page, browserName}) => {
     await page.goto('/recipes');
 
