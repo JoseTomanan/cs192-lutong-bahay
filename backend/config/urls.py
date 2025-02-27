@@ -28,4 +28,5 @@ urlpatterns = [
     path('auth/social/', include('allauth.socialaccount.urls')),  # Social auth
 
     path("auth/social/login/", GoogleLoginView.as_view(), name="google_login"),
+    path("accounts/google/login/", GoogleLoginView.as_view(), name="google_login"),
 ]
