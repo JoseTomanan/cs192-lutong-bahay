@@ -1,54 +1,61 @@
+import sys
 import json
+
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
 from unittest.mock import patch
 
-from .models import Recipe
-from .serializer import RecipeSerializer
+# from recipes.models import Recipe
+# from recipes.serializer import RecipeSerializer
 
 class TestRecipes(APITestCase):
-    def setUp(self):
-        Recipe.objects.create(
-            id=1,
-            recipeName="Hotdog",
-            price=5,
-            cookDifficulty="1",
-            servings=1,
-            equipment="pan",
-            instructions="- slice hotdog\n- fry hotdog on pan until cooked",
-            ratings=4,
-            ingredients="hotdog"
-            )
-        Recipe.objects.create(
-            id=2,
-            recipeName="Fried egg",
-            price=4,
-            cookDifficulty="1",
-            servings=1,
-            equipment="pan",
-            instructions="- crack egg\n- fry egg on pan until cooked",
-            ratings=5,
-            ingredients="egg,salt"
-            )
-        Recipe.objects.create(
-            id=3,
-            recipeName="Tortang talong",
-            price=3,
-            cookDifficulty="1",
-            servings=1,
-            equipment="pan",
-            instructions="- crack egg on eggplant\n- fry on pan until cooked",
-            ratings=2,
-            ingredients="eggplant"
-            )
+    # def setUp(self):
+    #     Recipe.objects.create(
+    #         id=1,
+    #         recipeName="Hotdog",
+    #         price=5,
+    #         cookDifficulty="1",
+    #         servings=1,
+    #         equipment="pan",
+    #         instructions="- slice hotdog\n- fry hotdog on pan until cooked",
+    #         ratings=4,
+    #         ingredients="hotdog"
+    #         )
+    #     Recipe.objects.create(
+    #         id=2,
+    #         recipeName="Fried egg",
+    #         price=4,
+    #         cookDifficulty="1",
+    #         servings=1,
+    #         equipment="pan",
+    #         instructions="- crack egg\n- fry egg on pan until cooked",
+    #         ratings=5,
+    #         ingredients="egg,salt"
+    #         )
+    #     Recipe.objects.create(
+    #         id=3,
+    #         recipeName="Tortang talong",
+    #         price=3,
+    #         cookDifficulty="1",
+    #         servings=1,
+    #         equipment="pan",
+    #         instructions="- crack egg on eggplant\n- fry on pan until cooked",
+    #         ratings=2,
+    #         ingredients="eggplant"
+    #         )
 
-    @patch("Recipe.views.check_connection_status")
+    @patch("recipes.views.check_database_status")
     def test_no_database_connection(self, mock_status):
         mock_status.return_value = False
 
+        print("mock status return value:", mock_status.return_value)
+
         self._recipe_url = reverse("get-recipes")
         response = self.client.get(self._recipe_url)
+
+        print("mock status called:", mock_status.called)
+        print(response)
 
         self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
 
