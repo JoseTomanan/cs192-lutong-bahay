@@ -20,7 +20,7 @@
             // console.log("Google Access Token:", accessToken);
             await handleGoogleLogin(accessToken);
         } else {
-            console.error("No access token found!");
+            console.log("No access token found!");
         }
     });
 
