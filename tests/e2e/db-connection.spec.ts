@@ -5,8 +5,7 @@ test.beforeEach(async ({ page }) => {
   await page.fill('input[type="text"]', 'testuser');
   await page.fill('input[type="password"]', 'thisispw');
   await page.click('button[type="submit"]');
-
-  await page.waitForTimeout(5000);
+  await page.waitForTimeout(3000);
 });
 
 test.afterEach(async ({ page }) => {
