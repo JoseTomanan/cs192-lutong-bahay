@@ -6,4 +6,5 @@ urlpatterns = [
     path("logout/", users.logout),
     path("add-user/", users.add_user),
     path("delete-user/", users.delete_user),
+    path("get-session-values/", users.getSessionValues)
 ]

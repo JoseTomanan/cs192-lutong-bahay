@@ -21,6 +21,8 @@ def login(request):
 
     if user is not None:
         auth_login(request, user)
+        request.session['user'] = username
+        print(request.session['user'])
         return Response({"success": True, "message": "Login successful"})
     else:
         return Response({"success": False, "message": "Invalid credentials"})
@@ -50,9 +52,19 @@ def logout(request):
 # Create your views here.
 
 # Google Auth
-#@api_view(["POST"])
-#@api_view(["POST", "GET"])
 class GoogleLoginView(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
     callback_url = 'http://localhost:5173/'
     client_class = OAuth2Client
+
+@api_view(["POST"])
+def setSessionValues(request):
+    request.session["test"] = "test"
+    return Response()
+
+@api_view(["GET"])
+def getSessionValues(request):
+    request.session['test'] = 'test'
+    for key, value in request.session.items():
+        print('{} => {}'.format(key, value))
+    return Response(request.session)
