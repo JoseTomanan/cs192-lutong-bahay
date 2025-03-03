@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
     // /** @type {import('./$types').PageProps} */
 	// let { data } = $props();
     export let data;
 
     let recipe;
-    let recipeTitle;
+    let recipeTitle:string;
 
-    async function functionFetchRecipeById(input_id) {
+    async function functionFetchRecipeById(input_id:string) {
 		console.log(input_id);
 		const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipe-by-id/', {
 			method: 'POST',
