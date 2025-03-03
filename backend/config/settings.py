@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    
 
     'dj_rest_auth',
     'dj_rest_auth.registration',
@@ -53,6 +54,9 @@ INSTALLED_APPS = [
     "recipes",
     "users",
     "reviews",
+
+    #'django.contrib.sessions', # for sessions
+    'allauth.usersessions', # sessions
 ]
 
 MIDDLEWARE = [
@@ -67,6 +71,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     
     'allauth.account.middleware.AccountMiddleware',
+
+    'django.contrib.sessions.middleware.SessionMiddleware', # for sessions
+    'allauth.usersessions.middleware.UserSessionsMiddleware',
 ]
 
 ROOT_URLCONF = "config.urls"
