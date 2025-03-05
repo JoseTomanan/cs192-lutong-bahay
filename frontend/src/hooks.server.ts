@@ -4,9 +4,9 @@ import type { Handle } from '@sveltejs/kit';
 export const handle: Handle = async ({ event, resolve }) => {
     const protectedRoutes = ['/home', '/recipes', '/users', '/profile'];
     const publicRoutes = ['/login', '/register'];
-    // const devRoutes = ['/dbtest'].concat(publicRoutes, protectedRoutes)  // add routes here that we can test for convenience; 
+    const devRoutes = ['/dbtest', '/admin'].concat(publicRoutes, protectedRoutes)  // add routes here that we can test for convenience; 
                                                                             // when in production, this should be empty
-    const devRoutes = []
+
 
     const authenticated = event.cookies.get('authenticated')
     const path = event.url.pathname

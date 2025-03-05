@@ -2,7 +2,7 @@
     import { page } from '$app/state';
     import { logout } from '$lib/stores/auth'
     
-    let pages = ['home', 'recipes', 'users', 'profile']
+    let pages = ['home', 'recipes', 'users', 'profile', 'admin']
   </script>
   
 <!-- <nav class="p-4 bg-white shadow">

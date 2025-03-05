@@ -33,11 +33,6 @@
         console.log(data)
         console.log(recipes.length)
       }
-      
-      
- 
-     
-      
     } catch { 
       alert('No database connection')
     } 
