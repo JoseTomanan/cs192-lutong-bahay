@@ -47,8 +47,6 @@ def logout(request):
     return Response({"message": "Logout successful"})
 
 
-# Create your views here.
-
 # Google Auth
 #@api_view(["POST"])
 #@api_view(["POST", "GET"])
