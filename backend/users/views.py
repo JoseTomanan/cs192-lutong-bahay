@@ -21,15 +21,15 @@ def login(request):
     user = authenticate(username=username, password=password)
 
     if user is None:
-        return Response({"success": False, "message": "Invalid credentials"})
+        return Response({"success": False, "is_staff": False, "message": "Invalid credentials"})
     
     if user.is_staff:
         auth_login(request, user)
-        return Response({"success": True, "message": "Admin login successful"})
+        return Response({"success": True, "is_staff": True, "message": "Admin login successful"})
     
     else:
         auth_login(request, user)
-        return Response({"success": True, "message": "Login successful"})
+        return Response({"success": True, "is_staff": False, "message": "Login successful"})
 
 
 @api_view(["POST"])
