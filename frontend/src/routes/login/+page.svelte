@@ -37,10 +37,17 @@
       const data = await response.json();
       const success = data.success 
       const message = data.message
+      const admin = data.is_staff 
+
+      console.log(admin)
+      console.log(data)
 
       if (!success) {
         alert(message)
       } else {
+        if (admin) {
+          alert('Admin login successful')
+        }
         setAuth(true)
         goto('/home') 
       }
