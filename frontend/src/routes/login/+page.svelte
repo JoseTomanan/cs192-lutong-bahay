@@ -45,11 +45,12 @@
       if (!success) {
         alert(message)
       } else {
-        if (admin) {
-          alert('Admin login successful')
-        }
         setAuth(true)
-        goto('/home') 
+        if (admin) { 
+          goto('/admin') 
+        } else {
+          goto('/home') 
+        } 
       }
       
       if (!response.ok) { 
