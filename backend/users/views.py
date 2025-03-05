@@ -50,8 +50,6 @@ def logout(request):
 # Create your views here.
 
 # Google Auth
-#@api_view(["POST"])
-#@api_view(["POST", "GET"])
 class GoogleLoginView(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
     callback_url = 'http://localhost:5173/'
