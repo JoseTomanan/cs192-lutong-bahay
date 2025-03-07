@@ -55,6 +55,29 @@ def check_database_status():
 
 
 @api_view(["POST"])
+def add_ingredient(request):
+    ingredient_serializer = IngredientsSerializer(data=request.data)
+    if ingredient_serializer.is_valid():
+        ingredient_serializer.save()
+        return Response(ingredient_serializer.data)
+    return Response(ingredient_serializer.errors)
+
+
+@api_view(["POST"])
+def search_ingredient(request):
+    ingredient_name = request.data.get("ingredientName", None)
+    if not ingredient_name:
+        return Response({"error": "ingredientName is required"}, status=400)
+
+    ingredient = Ingredients.objects.filter(ingredientName=ingredient_name).first()
+    if not ingredient:
+        return Response({"error": "Ingredient not found"}, status=404)
+
+    serializer = IngredientsSerializer(ingredient, many=False)
+    return Response(serializer.data)
+
+
+@api_view(["POST"])
 def add_recipe(request):
     ingredients = request.data.pop("ingredients", None)
     recipe_serializer = RecipeSerializer(data=request.data)
