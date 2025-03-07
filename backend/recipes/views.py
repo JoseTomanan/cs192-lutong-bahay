@@ -40,7 +40,7 @@ def sort_recipes(request):
     is_negative = "" if request.data["is_negative"] else "-"
     sort_parameter = (is_negative + request.data["sort"]).replace(" ", "")
     print(sort_parameter)
-    recipes = Recipe.objects.all().order_by(sort_parameter)
+    recipes = recipe_list().order_by(sort_parameter)
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
@@ -62,10 +62,12 @@ def add_recipe(request):
         recipe_serializer.save()
         for i in ingredients or []:
             temp = {}
-            ingredient_id = Ingredients.objects.get(ingredientName=i).id
+            ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id
             temp["ingredient"] = ingredient_id
             recipe_id = None
-            recipe_id = Recipe.objects.get(recipeName=request.data["recipeName"]).id
+            recipe_id = (
+                Recipe.objects.filter(recipeName=request.data["recipeName"]).first().id
+            )
             temp["recipe"] = recipe_id
             cooked_by_serializer = CookedBySerializer(data=temp)
             if cooked_by_serializer.is_valid():
