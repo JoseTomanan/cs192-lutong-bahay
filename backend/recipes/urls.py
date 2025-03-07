@@ -2,7 +2,7 @@
 URL configuration for core project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
+    https://docs.djangoproject.com/en/5.1/topics/http/urls/ 
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import recipes.views as recipe
-from .views import get_recipes, sort_recipes  # Import the correct views
+from .views import get_recipes, sort_recipes, add_recipe
 
 urlpatterns = [
     path("get-recipes/", recipe.get_recipes, name="get-recipes"),
