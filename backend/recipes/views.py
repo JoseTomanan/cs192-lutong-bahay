@@ -39,8 +39,7 @@ def get_recipes(request):
 def sort_recipes(request):
     is_negative = "" if request.data["is_negative"] else "-"
     sort_parameter = (is_negative + request.data["sort"]).replace(" ", "")
-    print(sort_parameter)
-    recipes = recipe_list().order_by(sort_parameter)
+    recipes = Recipe.objects.order_by(sort_parameter)
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
@@ -68,7 +67,6 @@ def search_ingredient(request):
     ingredient_name = request.data.get("ingredientName", None)
     if not ingredient_name:
         return Response({"error": "ingredientName is required"}, status=400)
-
     ingredient = Ingredients.objects.filter(ingredientName=ingredient_name).first()
     if not ingredient:
         return Response({"error": "Ingredient not found"}, status=404)
