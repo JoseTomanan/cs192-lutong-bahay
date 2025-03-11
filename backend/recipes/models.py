@@ -22,5 +22,9 @@ class Recipe(models.Model):
 
 
 class CookedBy(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(
+        Recipe, related_name="has_ingredients", on_delete=models.CASCADE
+    )
+    ingredient = models.ForeignKey(
+        Ingredients, related_name="is_ingredient_of", on_delete=models.CASCADE
+    )
