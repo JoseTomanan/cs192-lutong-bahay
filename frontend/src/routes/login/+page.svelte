@@ -42,6 +42,7 @@
         alert(message)
       } else {
         setAuth(true)
+        document.cookie = `username=${username}`;
         goto('/home') 
       }
       
