@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from urllib.parse import urljoin
 
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
@@ -19,11 +20,16 @@ def login(request):
     password = request.data["password"]
     user = authenticate(username=username, password=password)
 
-    if user is not None:
+    if user is None:
+        return Response({"success": False, "is_staff": False, "message": "Invalid credentials"})
+    
+    if user.is_staff:
         auth_login(request, user)
-        return Response({"success": True, "message": "Login successful"})
+        return Response({"success": True, "is_staff": True, "message": "Admin login successful"})
+    
     else:
-        return Response({"success": False, "message": "Invalid credentials"})
+        auth_login(request, user)
+        return Response({"success": True, "is_staff": False, "message": "Login successful"})
 
 
 @api_view(["POST"])
@@ -46,8 +52,6 @@ def logout(request):
     auth_logout(request)
     return Response({"message": "Logout successful"})
 
-
-# Create your views here.
 
 # Google Auth
 class GoogleLoginView(SocialLoginView):
