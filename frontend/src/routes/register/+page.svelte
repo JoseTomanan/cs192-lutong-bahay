@@ -110,7 +110,7 @@
       bg-gradient-to-br from-white to-gray-50"
   >
       <form on:submit|preventDefault={handleSubmit} class="space-y-4">
-        <h1 class="text-4xl font-bold mb-7 text-stone-600 bg-gradient-to-br pb-0.5 from-main to-lime-600 text-transparent bg-clip-text">
+        <h1 class="text-4xl font-bold mb-7 text-stone-600 bg-gradient-to-br pb-0.5 from-main_dark to-stone-600 text-transparent bg-clip-text">
             Register an account
         </h1>
           <div class="space-y-2">  
