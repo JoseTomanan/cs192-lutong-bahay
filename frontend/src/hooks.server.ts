@@ -2,26 +2,37 @@ import { redirect } from '@sveltejs/kit';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
-    const protectedRoutes = ['/home', '/recipes', '/users', '/profile'];
-    const publicRoutes = ['/login', '/register'];
-    const devRoutes = ['/dbtest', '/admin'].concat(publicRoutes, protectedRoutes)  // add routes here that we can test for convenience; 
-                                                                            // when in production, this should be empty
-
-
+    const unregisteredRoutes = ['/login', '/register']
+    const userRoutes = ['/home', '/recipes', '/users', '/profile', '/login'];
+    const adminRoutes = userRoutes.concat(['/admin'])
+    
     const authenticated = event.cookies.get('authenticated')
+    const admin = event.cookies.get('admin')
     const path = event.url.pathname
 
-    if (devRoutes.includes(path)) {
-        // do nothing (for now)
-    }  else if (authenticated) {
-        if (!protectedRoutes.includes(path)) {
-            throw redirect(303, '/home');
+    console.log(admin, authenticated)
+
+    if (admin && authenticated) {
+        if (!adminRoutes.includes(path)) {
+            throw redirect(303, '/admin')
         }
-    } else {
-        if (!publicRoutes.includes(path)) {
+    }
+
+    else if (admin && !authenticated) {
+        throw redirect(303, '/login')
+    } 
+
+    else if (!admin && authenticated) {
+        if (!userRoutes.includes(path)) {
+            throw redirect(303, '/home')
+        }
+    }
+
+    else {
+        if (!unregisteredRoutes.includes(path)) {
             throw redirect(303, '/login'); 
-        }
+        } 
     } 
 
     return resolve(event);
-};  
+};

@@ -14,48 +14,45 @@
   ] 
 
   onMount(async () => {
-        const params = new URLSearchParams(window.location.hash.substring(1));
-        const accessToken = params.get("access_token");
+    const params = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = params.get("access_token");
 
-        if (accessToken) {
-            // console.log("Google Access Token:", accessToken);
-            await handleGoogleLogin(accessToken);
-        } else {
-            console.log("No access token found!");
-        }
-    });
+    if (accessToken) {
+        // console.log("Google Access Token:", accessToken);
+        await handleGoogleLogin(accessToken);
+    } else {
+        console.log("No access token found!");
+    }
+  });
 
   async function handleSubmit() {
     try { 
-      const response = await fetch('http://localhost:8000/api/users/register/', {
-        method: 'POST', 
+      const response = await fetch('http://localhost:8000/api/users/add_user/', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password })
-      });
+        body: JSON.stringify({ username, password, confirm_password })
+      }); 
+
 
       const data = await response.json();
       const success = data.success 
       const message = data.message
 
+      console.log(data)
+
       if (!success) {
-        alert(message)
+        alert("Error creating user.")
       } else {
-        setAuth(true)
-        goto('/home') 
-      }
-      
-      if (!response.ok) { 
-        const data = await response.json();
-        const error = data.error;
-        return;
-      }
-      
+        alert(message)
+        goto('/home')
+      }       
     } catch (err) {
       alert('No database connection')
     }
   }
+
   function loginWithGoogle() {
     const clientId = '408545476434-o2bvopje0mbmad7blibvl0l2pkm7g1kp.apps.googleusercontent.com'
     const redirectUri = "http://localhost:5173"; // Change if needed
@@ -63,7 +60,8 @@
     const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
 
     window.location.href = authUrl;
-}
+  }
+
   
   async function handleGoogleLogin(accessToken: string) {
     try { 
@@ -104,7 +102,8 @@
   }
 </script>
 
-<section class="bg-gradient-to-br from-lime-100 to-lime-100">
+
+<section class="bg-gradient-to-br from-white to-lime-50">
   <div
       class="w-full flex flex-col justify-center max-w-xl space-y-3 rounded-lg 
       px-12 py-12 shadow-xl border-gray-200 border
@@ -114,7 +113,6 @@
         <h1 class="text-4xl font-bold mb-7 text-stone-600 bg-gradient-to-br pb-0.5 from-main to-lime-600 text-transparent bg-clip-text">
             Register an account
         </h1>
-    
           <div class="space-y-2">  
               <input
                   type="text"
@@ -135,6 +133,7 @@
 
               <input
                   type="password"
+
                   bind:value={confirm_password}
                   placeholder="Confirm password" 
                   class="space-y-2 w-full rounded border p-2 focus:outline-gray-700 focus:ring-0 hover:border-gray-700

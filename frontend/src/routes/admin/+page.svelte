@@ -1,7 +1,7 @@
 <script>
 	import TitleText from "$lib/components/TitleText.svelte";
 
-    let username = "testuser"
+    let username = "Admin"
 </script>
 
 <TitleText text={`Admin`}/>

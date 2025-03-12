@@ -36,8 +36,8 @@ def login(request):
 def add_user(request):
     user = User.objects.create_user(
         username=request.data["username"], password=request.data["password"]
-    )
-    return Response({"message": "User created successfully"})
+    ) 
+    return Response({"success": True, "message": "User created successfully"})
 
 
 @api_view(["POST"])
