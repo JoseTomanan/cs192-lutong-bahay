@@ -1,8 +1,9 @@
 <script lang="ts">
     import { page } from '$app/state';
-    import { logout } from '$lib/stores/auth'
+    import { logout, isAuthenticated, isAdmin } from '$lib/stores/auth'
+  
     
-    let pages = ['home', 'recipes', 'users', 'profile', 'admin']
+    let pages = ['home', 'recipes', 'users', 'profile']
   </script>
   
 <!-- <nav class="p-4 bg-white shadow">
@@ -50,7 +51,21 @@ pt-8 px-2">
                   {route[0].toUpperCase() + route.slice(1)}
               </a>
           {/each}
+          {#if $isAdmin}
+          <a 
+          href="/admin" 
+          class="px-5 py-3 rounded-lg {
+              page.url.pathname === '/' + 'admin'
+              ? 'bg-gradient-to-bl from-gray-600 to-gray-700 text-white' 
+              : 'text-gray-700 bg-white hover:bg-gray-100'
+            }"
+      >
+              Admin
+          </a>
+          {/if}
       </div>
+
+      
   </div>
 
   <div class="p-2">
