@@ -27,7 +27,7 @@
 
   async function handleSubmit() {
     try { 
-      const response = await fetch('http://localhost:8000/api/users/add_user/', {
+      const response = await fetch('http://localhost:8000/api/users/add-user/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
