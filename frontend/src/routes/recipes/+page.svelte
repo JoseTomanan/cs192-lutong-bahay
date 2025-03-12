@@ -125,7 +125,7 @@
           class="block w-full p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
           bind:value={ingredients}   
           placeholder="Search by ingredient..." required />
-        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-main hover:bg-main_dark font-medium rounded-lg text-sm px-4 py-2">Search</button>
+        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-gray-400 hover:bg-gray-500 font-medium rounded-lg text-sm px-4 py-2">Search</button>
     </div> 
   </form> 
 </div>
@@ -136,7 +136,7 @@
   on:change={() => sortRecipes()}
   class="bg-white border border-gray-200 text-gray-700 text-sm rounded focus:ring-main focus:border-2 focus:border-gray-700 block w-3/12 p-2.5">
 
-  {#each ['id', 'recipeName', 'price', 'cookDifficulty', 'ratings', 'cookedBy'] as sortMethod}
+  {#each ['id', 'recipeName', 'price', 'cookDifficulty', 'ratings'] as sortMethod}
     <option value={sortMethod}>sort by {sortMethod}</option>
   {/each} 
 </select>
