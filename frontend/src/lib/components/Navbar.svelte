@@ -69,7 +69,10 @@ pt-8 px-2">
       
   </div>
 
-  <p class="pl-2 text-gray-400">@{$usernameStore}</p>
+  
+    {#if ($usernameStore) != ""}
+      <p class="pl-2 text-gray-400">@{$usernameStore}</p>
+    {/if}
   <div class="p-2">
       <button 
           on:click={logout}
