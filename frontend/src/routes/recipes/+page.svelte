@@ -48,7 +48,7 @@
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({"sort": sort, "isNegative": is_negative, "ingredients": ingredients.split(", ")})
+        body: JSON.stringify({"sort": sort, "is_negative": is_negative, "ingredients": ingredients.split(", ")})
       })
 
       const data = await response.json()
