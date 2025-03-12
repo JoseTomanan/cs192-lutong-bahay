@@ -4,6 +4,7 @@ from rest_framework.response import Response
 
 from django.shortcuts import render
 from django.db import OperationalError, connection
+from django.db.models import Count
 
 from .models import Recipe, Ingredients, CookedBy
 from .serializer import RecipeSerializer, IngredientsSerializer, CookedBySerializer
@@ -48,7 +49,10 @@ def sort_recipes(request):
         cooked_by = cooked_by.filter(
             ingredient__ingredientName__in=request.data["ingredients"]
         )
-        recipes = Recipe.objects.filter(id__in=[i.recipe.id for i in cooked_by])
+        result = cooked_by.values("recipe").annotate(count=Count("recipe"))
+        result = [i["recipe"] for i in result if i["count"] == len(ingredients)]
+
+        recipes = Recipe.objects.filter(id__in=result)
         if not recipes:
             return Response(
                 {"error": "No recipes found with the given ingredients"}, status=404
