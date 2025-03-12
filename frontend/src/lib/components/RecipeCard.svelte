@@ -1,11 +1,15 @@
 <script lang="ts">
     export let cookDifficulty: string
-    export let equipment: string
-    export let id: number
-    export let ingredients
-    export let instruction
-    export let price
     export let ratings
+    export let price
+    export let ingredients
+    export let id: number
+    export let equipment: string
+    
+    
+    export let instruction
+   
+   
     export let recipeName: string
     export let servings: number
 
@@ -27,6 +31,26 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50">
         <p class="text-gray-700 text-base">
             <span class="font-semibold">Price:</span><br>
             {price}
+        </p>
+
+        <p class="text-gray-700 text-base">
+            <span class="font-semibold">Ingredients:</span><br>
+            {ingredients}
+        </p>
+
+        <p class="text-gray-700 text-base">
+            <span class="font-semibold">ID:</span><br>
+            {id}
+        </p>
+
+        <p class="text-gray-700 text-base">
+            <span class="font-semibold">Equipment:</span><br>
+            {equipment}
+        </p>
+
+        <p class="text-gray-700 text-base">
+            <span class="font-semibold">Servings:</span><br>
+            {servings}
         </p>
     </div>
     <a href="/recipes/{id}" >
