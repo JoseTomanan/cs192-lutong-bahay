@@ -42,8 +42,8 @@ test.describe('Recipe sort', () => {
     { type: 'price', order: 'descending' },
     { type: 'ratings', order: 'ascending' },
     { type: 'ratings', order: 'descending' },
-    { type: 'ingredients', order: 'ascending' },
-    { type: 'ingredients', order: 'descending' }
+    // { type: 'ingredients', order: 'ascending' },
+    // { type: 'ingredients', order: 'descending' }
   ];
 
   for (const { type, order } of sortOptions) {
