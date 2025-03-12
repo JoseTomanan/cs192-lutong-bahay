@@ -43,7 +43,7 @@
       console.log(data)
 
       if (!success) {
-        alert("Error creating user.")
+        alert(data.message)
       } else {
         alert(message)
         goto('/login')
@@ -101,7 +101,6 @@
     }
   }
 </script>
-
 
 <section class="bg-gradient-to-br from-white to-lime-50">
   <div
