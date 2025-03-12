@@ -46,7 +46,7 @@
         alert("Error creating user.")
       } else {
         alert(message)
-        goto('/home')
+        goto('/login')
       }       
     } catch (err) {
       alert('No database connection')
