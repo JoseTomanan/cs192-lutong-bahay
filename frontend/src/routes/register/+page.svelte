@@ -27,7 +27,7 @@
 
   async function handleSubmit() {
     try { 
-      const response = await fetch('http://localhost:8000/api/users/login/', {
+      const response = await fetch('http://localhost:8000/api/users/register/', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -111,7 +111,7 @@
       bg-gradient-to-br from-white to-gray-50"
   >
       <form on:submit|preventDefault={handleSubmit} class="space-y-4">
-        <h1 class="text-4xl font-bold mb-7 text-main bg-gradient-to-br pb-0.5 from-main to-lime-600 text-transparent bg-clip-text">
+        <h1 class="text-4xl font-bold mb-7 text-stone-600 bg-gradient-to-br pb-0.5 from-main to-lime-600 text-transparent bg-clip-text">
             Register an account
         </h1>
     
@@ -143,7 +143,7 @@
               />
           </div>
 
-          <button type="submit" class="w-full rounded bg-main hover:shadow-md p-2 text-white hover:bg-main_dark">
+          <button type="submit" class="w-full rounded bg-stone-600 hover:shadow-md p-2 text-white hover:bg-stone-400">
               Sign up
           </button>
           
