@@ -22,7 +22,7 @@
     } else {
         console.log("No access token found!");
     }
-  });
+  }); 
 
   async function handleSubmit() {
     try { 
