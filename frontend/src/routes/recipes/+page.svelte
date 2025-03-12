@@ -124,8 +124,8 @@
           id="default-search" 
           class="block w-full p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
           bind:value={ingredients}   
-          placeholder="Search by ingredient..." required />
-        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-gray-400 hover:bg-gray-500 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+          placeholder="Filter by ingredient..." required />
+        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-gray-400 hover:bg-gray-500 font-medium rounded-lg text-sm px-4 py-2">Filter</button>
     </div> 
   </form> 
 </div>
