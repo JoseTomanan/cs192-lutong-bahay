@@ -5,13 +5,15 @@
 	import { page } from '$app/state'
     import { goto } from '$app/navigation'
     import { onMount } from 'svelte'
-	import { initAuth } from '$lib/stores/auth' 
-	
-	onMount(() => {
+    import { initAuth } from '$lib/stores/auth'
+    
+    onMount(() => {
         initAuth()
-    });
+    })
 
 	let { children } = $props()
+
+    
 </script>
 
 {#if $isAuthenticated}

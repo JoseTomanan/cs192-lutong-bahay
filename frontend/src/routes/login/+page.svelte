@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
-  import { isAuthenticated, setAuth } from '$lib/stores/auth'
+  import { isAuthenticated, setAdmin, setAuth } from '$lib/stores/auth'
   import { onMount } from "svelte";
 
   let username = '';
@@ -47,11 +47,12 @@
       } else {
         setAuth(true)
         if (admin) { 
+          setAdmin(true)
           goto('/admin') 
         } else {
           goto('/home') 
         } 
-      }
+      } 
       
       if (!response.ok) { 
         const data = await response.json();
