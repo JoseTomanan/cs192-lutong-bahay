@@ -38,6 +38,7 @@ def get_recipes(request):
 
 @api_view(["POST"])
 def sort_recipes(request):
+    recipes = None
     if request.data.get("ingredients", None):
         ingredients = Ingredients.objects.filter(
             ingredientName__in=request.data["ingredients"]
@@ -57,10 +58,12 @@ def sort_recipes(request):
             return Response(
                 {"error": "No recipes found with the given ingredients"}, status=404
             )
-        return Response(RecipeSerializer(recipes, many=True).data)
     is_negative = "" if request.data["is_negative"] else "-"
     sort_parameter = (is_negative + request.data["sort"]).replace(" ", "")
-    recipes = Recipe.objects.order_by(sort_parameter)
+    if recipes:
+        recipes = recipes.order_by(sort_parameter)
+    else:
+        recipes = Recipe.objects.order_by(sort_parameter)
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
