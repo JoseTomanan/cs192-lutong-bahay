@@ -47,7 +47,7 @@ def add_user(request):
         return Response({"success": False, "message": "Error creating user (username taken)"})
 
 
-@api_view(["POST"])
+@api_view(["POST"]) 
 def delete_user(request):
     user = User.objects.get(username=request.data["username"])
     user.delete()

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { page } from '$app/state';
     import { logout, isAuthenticated, isAdmin } from '$lib/stores/auth'
+    import { usernameStore } from '$lib/stores/auth';
   
     
     let pages = ['home', 'recipes', 'users', 'profile']
@@ -68,6 +69,7 @@ pt-8 px-2">
       
   </div>
 
+  <p class="pl-2 text-gray-400">@{$usernameStore}</p>
   <div class="p-2">
       <button 
           on:click={logout}
