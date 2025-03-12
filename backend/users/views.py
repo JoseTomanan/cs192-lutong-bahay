@@ -34,13 +34,20 @@ def login(request):
 
 @api_view(["POST"])
 def add_user(request):
-    user = User.objects.create_user(
-        username=request.data["username"], password=request.data["password"]
-    ) 
-    return Response({"success": True, "message": "User created successfully"})
+    # {"username": "testuser", "password": ""}
+    try: 
+        if request.data["password"] != request.data["confirm_password"]:
+            return Response({"success": False, "message": "Passwords must match"})
+
+        user = User.objects.create_user(
+            username=request.data["username"], password=request.data["password"]
+        ) 
+        return Response({"success": True, "message": "User created successfully"})
+    except:
+        return Response({"success": False, "message": "Error creating user (username taken)"})
 
 
-@api_view(["POST"])
+@api_view(["POST"]) 
 def delete_user(request):
     user = User.objects.get(username=request.data["username"])
     user.delete()
