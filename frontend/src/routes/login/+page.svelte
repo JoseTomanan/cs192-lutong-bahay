@@ -24,11 +24,21 @@
     }
   });
 
+  function getCookie(name: String) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
+    }
+}
+
   async function handleSubmit() {
     try { 
       const response = await fetch('http://localhost:8000/api/users/login/', {
         method: 'POST', 
+        credentials: 'include',
         headers: {
+          'X-CSRFToken': getCookie("csrftoken"),
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password })
@@ -46,8 +56,7 @@
         alert(message)
       } else {
         setAuth(true)
-        document.cookie = `username=${username}`;
-        
+
         if (admin) { 
           setAdmin(true)
           goto('/admin') 
