@@ -33,8 +33,6 @@ test.describe('Recipe search', () => {
   });
 });
 
-// "rounded-2 duration-75 shadow-sm hover:shadow-lg border hover:border-primary overflow-hidden w-full
-// hover:bg-gradient-to-br hover:from-white hover:to-amber-50"div class="px-6 py-4"><div class="font-bold text-xl mb-2 text-main">Hotdog</div> <p class="text-gray-600 text-sm mb-2"><span class="font-semibold">Cooking Difficulty:</span> 1</p> <p class="text-gray-700 text-base"><span class="font-semibold">Rating:</span><br> 5</p> <p class="text-gray-700 text-base"><span class="font-semibold">Price:</span><br> 4</p></div> <a href="/recipes/1"><div class="px-6 py-4"><button class="bg-main hover:bg-main_dark text-white font-bold py-2 px-4 rounded">View Recipe</button></div></a></div>
 
 test.describe('Recipe sort', () => {
   const sortOptions = [
