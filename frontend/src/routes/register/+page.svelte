@@ -35,6 +35,7 @@
         body: JSON.stringify({ username, password, confirm_password })
       }); 
 
+
       const data = await response.json();
       const success = data.success 
       const message = data.message
@@ -60,6 +61,7 @@
 
     window.location.href = authUrl;
   }
+
   
   async function handleGoogleLogin(accessToken: string) {
     try { 
@@ -100,6 +102,7 @@
   }
 </script>
 
+
 <section class="bg-gradient-to-br from-white to-lime-50">
   <div
       class="w-full flex flex-col justify-center max-w-xl space-y-3 rounded-lg 
@@ -107,10 +110,10 @@
       bg-gradient-to-br from-white to-gray-50"
   >
       <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+
           <h1 class="text-4xl font-bold text-main bg-gradient-to-br pb-0.5 from-main to-lime-600 text-transparent bg-clip-text">
               Register an account
-          </h1>
-          
+          </h1>          
           <div class="space-y-2">  
               <input
                   type="text"
@@ -131,7 +134,8 @@
 
               <input
                   type="password"
-                  bind:value={confirm_password} 
+
+                  bind:value={confirm_password}
                   placeholder="Confirm password" 
                   class="space-y-2 w-full rounded border p-2 focus:outline-gray-700 focus:ring-0 hover:border-gray-700
                   focus:shadow-md"
@@ -140,7 +144,7 @@
           </div>
 
           <button type="submit" class="w-full rounded bg-main hover:shadow-md p-2 text-white hover:bg-main_dark">
-              Log in
+              Sign up
           </button>
           
           <div class="flex items-center justify-center pt-4 pb-2">
@@ -166,7 +170,7 @@
 
       <div class="flex justify-end"> 
           <a class="mt-2 text-gray-800 hover:text-gray-900 hover:underline text-opacity-90" href="/login"> 
-            Have an account? 
+            Have an account?
           </a>
       </div>
   </div>

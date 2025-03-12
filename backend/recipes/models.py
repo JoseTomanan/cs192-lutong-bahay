@@ -2,17 +2,6 @@ from django.db import models
 
 
 # Create your models here.
-class Recipe(models.Model):
-    recipeName = models.CharField(max_length=100)
-    price = models.FloatField()
-    cookDifficulty = models.CharField(max_length=100)
-    servings = models.IntegerField()
-    ingredients = models.CharField(max_length=1000)
-    equipment = models.CharField(max_length=1000)
-    instructions = models.CharField(max_length=1000)
-    ratings = models.FloatField()
-
-
 class Ingredients(models.Model):
     ingredientName = models.CharField(max_length=100)
     ingredientMeasurementUnit = models.CharField(max_length=100)
@@ -20,3 +9,22 @@ class Ingredients(models.Model):
     proteinPerUnit = models.IntegerField()
     fatPerUnit = models.IntegerField()
     carbsPerUnit = models.IntegerField()
+
+
+class Recipe(models.Model):
+    recipeName = models.CharField(max_length=100)
+    price = models.FloatField()
+    cookDifficulty = models.CharField(max_length=100)
+    servings = models.IntegerField()
+    equipment = models.CharField(max_length=1000)
+    instructions = models.CharField(max_length=1000)
+    ratings = models.FloatField()
+
+
+class CookedBy(models.Model):
+    recipe = models.ForeignKey(
+        Recipe, related_name="has_ingredients", on_delete=models.CASCADE
+    )
+    ingredient = models.ForeignKey(
+        Ingredients, related_name="is_ingredient_of", on_delete=models.CASCADE
+    )

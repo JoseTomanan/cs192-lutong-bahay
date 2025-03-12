@@ -7,8 +7,8 @@
 <TitleText text={`Admin`}/>
 
 <pre class="text-gray-500 mt-4">
-⠀ ／l、
-（ﾟ､ ｡ ７   
-⠀ l、ﾞ ~ヽ
+⠀ ／l、         
+（ﾟ､ ｡ ７     pagod na ako
+⠀ l、ﾞ ~ヽ      
   じしf_, )ノ
 </pre>

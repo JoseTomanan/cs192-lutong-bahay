@@ -46,6 +46,8 @@
         alert(message)
       } else {
         setAuth(true)
+        document.cookie = `username=${username}`;
+        
         if (admin) { 
           setAdmin(true)
           goto('/admin') 

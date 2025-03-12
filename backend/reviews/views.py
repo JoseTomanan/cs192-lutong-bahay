@@ -9,11 +9,11 @@ from reviews.serializer import ReviewSerializer
 # Create your views here.
 @api_view(['POST'])
 def post_review(request):
-    recipeId = request.data['recipeId']
-    reviewerId = request.data['reviewerId']
+    recipe = request.data['recipe']
+    reviewer = request.data['reviewer']
     reviewRating = request.data['reviewRating']
     reviewString = request.data['reviewString']
-    review = Review.create(recipeId=recipeId, reviewerId=reviewerId, reviewRating=reviewRating, reviewString=reviewString)
+    review = Review.create(recipe=recipe, reviewer=reviewer, reviewRating=reviewRating, reviewString=reviewString)
     # review.save()
     return Response({"message": "Review posted successfully"})
     
