@@ -37,6 +37,23 @@ def get_recipes(request):
 
 @api_view(["POST"])
 def sort_recipes(request):
+    if request.data.get("ingredients", None):
+        ingredients = Ingredients.objects.filter(
+            ingredientName__in=request.data["ingredients"]
+        )
+        if not ingredients:
+            return Response({"error": "Ingredient(s) not found"}, status=404)
+
+        cooked_by = CookedBy.objects.select_related("ingredient", "recipe").all()
+        cooked_by = cooked_by.filter(
+            ingredient__ingredientName__in=request.data["ingredients"]
+        )
+        recipes = Recipe.objects.filter(id__in=[i.recipe.id for i in cooked_by])
+        if not recipes:
+            return Response(
+                {"error": "No recipes found with the given ingredients"}, status=404
+            )
+        return Response(RecipeSerializer(recipes, many=True).data)
     is_negative = "" if request.data["is_negative"] else "-"
     sort_parameter = (is_negative + request.data["sort"]).replace(" ", "")
     recipes = Recipe.objects.order_by(sort_parameter)

@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from urllib.parse import urljoin
 
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
@@ -19,19 +20,24 @@ def login(request):
     password = request.data["password"]
     user = authenticate(username=username, password=password)
 
-    if user is not None:
+    if user is None:
+        return Response({"success": False, "is_staff": False, "message": "Invalid credentials"})
+    
+    if user.is_staff:
         auth_login(request, user)
-        return Response({"success": True, "message": "Login successful"})
+        return Response({"success": True, "is_staff": True, "message": "Admin login successful"})
+    
     else:
-        return Response({"success": False, "message": "Invalid credentials"})
+        auth_login(request, user)
+        return Response({"success": True, "is_staff": False, "message": "Login successful"})
 
 
 @api_view(["POST"])
 def add_user(request):
     user = User.objects.create_user(
         username=request.data["username"], password=request.data["password"]
-    )
-    return Response({"message": "User created successfully"})
+    ) 
+    return Response({"success": True, "message": "User created successfully"})
 
 
 @api_view(["POST"])
@@ -47,11 +53,7 @@ def logout(request):
     return Response({"message": "Logout successful"})
 
 
-# Create your views here.
-
 # Google Auth
-#@api_view(["POST"])
-#@api_view(["POST", "GET"])
 class GoogleLoginView(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
     callback_url = 'http://localhost:5173/'

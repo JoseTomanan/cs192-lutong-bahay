@@ -22,10 +22,10 @@ test.describe('Database connection', () => {
     page.on('dialog', async (dialog) => {
       console.log(`Alert message: ${dialog.message()}`);
 
-      if (browserName === 'firefox')
-        expect(dialog.message()).toBe('No recipes found');
-      else
-        expect(dialog.message()).toBe('No database connection');
+      // if (browserName === 'firefox')
+      //   expect(dialog.message()).toBe('No recipes found');
+      // else
+      expect(dialog.message()).toBe('No database connection');
 
       await dialog.accept();
     });

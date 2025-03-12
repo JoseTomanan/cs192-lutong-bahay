@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
-  import { isAuthenticated, setAuth } from '$lib/stores/auth'
+  import { isAuthenticated, setAdmin, setAuth } from '$lib/stores/auth'
   import { onMount } from "svelte";
 
   let username = '';
@@ -13,16 +13,16 @@
   ] 
 
   onMount(async () => {
-        const params = new URLSearchParams(window.location.hash.substring(1));
-        const accessToken = params.get("access_token");
+    const params = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = params.get("access_token");
 
-        if (accessToken) {
-            // console.log("Google Access Token:", accessToken);
-            await handleGoogleLogin(accessToken);
-        } else {
-            console.log("No access token found!");
-        }
-    });
+    if (accessToken) {
+        // console.log("Google Access Token:", accessToken);
+        await handleGoogleLogin(accessToken);
+    } else {
+        console.log("No access token found!");
+    }
+  });
 
   async function handleSubmit() {
     try { 
@@ -37,13 +37,24 @@
       const data = await response.json();
       const success = data.success 
       const message = data.message
+      const admin = data.is_staff 
+
+      console.log(admin)
+      console.log(data)
 
       if (!success) {
         alert(message)
       } else {
         setAuth(true)
-        goto('/home') 
-      }
+        document.cookie = `username=${username}`;
+        
+        if (admin) { 
+          setAdmin(true)
+          goto('/admin') 
+        } else {
+          goto('/home') 
+        } 
+      } 
       
       if (!response.ok) { 
         const data = await response.json();
@@ -55,6 +66,7 @@
       alert('No database connection')
     }
   }
+
   function loginWithGoogle() {
     const clientId = '408545476434-o2bvopje0mbmad7blibvl0l2pkm7g1kp.apps.googleusercontent.com'
     const redirectUri = "http://localhost:5173"; // Change if needed
@@ -62,7 +74,7 @@
     const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
 
     window.location.href = authUrl;
-}
+  }
   
   async function handleGoogleLogin(accessToken: string) {
     try { 
