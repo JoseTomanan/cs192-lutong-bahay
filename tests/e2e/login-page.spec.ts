@@ -14,8 +14,9 @@ test.describe('Login page', () => {
     });
 
     await page.click('button[type="submit"]');
-
-    await page.waitForTimeout(2000);
+    
+    await page.waitForURL('/login'); // Replace "await page.waitForTimeout(2000);" with actual redirected URL
+    
   });
 
   test('should disallow wrong password', async ({ page }) => {
@@ -32,7 +33,8 @@ test.describe('Login page', () => {
     
     await page.click('button[type="submit"]');
   
-    await page.waitForTimeout(2000);
+    await page.waitForURL('/login'); // Replace "await page.waitForTimeout(2000);" with actual redirected URL
+    
   });
 
   test('should show success when valid credentials are entered', async ({ page }) => {
@@ -49,7 +51,7 @@ test.describe('Login page', () => {
     
     await page.click('button[type="submit"]');
   
-    await page.waitForTimeout(2000);
+    await page.waitForURL('/home'); // Replace "await page.waitForTimeout(2000);" with actual redirected URL
 
   });
 });
