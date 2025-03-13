@@ -36,7 +36,7 @@ test.describe('Ingredients filter', () => {
 
     // Find the second input field (for ingredients filtering)
     const ingredientFilterInput = page.locator('input[type="search"]').nth(1);
-    await ingredientFilterInput.fill('martian_wonderfruit'); // Use an ingredient that doesn't exist
+    await ingredientFilterInput.fill('martian wonderfruit'); // Use an ingredient that doesn't exist
 
     // Click the correct "Filter" button (second form's button)
     const filterButton = page.locator('button', { hasText: 'Filter' });
@@ -48,8 +48,22 @@ test.describe('Ingredients filter', () => {
     // Ensure no recipe cards appear
     const count = await page.locator('.RecipeCard').count();
     expect(count).toBe(0);
-    // await page.waitForSelector('.RecipeCard', { state: 'hidden' }); // Ensure no recipes are displayed
+  });
 
+  test('Sort according to available ingredients shows no recipes with chosen ingredients', async ({ page }) => {
+    await page.goto('/recipes');
+    await page.waitForLoadState('networkidle');
+
+    const ingredientFilterInput = page.locator('input[type="search"]').nth(1);
+    await ingredientFilterInput.fill('egg, vinegar, salt, hotdog'); // Use an ingredient that doesn't exist
+
+    const filterButton = page.locator('button', { hasText: 'Filter' });
+    await filterButton.click();
+
+    await page.waitForLoadState('networkidle');
+
+    const count = await page.locator('.RecipeCard').count();
+    expect(count).toBe(0);
   });
 
 });
