@@ -11,9 +11,9 @@ class Ingredients(models.Model):
     carbsPerUnit = models.IntegerField()
 
 class UserIngredientsInventory(models.Model):
-    ingredientId = models.ForeignKey(Ingredients, on_delete=models.CASCADE, related_name='inventory')
+    ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE, related_name='inventory')
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=0)
 
 class Recipe(models.Model):
     recipeName = models.CharField(max_length=100)

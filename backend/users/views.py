@@ -13,7 +13,10 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
 
 from recipes.models import UserIngredientsInventory
+from recipes.serializer import UserIngredientsInventorySerializer
 from .serializer import UserSerializer
+
+from django.http import JsonResponse
 
 @api_view(["POST"])
 def login(request):
@@ -69,11 +72,12 @@ def getInventory(request):
     username = request.data["username"]
     password = request.data["password"]
     user = authenticate(username=username, password=password)
-    query = UserIngredientsInventory(user = user)
-    result = query.objects
-    # print(result)
+    query = UserIngredientsInventory.objects.all().filter(user=user)
+    serializer = UserIngredientsInventorySerializer(query)
+    print(serializer)
+    data = list(query.values())
     response = Response({"success": True, "is_staff": True, "message": user.username})
-    return Response(result)
+    return JsonResponse(data, safe=False)
 
 
 # Google Auth
