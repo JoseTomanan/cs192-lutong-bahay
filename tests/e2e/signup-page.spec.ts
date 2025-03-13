@@ -12,8 +12,7 @@ test.describe('Signup page', () => {
 
     page.on('dialog', async (dialog) => {
       console.log('Dialog message:', dialog.message());
-      expect(dialog.message()).toBe('No database connection');
-      await dialog.dismiss();
+      expect(dialog.message()).toBe('Error creating user (username taken)');
     });
 
     await page.click('button[type="submit"]');
@@ -27,8 +26,7 @@ test.describe('Signup page', () => {
 
     page.on('dialog', async (dialog) => {
       console.log('Dialog message:', dialog.message());
-      expect(dialog.message()).toBe('No database connection');
-      await dialog.dismiss();
+      expect(dialog.message()).toBe('Passwords must match');
     });
 
     await page.click('button[type="submit"]');
