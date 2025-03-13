@@ -3,6 +3,7 @@ import { writable } from 'svelte/store'
 
 export const isAuthenticated = writable(false)
 export const isAdmin = writable(false)
+export const usernameStore = writable('');
 
 export const setAuth = (value: boolean) => {
     isAuthenticated.set(value)

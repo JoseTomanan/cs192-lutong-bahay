@@ -16,7 +16,7 @@
 </script>
 
 <div class="rounded-2 duration-75 shadow-sm hover:shadow-lg border hover:border-primary overflow-hidden w-full
-hover:bg-gradient-to-br hover:from-white hover:to-amber-50">
+hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
     <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2 text-main">{recipeName}</div>
         <span class="text-gray-600 text-sm mb-2">
