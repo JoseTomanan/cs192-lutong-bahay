@@ -192,3 +192,16 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 }
+
+# settings for cookies between frontend and backend
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Your Svelte dev server
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173"
+]
+
+SESSION_COOKIE_SAMESITE = 'Lax'  # Ensures cookies are sent with cross-origin requests
+SESSION_COOKIE_SECURE = False    # Set to True in production with HTTPS
