@@ -102,7 +102,7 @@
   }
 </script>
 
-<section class="bg-gradient-to-br from-white to-lime-50">
+<section class="bg-gradient-to-b from-lime-100 to-lime-200">
   <div
       class="w-full flex flex-col justify-center max-w-xl space-y-3 rounded-lg 
       px-12 py-12 shadow-xl border-gray-200 border
