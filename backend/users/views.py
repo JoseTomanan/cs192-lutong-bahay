@@ -12,7 +12,8 @@ from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
 
-
+from recipes.models import UserIngredientsInventory
+from .serializer import UserSerializer
 
 @api_view(["POST"])
 def login(request):
@@ -62,6 +63,17 @@ def delete_user(request):
 def logout(request):
     auth_logout(request)
     return Response({"message": "Logout successful"})
+
+@api_view(["POST"])
+def getInventory(request):
+    username = request.data["username"]
+    password = request.data["password"]
+    user = authenticate(username=username, password=password)
+    query = UserIngredientsInventory(user = user)
+    result = query.objects
+    # print(result)
+    response = Response({"success": True, "is_staff": True, "message": user.username})
+    return Response(result)
 
 
 # Google Auth
