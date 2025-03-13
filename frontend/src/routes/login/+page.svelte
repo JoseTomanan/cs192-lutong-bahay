@@ -30,7 +30,7 @@
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) {
       return parts.pop().split(';').shift();
-    }
+  }
 }
 
   async function handleSubmit() {
@@ -57,7 +57,7 @@
         alert(message)
       } else {
         setAuth(true)
-        $usernameStore = username  
+        // $usernameStore = username  
         
         if (admin) { 
           setAdmin(true)
