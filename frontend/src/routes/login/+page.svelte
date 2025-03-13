@@ -2,6 +2,7 @@
 	import { goto } from "$app/navigation";
   import { isAuthenticated, setAdmin, setAuth } from '$lib/stores/auth'
   import { onMount } from "svelte";
+  import { usernameStore } from '$lib/stores/auth'
 
   let username = '';
   let password = '';
@@ -22,7 +23,7 @@
     } else {
         console.log("No access token found!");
     }
-  });
+  }); 
 
   function getCookie(name: String) {
     const value = `; ${document.cookie}`;
@@ -56,7 +57,8 @@
         alert(message)
       } else {
         setAuth(true)
-
+        $usernameStore = username  
+        
         if (admin) { 
           setAdmin(true)
           goto('/admin') 

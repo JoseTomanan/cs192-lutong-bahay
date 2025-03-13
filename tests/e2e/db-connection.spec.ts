@@ -5,16 +5,17 @@ test.beforeEach(async ({ page }) => {
   await page.fill('input[type="text"]', 'testuser');
   await page.fill('input[type="password"]', 'thisispw');
   await page.click('button[type="submit"]');
-  await page.waitForTimeout(3000);
+  await page.waitForURL('/home', { timeout: 5000 }); // Wait until redirected after login
 });
 
 test.afterEach(async ({ page }) => {
   await page.unroute('/api/recipes/get-recipes/');
 });
 
-test.describe('Database connection', ()=>{
-  test('should alert when cannot connect to database', async ({ page, browserName}) => {
+test.describe('Database connection', () => {
+  test('should alert when cannot connect to database', async ({ page, browserName }) => {
     await page.goto('/recipes');
+    await page.waitForLoadState('networkidle'); // Ensure the page fully loads before proceeding
 
     await page.route('/api/recipes/get-recipes/', route => route.abort());
 
@@ -32,6 +33,6 @@ test.describe('Database connection', ()=>{
     await page.fill('input[type="search"]', 'Hotdog');
     await page.click('button[type="submit"]');
 
-    await page.waitForTimeout(3000);
+    await page.waitForLoadState('networkidle'); // Ensure request completes before proceeding
   });
 });
