@@ -25,11 +25,15 @@ def login(request):
     
     if user.is_staff:
         auth_login(request, user)
-        return Response({"success": True, "is_staff": True, "message": "Admin login successful"})
+        response = Response({"success": True, "is_staff": True, "message": "Admin login successful"})
+        response.set_cookie("username", username, max_age=3600, httponly=False, secure=True, samesite='Lax')
+        return response
     
     else:
         auth_login(request, user)
-        return Response({"success": True, "is_staff": False, "message": "Login successful"})
+        response = Response({"success": True, "is_staff": False, "message": "Login successful"})
+        response.set_cookie("username", username, max_age=3600, httponly=False, secure=True, samesite='Lax')
+        return response
 
 
 @api_view(["POST"])
