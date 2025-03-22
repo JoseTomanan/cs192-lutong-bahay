@@ -3,7 +3,7 @@ import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
     const unregisteredRoutes = ['/login', '/register']
-    const userRoutes = ['/home', '/recipes', '/users', '/profile', '/login'];
+    const userRoutes = ['/home', '/recipes', '/users', '/profile', '/login', '/submit_recipe'];
     const adminRoutes = userRoutes.concat(['/admin'])
     
     const authenticated = event.cookies.get('authenticated')
