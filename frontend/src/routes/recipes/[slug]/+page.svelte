@@ -4,8 +4,11 @@
     export let data;
 
     let recipe;
-    let recipeTitle: String;
 	let retrievedRecipe;
+	let recipeName: String;
+	let recipePrice: Number;
+	let recipeInstructions: String;
+	let ingredients: String[];
 
     async function functionFetchRecipeById(input_id: String) {
 		console.log(input_id);
@@ -23,7 +26,10 @@
 		if (response.ok) {
 			console.log('Recipe fetch successful');
             retrievedRecipe = recipe[0]
-            recipeTitle = retrievedRecipe.recipeName;
+            recipeName = retrievedRecipe.recipeName;
+			ingredients = retrievedRecipe.ingredients;
+			recipePrice = retrievedRecipe.recipePrice;
+			recipeInstructions = retrievedRecipe.instructions;
 			// goto('dbtest');
 			return;
 		} else {
@@ -35,7 +41,10 @@ console.log(data.id);
 functionFetchRecipeById(data.id);
 </script>
 
-<h1>Recipe title: {recipeTitle}</h1>
-<!-- <p>Ingredients: {recipe.ingredients}</p>
-<h1>Recipe name: {recipeName}</h1>
-<h1>Ingredients:</h1> -->
+<h1>Recipe title: {recipeName}</h1>
+<h1>Ingredients:</h1>
+{#each ingredients as ingredient }
+	<p>{ingredient}</p>
+{/each}
+<h1>Instructions</h1>
+<p>{recipeInstructions}</p>
