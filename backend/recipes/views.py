@@ -35,6 +35,14 @@ def get_recipes(request):
         serializer = RecipeSerializer(recipe, many=False)
         return Response(serializer.data)
 
+@api_view(["GET", "POST"])
+def get_recipe_by_id(request):
+    recipes = Recipe.objects.all().filter(id=request.data.get("id"))
+    serializer = RecipeSerializer(recipes, many=True)
+    return Response(serializer.data)
+
+
+
 
 @api_view(["POST"])
 def sort_recipes(request):

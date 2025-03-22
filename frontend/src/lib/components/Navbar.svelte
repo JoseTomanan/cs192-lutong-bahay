@@ -4,7 +4,7 @@
     import { usernameStore } from '$lib/stores/auth';
   
     
-    let pages = ['home', 'recipes', 'users', 'profile']
+    let pages = ['home', 'recipes', 'users', 'profile', 'submit_recipe']
   </script>
   
 <!-- <nav class="p-4 bg-white shadow">
@@ -65,8 +65,6 @@ pt-8 px-2">
           </a>
           {/if}
       </div>
-
-      
   </div>
 
   
