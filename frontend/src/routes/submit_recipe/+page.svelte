@@ -64,7 +64,7 @@
     let input = {
       recipeName: recipeName,
       cookDifficulty: cookDifficulty,
-      equipment: equipment,
+      equipment: equipment.toString(),
       instructions: instructions,
       servings: servings,
       price: price,
@@ -112,6 +112,7 @@
 <div class="space-y-5 w-1/3">
   <!-- Recipe info -->
 
+  <!-- https://v1.tailwindcss.com/components/forms -->
 <form class="w-full max-w-lg">
   <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full px-3">
@@ -202,7 +203,7 @@
   </ul>
 
   <!-- Submit recipe -->
-   <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" on:click={submitRecipe}>Submit</button>
+   <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" on:click={submitRecipe}>Submit Recipe</button>
 
 </div>
 <!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
