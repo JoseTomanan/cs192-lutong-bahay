@@ -189,7 +189,7 @@
     <!-- <input id="ingredientName" type="text" bind:value={ingredientName} /> -->
      <select bind:value={ingredientName}>
         {#each ingredientsDb as ingredient}
-          <option> {ingredient.ingredientName} </option>
+          <option value={ingredient.ingredientName}> {ingredient.ingredientName} </option>
         {/each}
      </select>
     <input id="ingredientQuantity" type="text" bind:value={ingredientQuantity} />
@@ -202,6 +202,7 @@
       <p>ingredientName</p>
       <p class="pl-20">ingredientQuantity</p>
     </li>
+    <!-- {#each ingredients as ingredient} -->
     {#each ingredients as ingredient}
       <li class="flex items-center align-text-bottom align-bottom">
         <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
