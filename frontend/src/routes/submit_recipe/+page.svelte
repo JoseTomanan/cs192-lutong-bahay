@@ -25,11 +25,16 @@
 
 
   let ingredients = [{
-    ingredientName: "Hotdog",
+    ingredientObject: {
+      id: 3,
+      ingredientName: "hotdog"
+    },
     ingredientQuantity: 4
   }]
   let ingredientName = '';
   let ingredientQuantity = 0;
+
+  let currentIngredient = {};
 
   let equipment = [{
     equipmentName: "Pan",
@@ -109,12 +114,13 @@
   const addIngredient = () => {
     ingredients = [
       ...ingredients, {
-        ingredientName,
+        ingredientObject: currentIngredient,
         ingredientQuantity
       }
     ];
-    ingredientName="";
+    currentIngredient;
     ingredientQuantity=0;
+    console.log(ingredients)
   }
 
   const removeIngredient = ingredient => {
@@ -187,9 +193,9 @@
   <form on:submit|preventDefault={addIngredient} class="max-w-md"> 
     <label for="ingredientName">Add ingredient</label>
     <!-- <input id="ingredientName" type="text" bind:value={ingredientName} /> -->
-     <select bind:value={ingredientName}>
+     <select bind:value={currentIngredient}>
         {#each ingredientsDb as ingredient}
-          <option value={ingredient.ingredientName}> {ingredient.ingredientName} </option>
+          <option value={ingredient}> {ingredient.ingredientName} </option>
         {/each}
      </select>
     <input id="ingredientQuantity" type="text" bind:value={ingredientQuantity} />
@@ -206,7 +212,7 @@
     {#each ingredients as ingredient}
       <li class="flex items-center align-text-bottom align-bottom">
         <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
-        <input id="ingredientName" type="text" bind:value={ingredient.ingredientName} />
+        <input id="ingredientName" type="text" bind:value={ingredient.ingredientObject.ingredientName} />
         <input id="ingredientQuantity" type="text" bind:value={ingredient.ingredientQuantity} />
         <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
         on:click={() => removeIngredient(ingredient)}>x</button>
