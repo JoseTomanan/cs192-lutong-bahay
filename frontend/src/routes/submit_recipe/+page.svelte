@@ -108,6 +108,27 @@
     }
 
     console.log(JSON.stringify(input))
+    console.log(JSON.stringify(ingredients))
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/recipes/create_recipe/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify([input, ingredients])
+      })
+
+      const data = await response.json()
+      if (data.hasOwnProperty('error')) {
+        alert('No recipes found')
+      } else {
+        const result = data
+        console.log(result)
+      }
+    } catch { 
+      alert('No database connection')
+    } 
   }
   
   // https://svelte.dev/playground/9983c53df057451db328b94553b88202?version=5.25.2

@@ -155,6 +155,8 @@ def get_ingredients(request):
     
 @api_view(["GET", "POST"])
 def create_recipe(request):
+    recipeInfo = request.data[0]
+    ingredientsList = request.data[1]
     # get ingredients from id
     # create UserIngredients with given ingredients
     # get created UserIngredients
