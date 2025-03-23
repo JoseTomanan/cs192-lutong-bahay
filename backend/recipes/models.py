@@ -10,8 +10,13 @@ class Ingredients(models.Model):
     fatPerUnit = models.IntegerField()
     carbsPerUnit = models.IntegerField()
 
+class RecipeIngredients(models.Model):
+    ingredientId = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    unit = models.CharField(max_length=50)
+
 class UserIngredientsInventory(models.Model):
-    ingredientId = models.ForeignKey(Ingredients, on_delete=models.CASCADE, related_name='inventory')
+    ingredientId = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     quantity = models.IntegerField()
 
@@ -20,6 +25,7 @@ class Recipe(models.Model):
     price = models.FloatField()
     cookDifficulty = models.CharField(max_length=100)
     servings = models.IntegerField()
+    ingredients = models.ForeignKey(RecipeIngredients, on_delete=models.CASCADE)
     equipment = models.CharField(max_length=1000)
     instructions = models.CharField(max_length=1000)
     ratings = models.FloatField()
