@@ -8,16 +8,33 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
-  let recipes = []
-  let recipeName = '' 
-  let direction = 'ascending'
-  let is_negative = true
-  let sort= 'recipeName'
+  // let recipes = []
+  // let recipeName = '' 
+  // let direction = 'ascending'
+  // let is_negative = true
+  // let sort= 'recipeName'
  
+  let recipeName = "recipeName";
+  let cookDifficulty = 0;
+  let instructions = "instructions";
+  let servings = 1;
+  let price = 20;
+  let ratings = 5;
+
+
   let ingredients = [{
-    ingredientName: "Hotdog"
+    ingredientName: "Hotdog",
+    ingredientQuantity: 4
   }]
   let ingredientName = '';
+  let ingredientQuantity = 0;
+
+  let equipment = [{
+    equipmentName: "Pan",
+    equipmentQuantity: 1
+  }]
+  let equipmentName = '';
+  let equipmentQuantity = 0;
 
   async function fetchRecipes() { 
     console.log(recipeName)
@@ -48,13 +65,30 @@
     ingredients = [
       ...ingredients, {
         ingredientName,
+        ingredientQuantity
       }
     ];
     ingredientName="";
+    ingredientQuantity=0;
   }
 
   const removeIngredient = ingredient => {
     ingredients = ingredients.filter(i => i!== ingredient)
+  };
+
+  const addEquipment = () => {
+    equipment = [
+      ...equipment, {
+        equipmentName,
+        equipmentQuantity
+      }
+    ];
+    equipmentName="";
+    equipmentQuantity=0;
+  }
+
+  const removeEquipment = equipment_i => {
+    equipment = equipment.filter(i => i!== equipment_i)
   };
 </script> 
 
@@ -62,21 +96,65 @@
 
 <div class="flex gap-2">
 <div class="space-y-5 w-1/3">
+  <!-- Recipe info -->
+  <input id="recipeName" type="text" bind:value={recipeName}>
+  <input id="recipeName" type="text" bind:value={cookDifficulty}>
+  <input id="recipeName" type="text" bind:value={instructions}>
+  <input id="recipeName" type="number" bind:value={servings}>
+  <input id="recipeName" type="number" bind:value={price}>
+  <input id="recipeName" type="number" bind:value={ratings}>
+
   <!-- Add to list of ingredients -->
   <form on:submit|preventDefault={addIngredient} class="max-w-md"> 
     <label for="ingredientName">Add ingredient</label>
     <input id="ingredientName" type="text" bind:value={ingredientName} />
+    <input id="ingredientQuantity" type="text" bind:value={ingredientQuantity} />
+    <input type="submit">
   </form> 
 
   <!-- Display ingredients -->
-  <div>
+  <ul>
+    <li class="flex items-center align-text-bottom align-bottom">
+      <p>ingredientName</p>
+      <p class="pl-20">ingredientQuantity</p>
+    </li>
     {#each ingredients as ingredient}
-        <p>{ingredient.ingredientName}</p>
-        <button on:click={() => removeIngredient(ingredient)}> Remove {ingredient.ingredientName}</button>
+      <li class="flex items-center align-text-bottom align-bottom">
+        <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
+        <input id="ingredientName" type="text" bind:value={ingredient.ingredientName} />
+        <input id="ingredientQuantity" type="text" bind:value={ingredient.ingredientQuantity} />
+        <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+        on:click={() => removeIngredient(ingredient)}>x</button>
+      </li>
     {/each}
-  </div>
+  </ul>
 
-  <!-- Submit ingredients -->
+  <!-- Add to list of equipment -->
+  <form on:submit|preventDefault={addEquipment} class="max-w-md"> 
+    <label for="equipmentName">Add equipment</label>
+    <input id="equipmentName" type="text" bind:value={equipmentName} />
+    <input id="equipmentQuantity" type="text" bind:value={equipmentQuantity} />
+    <input type="submit">
+  </form> 
+
+  <!-- Display equipment -->
+  <ul>
+    <li class="flex items-center align-text-bottom align-bottom">
+      <p>equipmentName</p>
+      <p class="pl-20">equipmentQuantity</p>
+    </li>
+    {#each equipment as equipment}
+      <li class="flex items-center align-text-bottom align-bottom">
+        <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
+        <input id="equipmentName" type="text" bind:value={equipment.equipmentName} />
+        <input id="equipmentQuantity" type="text" bind:value={equipment.equipmentQuantity} />
+        <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+        on:click={() => removeEquipment(equipment)}>x</button>
+      </li>
+    {/each}
+  </ul>
+
+  <!-- Submit recipe -->
 
 </div>
 <!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
