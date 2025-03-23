@@ -152,3 +152,12 @@ def get_ingredients(request):
 
         serializer = RecipeSerializer(recipe, many=False)
         return Response(serializer.data)
+    
+@api_view(["GET", "POST"])
+def create_recipe(request):
+    # get ingredients from id
+    # create UserIngredients with given ingredients
+    # get created UserIngredients
+    # create Recipe entry
+    # link UserIngredients to Recipe
+    return Response("yes")
