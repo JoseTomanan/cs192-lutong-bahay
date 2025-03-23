@@ -24,7 +24,8 @@ from .views import (
     add_recipe,
     add_ingredient,
     search_ingredient,
-    get_recipe_by_id
+    get_recipe_by_id,
+    get_ingredients
 )
 
 urlpatterns = [
@@ -34,4 +35,5 @@ urlpatterns = [
     path("add-ingredient/", recipe.add_ingredient),
     path("search-ingredient/", recipe.search_ingredient),
     path("get_recipe_by_id/", recipe.get_recipe_by_id),
+    path("get_ingredients/", recipe.get_ingredients)
 ]
