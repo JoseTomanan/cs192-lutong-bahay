@@ -13,6 +13,8 @@
   // let direction = 'ascending'
   // let is_negative = true
   // let sort= 'recipeName'
+
+  let ingredientsDb;
  
   let recipeName = "";
   let cookDifficulty = 0;
@@ -36,6 +38,10 @@
   let equipmentName = '';
   let equipmentQuantity = 0;
 
+  onMount(async () => {
+    fetchIngredients()
+  })
+
   async function fetchRecipes() { 
     console.log(recipeName)
     try {
@@ -54,6 +60,31 @@
         recipes = [data] 
         console.log(data)
         console.log(recipes.length)
+      }
+    } catch { 
+      alert('No database connection')
+    } 
+	}
+
+  async function fetchIngredients() { 
+    console.log(recipeName)
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/recipes/get_ingredients/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }, 
+      })
+
+      const data = await response.json()
+      if (data.hasOwnProperty('error')) {
+        alert('No recipes found')
+      } else {
+        const result = data
+        ingredientsDb = result.map((val) => {
+          return {id: val.id, ingredientName: val.ingredientName}
+        })
+        console.log(ingredientsDb)
       }
     } catch { 
       alert('No database connection')
@@ -155,7 +186,12 @@
   <!-- Add to list of ingredients -->
   <form on:submit|preventDefault={addIngredient} class="max-w-md"> 
     <label for="ingredientName">Add ingredient</label>
-    <input id="ingredientName" type="text" bind:value={ingredientName} />
+    <!-- <input id="ingredientName" type="text" bind:value={ingredientName} /> -->
+     <select bind:value={ingredientName}>
+        {#each ingredientsDb as ingredient}
+          <option> {ingredient.ingredientName} </option>
+        {/each}
+     </select>
     <input id="ingredientQuantity" type="text" bind:value={ingredientQuantity} />
     <input type="submit">
   </form> 
