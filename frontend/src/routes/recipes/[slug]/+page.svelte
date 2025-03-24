@@ -2,6 +2,7 @@
     // /** @type {import('./$types').PageProps} */
 	// let { data } = $props();
     export let data;
+	
 
     let recipe;
 	let retrievedRecipe;
@@ -44,10 +45,11 @@
   async function postReview() {
 	const response = await fetch('http://127.0.0.1:8000/api/reviews/post-review/', {
 			method: 'POST',
+			credentials: 'include',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ reviewRating: reviewRating, reviewString: reviewString, recipeId: data.id })
+			body: JSON.stringify({ reviewRating: reviewRating, reviewString: reviewString, recipeId: data.id, reviewerId: "1"})
 		});
 
 		if (response.ok) {
