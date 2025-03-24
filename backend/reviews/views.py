@@ -17,9 +17,12 @@ def post_review(request):
     recipeObject = Recipe.objects.get(pk=recipeId)
 
     # get Reviewer from ID
-    reviewerId = request.data['reviewerId']
+    # reviewerId = request.data['reviewerId']
+    reviewerId = request.COOKIES.get("user_id")
+    print(request.COOKIES)
+    print(reviewerId)
     reviewerObject = User.objects.get(pk=reviewerId)
-    
+
     reviewRating = request.data['reviewRating']
     reviewString = request.data['reviewString']
     review = Review.create(recipe=recipeObject, reviewer=reviewerObject, reviewRating=reviewRating, reviewString=reviewString)
