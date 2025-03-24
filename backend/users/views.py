@@ -27,12 +27,14 @@ def login(request):
         auth_login(request, user)
         response = Response({"success": True, "is_staff": True, "message": "Admin login successful"})
         response.set_cookie("username", username, max_age=3600, httponly=False, secure=True, samesite='Lax')
+        response.set_cookie("user_id", user.id, max_age=3600, httponly=False, secure=True, samesite='Lax')
         return response
     
     else:
         auth_login(request, user)
         response = Response({"success": True, "is_staff": False, "message": "Login successful"})
         response.set_cookie("username", username, max_age=3600, httponly=False, secure=True, samesite='Lax')
+        response.set_cookie("user_id", user.id, max_age=3600, httponly=False, secure=True, samesite='Lax')
         return response
 
 
