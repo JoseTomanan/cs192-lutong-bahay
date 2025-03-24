@@ -192,14 +192,26 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="servings">
         Servings
       </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="servings" type="text" placeholder="Servings" bind:value={servings}>
+      <input
+        id="servings"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+        type="text"
+        placeholder="Servings"
+        bind:value={servings}
+      />
     </div>
 
     <div class="w-full md:w-1/3 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
         Price
       </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="price" type="text" placeholder="Price" bind:value={price}>
+      <input
+        id="price"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        type="text"
+        placeholder="Price"
+        bind:value={price}
+      >
     </div>
 
     <div class="w-full md:w-1/3 px-3">
@@ -238,20 +250,23 @@
 
   <!-- Display ingredients -->
   <ul>
-    <li class="flex items-center align-text-bottom align-bottom">
+    <li class="flex items-center align-text-bottom">
       <p>ingredientName</p>
       <p class="pl-20">ingredientQuantity</p>
     </li>
     <!-- {#each ingredients as ingredient} -->
-    {#each ingredients as ingredient}
-      <li class="flex items-center align-text-bottom align-bottom">
-        <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
-        <input id="ingredientName" type="text" bind:value={ingredient.ingredientObject.ingredientName} />
-        <input id="ingredientQuantity" type="text" bind:value={ingredient.ingredientQuantity} />
-        <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-        on:click={() => removeIngredient(ingredient)}>x</button>
-      </li>
-    {/each}
+      {#each ingredients as ingredient}
+        <li class="flex items-center align-text-bottom">
+          <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
+          <input id="ingredientName" type="text" bind:value={ingredient.ingredientObject.ingredientName} />
+          <input id="ingredientQuantity" type="text" bind:value={ingredient.ingredientQuantity} />
+          <button
+            type="button"
+            class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            on:click={() => removeIngredient(ingredient)}
+          >x</button>
+        </li>
+      {/each}
   </ul>
 
   <!-- Add to list of equipment -->
@@ -264,12 +279,12 @@
 
   <!-- Display equipment -->
   <ul>
-    <li class="flex items-center align-text-bottom align-bottom">
+    <li class="flex items-center align-text-bottom">
       <p>equipmentName</p>
       <p class="pl-20">equipmentQuantity</p>
     </li>
     {#each equipment as equipment}
-      <li class="flex items-center align-text-bottom align-bottom">
+      <li class="flex items-center align-text-bottom">
         <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
         <input id="equipmentName" type="text" bind:value={equipment.equipmentName} />
         <input id="equipmentQuantity" type="text" bind:value={equipment.equipmentQuantity} />
