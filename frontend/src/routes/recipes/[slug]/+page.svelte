@@ -2,6 +2,8 @@
     // /** @type {import('./$types').PageProps} */
 	// let { data } = $props();
     export let data;
+	import { onMount } from "svelte";
+	import RecipeReview from '$lib/components/RecipeReview.svelte'
 	
 
     let recipe;
@@ -14,6 +16,14 @@
 	// reviews
 	let reviewString = ""
 	let reviewRating = 0;
+
+	let recipeReviewList;
+
+	// onstart
+	onMount(async () => {
+		fetchRecipeReviews()
+		
+	})
 
     async function functionFetchRecipeById(input_id: String) {
 		console.log(input_id);
@@ -60,6 +70,26 @@
 		}
   }
 
+  async function fetchRecipeReviews() {
+	const response = await fetch('http://127.0.0.1:8000/api/reviews/fetch-reviews/', {
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ recipeId: data.id})
+		});
+
+		recipeReviewList = await response.json()
+
+		if (response.ok) {
+			console.log('Review fetch successful');
+			return;
+		} else {
+			console.log('Review fetch fail');
+		}
+  }
+
 console.log(data.id);
 functionFetchRecipeById(data.id);
 </script>
@@ -75,3 +105,8 @@ functionFetchRecipeById(data.id);
 <input type="text" bind:value={reviewString}>
 <input type="number" bind:value={reviewRating}>
 <button on:click={postReview}>Submit review</button>
+
+{#each recipeReviewList as recipeReview}
+	<RecipeReview recipeReview={recipeReview}/>
+	<!-- <p>{recipeReview.reviewString}</p> -->
+{/each}

@@ -17,8 +17,9 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from reviews.views import post_review
+from reviews.views import post_review, fetch_reviews
 
 urlpatterns = [
     path("post-review/", post_review),
+    path("fetch-reviews/", fetch_reviews)
 ]
