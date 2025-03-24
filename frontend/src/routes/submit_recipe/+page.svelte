@@ -1,10 +1,3 @@
-<style> 
-  * {
-    font-family: "Inter" 
-  }
-</style> 
-
-
 <script lang="ts">
   import { onMount } from 'svelte'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
@@ -218,7 +211,13 @@
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cookDifficulty">
           Difficulty
         </label>
-        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="cookDifficulty" type="text" placeholder="Diffuclty" bind:value={cookDifficulty}>
+        <input
+          id="cookDifficulty"
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          type="text"
+          placeholder="Difficulty"
+          bind:value={cookDifficulty}
+        >
       </div>
     </div>
 
@@ -227,11 +226,16 @@
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="instructions">
           Instructions
         </label>
-        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="instructions" type="text" placeholder="Instructions" bind:value={instructions}>
+        <input
+          id="instructions"
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          type="text"
+          placeholder="Instructions"
+          bind:value={instructions}
+        >
       </div>
     </div>
   </form>
-
     <!-- Add to list of ingredients -->
     <form
       class="max-w-md"
@@ -240,11 +244,15 @@
       <label for="ingredientName">Add ingredient</label>
       <!-- <input id="ingredientName" type="text" bind:value={ingredientName} /> -->
       <select bind:value={currentIngredient}>
-          {#each ingredientsDb as ingredient}
-            <option value={ingredient}> {ingredient.ingredientName} </option>
-          {/each}
+        {#each ingredientsDb as ingredient}
+          <option value={ingredient}> {ingredient.ingredientName} </option>
+        {/each}
       </select>
-      <input id="ingredientQuantity" type="text" bind:value={ingredientQuantity} />
+      <input
+        id="ingredientQuantity"
+        type="text"
+        bind:value={ingredientQuantity}
+      />
       <input type="submit"/>
     </form> 
 
@@ -298,7 +306,10 @@
     </ul>
 
     <!-- Submit recipe -->
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" on:click={submitRecipe}>Submit Recipe</button>
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+      on:click={submitRecipe}
+    >Submit Recipe</button>
 
   </div>
   <!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
