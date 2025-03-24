@@ -1,5 +1,6 @@
 <script>
-  let pages = ['home', 'recipe', 'users', 'profile']
+  let pages = ['home', 'recipe', 'users', 'profile', 'submit_recipe']
+  console.log(pages);
 </script>
 
 

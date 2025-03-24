@@ -35,6 +35,14 @@ def get_recipes(request):
         serializer = RecipeSerializer(recipe, many=False)
         return Response(serializer.data)
 
+@api_view(["GET", "POST"])
+def get_recipe_by_id(request):
+    recipes = Recipe.objects.all().filter(id=request.data.get("id"))
+    serializer = RecipeSerializer(recipes, many=True)
+    return Response(serializer.data)
+
+
+
 
 @api_view(["POST"])
 def sort_recipes(request):
@@ -124,41 +132,34 @@ def add_recipe(request):
     return Response(recipe_serializer.errors)
 
 
-@api_view(["POST"])
-def del_recipe(request):
-    recipe_name = request.data.get("recipeName", None)
-    if not recipe_name:
-        return Response({"error": "recipeName is required"}, status=400)
-    recipe = Recipe.objects.filter(recipeName=recipe_name).first()
-    if not recipe:
-        return Response({"error": "Recipe not found"}, status=404)
-    recipe.delete()
-    return Response({"message": "Recipe deleted successfully"}, status=200)
+@api_view(["GET", "POST"])
+def get_ingredients(request):
+    if request.method == "GET":
+        ingredients = Ingredients.objects.all()
+        serializer = IngredientsSerializer(ingredients, many=True)
+        return Response(serializer.data)
+    else:
+        # recipe = Recipe.objects.get(recipeName=request.data["recipeName"])
+        # serializer = RecipeSerializer(recipe, many=False)
+        # return Response(serializer.data)
+        recipe_name = request.data.get("recipeName", None)
+        if not recipe_name:
+            return Response({"error": "recipeName is required"}, status=400)
 
+        recipe = Recipe.objects.filter(recipeName=recipe_name).first()
+        if not recipe:
+            return Response({"error": "Recipe not found"}, status=404)
 
-@api_view(["POST"])
-def update_recipe(request):
-    recipe_name = request.data.get("recipeName", None)
-    if not recipe_name:
-        return Response({"error": "recipeName is required"}, status=400)
-    recipe = Recipe.objects.filter(recipeName=recipe_name).first()
-    if not recipe:
-        return Response({"error": "Recipe not found"}, status=404)
-    ingredients = request.data.pop("ingredients", None)
-    recipe_serializer = RecipeSerializer(recipe, data=request.data)
-    if recipe_serializer.is_valid():
-        recipe_serializer.save()
-        CookedBy.objects.filter(recipe=recipe.id).delete()
-        for i in ingredients or []:
-            temp = {}
-            ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id
-            temp["ingredient"] = ingredient_id
-            temp["recipe"] = recipe.id
-            cooked_by_serializer = CookedBySerializer(data=temp)
-            if cooked_by_serializer.is_valid():
-                cooked_by_serializer.save()
-            else:
-                return Response(cooked_by_serializer.errors)
-
-        return Response(recipe_serializer.data)
-    return Response(recipe_serializer.errors)
+        serializer = RecipeSerializer(recipe, many=False)
+        return Response(serializer.data)
+    
+@api_view(["GET", "POST"])
+def create_recipe(request):
+    recipeInfo = request.data[0]
+    ingredientsList = request.data[1]
+    # get ingredients from id
+    # create UserIngredients with given ingredients
+    # get created UserIngredients
+    # create Recipe entry
+    # link UserIngredients to Recipe
+    return Response("yes")
