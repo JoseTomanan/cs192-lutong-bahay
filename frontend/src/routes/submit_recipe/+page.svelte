@@ -164,78 +164,79 @@
     <!-- Recipe info -->
 
     <!-- https://v1.tailwindcss.com/components/forms -->
-  <form class="w-full max-w-lg">
-    <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="w-full px-3">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="recipeName">
-          Recipe name
-        </label>
-        <input
-          id="recipeName"
-          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          type="text"
-          placeholder="Recipe name"
-          bind:value={recipeName}
-        />
-      </div>
-    </div>
-
-    <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="servings">
-          Servings
-        </label>
-        <input
-          id="servings"
-          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-          type="text"
-          placeholder="Servings"
-          bind:value={servings}
-        />
+    <form class="w-full max-w-lg">
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full px-3">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="recipeName">
+            Recipe name
+          </label>
+          <input
+            id="recipeName"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="text"
+            placeholder="Recipe name"
+            bind:value={recipeName}
+          />
+        </div>
       </div>
 
-      <div class="w-full md:w-1/3 px-3">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
-          Price
-        </label>
-        <input
-          id="price"
-          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          type="text"
-          placeholder="Price"
-          bind:value={price}
-        >
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="servings">
+            Servings
+          </label>
+          <input
+            id="servings"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="text"
+            placeholder="Servings"
+            bind:value={servings}
+          />
+        </div>
+
+        <div class="w-full md:w-1/3 px-3">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
+            Price
+          </label>
+          <input
+            id="price"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="text"
+            placeholder="Price"
+            bind:value={price}
+          >
+        </div>
+
+        <div class="w-full md:w-1/3 px-3">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cookDifficulty">
+            Difficulty
+          </label>
+          <input
+            id="cookDifficulty"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="text"
+            placeholder="Difficulty"
+            bind:value={cookDifficulty}
+          >
+        </div>
       </div>
 
-      <div class="w-full md:w-1/3 px-3">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cookDifficulty">
-          Difficulty
-        </label>
-        <input
-          id="cookDifficulty"
-          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          type="text"
-          placeholder="Difficulty"
-          bind:value={cookDifficulty}
-        >
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full px-3">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="instructions">
+            Instructions
+          </label>
+          <input
+            id="instructions"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="text"
+            placeholder="Instructions"
+            bind:value={instructions}
+          >
+        </div>
       </div>
-    </div>
-
-    <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="w-full px-3">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="instructions">
-          Instructions
-        </label>
-        <input
-          id="instructions"
-          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          type="text"
-          placeholder="Instructions"
-          bind:value={instructions}
-        >
-      </div>
-    </div>
-  </form>
+    </form>
+  
     <!-- Add to list of ingredients -->
     <form
       class="max-w-md"
