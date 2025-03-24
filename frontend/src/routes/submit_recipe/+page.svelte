@@ -238,114 +238,116 @@
     </form>
   
     <!-- Add to list of ingredients -->
-    <form
-      class="max-w-md"
-      on:submit|preventDefault={addIngredient}
-    > 
-      <label for="ingredientName">Add ingredient</label>
-      <!-- <input id="ingredientName" type="text" bind:value={ingredientName} /> -->
-      <select bind:value={currentIngredient}>
-        {#each ingredientsDb as ingredient}
-          <option value={ingredient}> {ingredient.ingredientName} </option>
-        {/each}
-      </select>
-      <input
-        id="ingredientQuantity"
-        type="text"
-        class="small-text-field"
-        bind:value={ingredientQuantity}
-      />
-      <input type="submit" class="submit-button"/>
-    </form> 
+    <div class="space-y-5 w-1/3">
+      <form
+        class="max-w-md"
+        on:submit|preventDefault={addIngredient}
+      >
+        <label for="ingredientName">Add ingredient</label>
+        <!-- <input id="ingredientName" type="text" bind:value={ingredientName} /> -->
+        <select bind:value={currentIngredient}>
+          {#each ingredientsDb as ingredient}
+            <option value={ingredient}> {ingredient.ingredientName} </option>
+          {/each}
+        </select>
+        <input
+          id="ingredientQuantity"
+          type="text"
+          class="small-text-field"
+          bind:value={ingredientQuantity}
+        />
+        <input type="submit" class="submit-button"/>
+      </form> 
 
-    <!-- Display ingredients -->
-    <ul>
-      <li class="flex items-center align-text-bottom">
-        <p>ingredientName</p>
-        <p class="pl-20">ingredientQuantity</p>
-      </li>
-      <!-- {#each ingredients as ingredient} -->
-        {#each ingredients as ingredient}
-          <li class="flex items-center align-text-bottom">
-            <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
-            <input
-              id="ingredientName"
-              type="text"
-              class="small-text-field"
-              bind:value={ingredient.ingredientObject.ingredientName}
-            />
-            <input
-              id="ingredientQuantity"
-              type="text"
-              class="small-text-field"
-              bind:value={ingredient.ingredientQuantity}
-            />
-            <button
-              type="button"
-              class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-              on:click={() => removeIngredient(ingredient)}
-            >x</button>
-          </li>
-        {/each}
-    </ul>
+      <!-- Display ingredients -->
+      <ul>
+        <li class="flex items-center align-text-bottom">
+          <p>ingredientName</p>
+          <p class="pl-20">ingredientQuantity</p>
+        </li>
+        <!-- {#each ingredients as ingredient} -->
+          {#each ingredients as ingredient}
+            <li class="flex items-center align-text-bottom">
+              <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
+              <input
+                id="ingredientName"
+                type="text"
+                class="small-text-field"
+                bind:value={ingredient.ingredientObject.ingredientName}
+              />
+              <input
+                id="ingredientQuantity"
+                type="text"
+                class="small-text-field"
+                bind:value={ingredient.ingredientQuantity}
+              />
+              <button
+                type="button"
+                class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                on:click={() => removeIngredient(ingredient)}
+              >x</button>
+            </li>
+          {/each}
+      </ul>
 
-    <!-- Add to list of equipment -->
-    <form on:submit|preventDefault={addEquipment} class="max-w-md"> 
-      <label for="equipmentName">Add equipment</label>
-      <input
-        id="equipmentName"
-        type="text"
-        class="small-text-field"
-        bind:value={equipmentName}
-      />
-      <input
-        id="equipmentQuantity"
-        type="text"
-        class="small-text-field"
-        bind:value={equipmentQuantity}
-      />
-      <input type="submit" class="submit-button"/>
-    </form> 
+      <!-- Add to list of equipment -->
+      <form on:submit|preventDefault={addEquipment} class="max-w-md"> 
+        <label for="equipmentName">Add equipment</label>
+        <input
+          id="equipmentName"
+          type="text"
+          class="small-text-field"
+          bind:value={equipmentName}
+        />
+        <input
+          id="equipmentQuantity"
+          type="text"
+          class="small-text-field"
+          bind:value={equipmentQuantity}
+        />
+        <input type="submit" class="submit-button"/>
+      </form> 
 
-    <!-- Display equipment -->
-    <ul>
-      <li class="flex items-center align-text-bottom">
-        <p>equipmentName</p>
-        <p class="pl-20">equipmentQuantity</p>
-      </li>
-        {#each equipment as equipment}
-          <li class="flex items-center align-text-bottom">
-            <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
-            <input
-              id="equipmentName"
-              type="text"
-              class="small-text-field"
-              bind:value={equipment.equipmentName}
-            />
-            <input
-              id="equipmentQuantity"
-              type="text"
-              class="small-text-field"
-              bind:value={equipment.equipmentQuantity}
-            />
-            
-            <button
-              type="button"
-              class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-              on:click={() => removeEquipment(equipment)}
-            >x</button>
-          </li>
-        {/each}
-    </ul>
+      <!-- Display equipment -->
+      <ul>
+        <li class="flex items-center align-text-bottom">
+          <p>equipmentName</p>
+          <p class="pl-20">equipmentQuantity</p>
+        </li>
+          {#each equipment as equipment}
+            <li class="flex items-center align-text-bottom">
+              <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
+              <input
+                id="equipmentName"
+                type="text"
+                class="small-text-field"
+                bind:value={equipment.equipmentName}
+              />
+              <input
+                id="equipmentQuantity"
+                type="text"
+                class="small-text-field"
+                bind:value={equipment.equipmentQuantity}
+              />
 
-    <!-- Submit recipe -->
-    <button
-      class="bg-main hover:bg-main-dark text-white font-bold py-2 px-4 border rounded"
-      on:click={submitRecipe}
-    >Submit Recipe</button>
+              <button
+                type="button"
+                class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                on:click={() => removeEquipment(equipment)}
+              >x</button>
+            </li>
+          {/each}
+      </ul>
 
+      <!-- Submit recipe -->
+      <button
+        class="bg-main hover:bg-main-dark text-white font-bold py-2 px-4 border rounded"
+        on:click={submitRecipe}
+      >Submit Recipe</button>
+
+    </div>
+    <!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
   </div>
-  <!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
 
 </div>
 <!-- FLOWBITE https://flowbite.com/docs/components/tables/ -->  
