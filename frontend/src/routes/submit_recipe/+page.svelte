@@ -177,9 +177,16 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="recipeName">
         Recipe name
       </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="recipeName" type="text" placeholder="Recipe name" bind:value={recipeName}>
+      <input
+        id="recipeName"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        type="text"
+        placeholder="Recipe name"
+        bind:value={recipeName}
+      />
     </div>
   </div>
+
   <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="servings">
@@ -187,12 +194,14 @@
       </label>
       <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="servings" type="text" placeholder="Servings" bind:value={servings}>
     </div>
+
     <div class="w-full md:w-1/3 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
         Price
       </label>
       <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="price" type="text" placeholder="Price" bind:value={price}>
     </div>
+
     <div class="w-full md:w-1/3 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cookDifficulty">
         Difficulty
@@ -200,6 +209,7 @@
       <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="cookDifficulty" type="text" placeholder="Diffuclty" bind:value={cookDifficulty}>
     </div>
   </div>
+
   <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="instructions">
@@ -211,7 +221,10 @@
 </form>
 
   <!-- Add to list of ingredients -->
-  <form on:submit|preventDefault={addIngredient} class="max-w-md"> 
+  <form
+    class="max-w-md"
+    on:submit|preventDefault={addIngredient}
+  > 
     <label for="ingredientName">Add ingredient</label>
     <!-- <input id="ingredientName" type="text" bind:value={ingredientName} /> -->
      <select bind:value={currentIngredient}>
@@ -220,7 +233,7 @@
         {/each}
      </select>
     <input id="ingredientQuantity" type="text" bind:value={ingredientQuantity} />
-    <input type="submit">
+    <input type="submit"/>
   </form> 
 
   <!-- Display ingredients -->
