@@ -283,15 +283,18 @@
       <p>equipmentName</p>
       <p class="pl-20">equipmentQuantity</p>
     </li>
-    {#each equipment as equipment}
-      <li class="flex items-center align-text-bottom">
-        <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
-        <input id="equipmentName" type="text" bind:value={equipment.equipmentName} />
-        <input id="equipmentQuantity" type="text" bind:value={equipment.equipmentQuantity} />
-        <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-        on:click={() => removeEquipment(equipment)}>x</button>
-      </li>
-    {/each}
+      {#each equipment as equipment}
+        <li class="flex items-center align-text-bottom">
+          <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
+          <input id="equipmentName" type="text" bind:value={equipment.equipmentName} />
+          <input id="equipmentQuantity" type="text" bind:value={equipment.equipmentQuantity} />
+          <button
+            type="button"
+            class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-0.3 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            on:click={() => removeEquipment(equipment)}
+          >x</button>
+        </li>
+      {/each}
   </ul>
 
   <!-- Submit recipe -->
