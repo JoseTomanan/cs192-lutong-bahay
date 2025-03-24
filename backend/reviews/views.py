@@ -17,9 +17,9 @@ def post_review(request):
     recipeObject = Recipe.objects.get(pk=recipeId)
 
     # get Reviewer from ID
-    # reviewerId = request.data['reviewerId']
-    reviewerId = request.COOKIES.get("user_id")
-    print(request.COOKIES)
+    reviewerId = request.data['reviewerId']
+    # reviewerId = request.COOKIES.get("user_id")
+    # print(request.COOKIES)
     print(reviewerId)
     reviewerObject = User.objects.get(pk=reviewerId)
 
