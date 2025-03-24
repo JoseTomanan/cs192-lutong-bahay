@@ -107,8 +107,8 @@
       ratings: 0
     }
 
-    console.log(JSON.stringify(input))
-    console.log(JSON.stringify(ingredients))
+    // console.log(JSON.stringify(input))
+    // console.log(JSON.stringify(ingredients))
 
     try {
       const response = await fetch('http://127.0.0.1:8000/api/recipes/create_recipe/', {
@@ -124,7 +124,7 @@
         alert('No recipes found')
       } else {
         const result = data
-        console.log(result)
+        // console.log(result)
       }
     } catch { 
       alert('No database connection')
