@@ -4,6 +4,7 @@
     export let data;
 	import { onMount } from "svelte";
 	import RecipeReview from '$lib/components/RecipeReview.svelte'
+	import Cookies from "js-cookie"
 	
 
     let recipe;
@@ -19,9 +20,12 @@
 
 	let recipeReviewList: any[];
 
+	let user_id: String | undefined;
+
 	// onstart
 	onMount(async () => {
 		fetchRecipeReviews()
+		user_id= Cookies.get("user_id")
 		
 	})
 
@@ -52,6 +56,25 @@
 		}
   }
 
+  async function functionUserById() {
+		const response = await fetch('http://127.0.0.1:8000/api/users/fetch-user-by-id/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ id: user_id })
+		});
+
+		let userObject = await response.json();
+
+		if (response.ok) {
+			console.log('User fetch successful');
+			return;
+		} else {
+			console.log('User fetch fail');
+		}
+  }
+
   async function postReview() {
 	const response = await fetch('http://127.0.0.1:8000/api/reviews/post-review/', {
 			method: 'POST',
@@ -59,7 +82,7 @@
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ reviewRating: reviewRating, reviewString: reviewString, recipeId: data.id, reviewerId: "1"})
+			body: JSON.stringify({ reviewRating: reviewRating, reviewString: reviewString, recipeId: data.id, reviewerId: user_id})
 		});
 
 		if (response.ok) {

@@ -12,6 +12,7 @@ from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
 
+from users.serializer import UserSerializer
 
 
 @api_view(["POST"])
@@ -51,6 +52,12 @@ def add_user(request):
         return Response({"success": True, "message": "User created successfully"})
     except:
         return Response({"success": False, "message": "Error creating user (username taken)"})
+
+@api_view(["GET", "POST"])
+def fetch_user_by_id(request):
+    user = User.objects.get(pk=request.data["user_id"])
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
 
 
 @api_view(["POST"]) 

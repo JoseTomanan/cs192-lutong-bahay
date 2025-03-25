@@ -8,6 +8,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
+
   let recipes = []
   let recipeName = '' 
   let direction = 'ascending'
