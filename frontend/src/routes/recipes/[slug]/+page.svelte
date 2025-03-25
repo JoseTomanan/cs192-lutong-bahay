@@ -106,7 +106,10 @@ functionFetchRecipeById(data.id);
 <input type="number" bind:value={reviewRating}>
 <button on:click={postReview}>Submit review</button>
 
+<div class="mt-20">
+<h1 class="font-bold text-xl">Reviews</h1>
 {#each recipeReviewList as recipeReview}
 	<RecipeReview recipeReview={recipeReview}/>
 	<!-- <p>{recipeReview.reviewString}</p> -->
 {/each}
+</div>
