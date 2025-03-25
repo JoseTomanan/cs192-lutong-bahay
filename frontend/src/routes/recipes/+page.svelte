@@ -17,6 +17,10 @@
  
   let ingredients = ''
 
+  onMount(async () => {
+    fetchAllRecipes()
+	})
+
   async function fetchRecipes() { 
     console.log(recipeName)
     try {
@@ -35,6 +39,29 @@
         recipes = [data] 
         console.log(data)
         console.log(recipes.length)
+      }
+    } catch { 
+      alert('No database connection')
+    } 
+	}
+
+  async function fetchAllRecipes() { 
+    console.log(recipeName)
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/recipes/fetch-all-recipes/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }, 
+      })
+
+      const data = await response.json()
+      if (data.hasOwnProperty('error')) {
+        alert('No recipes found')
+      } else {
+        recipes = data
+        console.log("fetch all recipes: " + data)
+        // console.log(recipes.length)
       }
     } catch { 
       alert('No database connection')
