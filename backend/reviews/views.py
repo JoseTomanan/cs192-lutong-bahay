@@ -36,3 +36,10 @@ def fetch_reviews(request):
     reviews = Review.objects.filter(recipe_id = recipeId)
     result = ReviewSerializer(reviews, many=True)
     return Response(result.data)
+
+@api_view(["GET", "POST"])
+def delete_review_by_id(request):
+    review_id = request.data["review_id"]
+    review = Review.objects.get(pk=review_id)
+    review.delete()
+    return Response({"message": "Review deleted successfully"})
