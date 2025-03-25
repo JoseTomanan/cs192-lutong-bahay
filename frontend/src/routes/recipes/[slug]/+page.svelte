@@ -17,7 +17,7 @@
 	let reviewString = ""
 	let reviewRating = 0;
 
-	let recipeReviewList;
+	let recipeReviewList: any[];
 
 	// onstart
 	onMount(async () => {
@@ -94,17 +94,30 @@ console.log(data.id);
 functionFetchRecipeById(data.id);
 </script>
 
-<h1>Recipe title: {recipeName}</h1>
-<h1>Ingredients:</h1>
-{#each ingredients as ingredient }
-	<p>{ingredient}</p>
-{/each}
-<h1>Instructions</h1>
-<p>{recipeInstructions}</p>
+<div class="mb-10">
+	<h1 class="font-bold text-4xl">{recipeName}</h1>
+</div>
 
-<input type="text" bind:value={reviewString}>
-<input type="number" bind:value={reviewRating}>
-<button on:click={postReview}>Submit review</button>
+<div class="my-5">
+	<h1 class="font-bold text-xl">Ingredients</h1>
+	<ul class="list-disc">
+	{#each ingredients as ingredient }
+		<li class="ml-5">{ingredient}</li>
+	{/each}
+	</ul>
+</div>
+
+<div class="my-5">
+	<h1 class="font-bold text-xl">Instructions</h1>
+	<p>{recipeInstructions}</p>
+</div>
+
+<div class="my-5">
+	<h1 class="font-bold text-xl">Leave a review</h1>
+	<textarea class="block p-2.5 w-full my-3" bind:value={reviewString}> </textarea>
+	<input class="block" type="number" bind:value={reviewRating}>
+	<button class="my-5 bg-lime-500 hover:bg-lime-700 py-2 px-4 rounded text-white font-bold" on:click={postReview}>Submit review</button>
+</div>
 
 <div class="mt-20">
 <h1 class="font-bold text-xl">Reviews</h1>
