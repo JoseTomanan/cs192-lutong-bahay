@@ -10,10 +10,14 @@ export const handle: Handle = async ({ event, resolve }) => {
     const admin = event.cookies.get('admin')
     const path = event.url.pathname
 
+    const isUserRoute = userRoutes.some(route => path.startsWith(route));
+    const isAdminRoute = adminRoutes.some(route => path.startsWith(route));
+
     console.log(admin, authenticated)
 
     if (admin && authenticated) {
-        if (!adminRoutes.includes(path)) {
+        // if (!adminRoutes.includes(path)) {
+        if (!isAdminRoute) {
             throw redirect(303, '/admin')
         }
     }
@@ -23,7 +27,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     } 
 
     else if (!admin && authenticated) {
-        if (!userRoutes.includes(path)) {
+        // if (!userRoutes.includes(path)) {
+        if (!isUserRoute) {
             throw redirect(303, '/home')
         }
     }
