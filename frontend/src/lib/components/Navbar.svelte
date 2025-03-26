@@ -56,24 +56,24 @@ pt-8 px-2">
           {#if $isAdmin}
           <a 
           href="/submit_recipe" 
-          class="px-5 py-3 rounded-lg {
+          class="px-5 py-3 rounded-lg italic font-semibold {
               page.url.pathname === '/' + 'submit_recipe'
               ? 'bg-main text-white' 
               : 'text-gray-700 bg-white hover:bg-gray-100'
             }"
           >
-              Submit Recipe
+            Admin
           </a>
 
           <a 
           href="/admin" 
-          class="px-5 py-3 rounded-lg {
+          class="px-5 py-3 rounded-lg italic font-semibold {
               page.url.pathname === '/' + 'admin'
               ? 'bg-main text-white' 
               : 'text-gray-700 bg-white hover:bg-gray-100'
             }"
           >
-              Admin
+            Submit Recipe
           </a>
 
           <a 
@@ -82,9 +82,8 @@ pt-8 px-2">
           class="px-5 py-3 rounded-lg text-gray-700 bg-white hover:bg-gray-100
           flex justify-start gap-2"
           >
-            <span>Open in Django</span>
+            <span class="italic font-semibold">Open in Django</span>
             <img src="{OutgoingLink}" alt="" class="w-4 mt-0.5 opacity-70">
-        
           </a>
 
 
