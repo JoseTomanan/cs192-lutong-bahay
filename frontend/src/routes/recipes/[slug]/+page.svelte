@@ -120,7 +120,10 @@ functionFetchRecipeById(data.id);
 	<h1 class="font-bold text-xl">Leave a review</h1>
 	<textarea class="block p-2.5 w-full my-3" bind:value={reviewString}> </textarea>
 	<input class="block" type="number" bind:value={reviewRating}>
-	<button class="my-5 bg-lime-500 hover:bg-lime-700 py-2 px-4 rounded text-white font-bold" on:click={postReview}>Submit review</button>
+	<button
+		class="my-5 bg-main hover:bg-main_dark py-2 px-4 rounded text-white font-bold"
+		on:click={postReview}
+	>Submit review</button>
 </div>
 
 <div class="mt-20">
