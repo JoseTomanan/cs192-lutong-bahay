@@ -9,7 +9,7 @@
   let admin_pages = [
     ['admin', 'Suspend user'],
     ['submit_recipe', 'Add recipe'],
-    ['update_recipe', 'Update recipe'],
+    ['edit_recipe', 'Edit recipe'],
     ['manage_review', 'Manage reviews']
     ]
 </script>
