@@ -48,7 +48,7 @@
   async function fetchAllRecipes() { 
     console.log(recipeName)
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/recipes/fetch-all-recipes/', {
+      const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
