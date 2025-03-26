@@ -8,8 +8,8 @@
 
 <TitleText text={`Edit recipes`}/>
 
-<form class="">
-  <div class="relative">
+<form class="space-y-4 mt-4">
+  <div class="relative w-1/2">
     <input 
       type="search" 
       id="default-search"
