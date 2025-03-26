@@ -60,7 +60,8 @@
         alert('No recipes found')
       } else {
         recipes = data
-        console.log("fetch all recipes: " + data)
+        console.log("fetch all recipes: ", data)
+        
         // console.log(recipes.length)
       }
     } catch { 

@@ -1,11 +1,18 @@
 <script lang="ts">
-    import { page } from '$app/state';
-    import { logout, isAuthenticated, isAdmin } from '$lib/stores/auth'
-    import { usernameStore } from '$lib/stores/auth';
-  
-    
-    let pages = ['home', 'recipes', 'users', 'profile', 'submit_recipe']
-  </script>
+  import { page } from '$app/state';
+  import { logout, isAuthenticated, isAdmin } from '$lib/stores/auth'
+  import { usernameStore } from '$lib/stores/auth';
+  import OutgoingLink from '$lib/static/outgoing_link.svg'
+
+  let pages = ['home', 'recipes', 'users', 'profile']
+
+  let admin_pages = [
+    ['admin', 'Suspend user'],
+    ['submit_recipe', 'Add recipe'],
+    ['edit_recipe', 'Edit recipe'],
+    ['manage_review', 'Manage reviews']
+    ]
+</script>
   
 <!-- <nav class="p-4 bg-white shadow">
   <div class="flex space-x-4">
@@ -39,46 +46,59 @@ pt-8 px-2">
   </div> -->
 
   <div class="flex-1 p-2">
-      <div class="flex flex-col space-y-2">
-          {#each pages as route}
-              <a 
-                  href="/{route}" 
-                  class="px-5 py-3 rounded-lg {
-                      page.url.pathname === '/' + route 
-                      ? 'bg-gradient-to-bl from-gray-600 to-gray-700 text-white' 
-                      : 'text-gray-700 bg-white hover:bg-gray-100'
-                  }"
-              >
-                  {route[0].toUpperCase() + route.slice(1)}
-              </a>
-          {/each}
-          {#if $isAdmin}
+    <div class="flex flex-col space-y-2">
+        {#each pages as route}
           <a 
-          href="http://127.0.0.1:8000/admin/" 
-          class="px-5 py-3 rounded-lg {
-              page.url.pathname === '/' + 'admin'
-              ? 'bg-gradient-to-bl from-gray-600 to-gray-700 text-white' 
-              : 'text-gray-700 bg-white hover:bg-gray-100'
+            href="/{route}" 
+            class="px-5 py-3 rounded-lg {
+                page.url.pathname === '/' + route 
+                ? 'bg-gradient-to-bl from-gray-600 to-gray-700 text-white' 
+                : 'text-gray-700 bg-white hover:bg-gray-100'
             }"
-      >
-              Admin
+          >
+              {route[0].toUpperCase() + route.slice(1)}
           </a>
-          {/if}
-      </div>
+        {/each}
+
+        {#if $isAdmin}
+          {#each admin_pages as route}
+            <a
+              href="/{route[0]}" 
+              class="px-5 py-3 rounded-lg {
+                page.url.pathname === '/' + route[0]
+                ? 'bg-main text-white' 
+                : 'text-gray-700 bg-main bg-opacity-10 hover:bg-opacity-20'
+              }"
+            >
+              { route[1] }
+            </a>
+          {/each}
+        {/if}
+    </div>
   </div>
 
   
-    {#if ($usernameStore) != ""}
-      <p class="pl-2 text-gray-400">@{$usernameStore}</p>
-    {/if}
+  {#if ($usernameStore) != ""}
+    <p class="pl-2 text-gray-400">@{$usernameStore}</p>
+  {/if}
   <div class="p-2">
-      <button 
-          on:click={logout}
-          class="w-full px-4 py-3 rounded-lg bg-gray-800 text-white
-             hover:bg-gray-700 "
+    {#if $isAdmin}
+      <a 
+        target="_blank"
+        href="http://127.0.0.1:8000/admin" 
+        class="px-5 py-3 my-2 rounded-lg text-gray-500 bg-white hover:bg-gray-100 flex justify-start gap-2"
       >
-          Logout
-      </button>
+        <span class="italic">Open in Django</span>
+        <img src="{OutgoingLink}" alt="" class="w-4 mt-0.5 opacity-60"/>
+      </a>
+    {/if}
+    <button 
+      on:click={logout}
+      class="w-full px-4 py-3 rounded-lg bg-gray-800 text-white
+          hover:bg-gray-700 "
+    >
+        Logout
+    </button>
   </div>
 </nav>
 

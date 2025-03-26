@@ -1,14 +1,16 @@
 <script>
-	import TitleText from "$lib/components/TitleText.svelte";
+    import TitleText from "$lib/components/TitleText.svelte";
+    import SuspendUser from "$lib/components/SuspendUser.svelte"
 
-    let username = "Admin"
 </script>
 
-<TitleText text={`Admin`}/>
+<TitleText text={`Suspend a user`}/>
 
-<pre class="text-gray-500 mt-4">
+<SuspendUser />
+
+<!-- <pre class="text-gray-500 mt-4">
 ⠀ ／l、         
 （ﾟ､ ｡ ７     pagod na ako
 ⠀ l、ﾞ ~ヽ      
-  じしf_, )ノ
-</pre>
+  じしf_, )ノ
+</pre> -->
