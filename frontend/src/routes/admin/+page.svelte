@@ -50,7 +50,7 @@
 
 </script>
 
-<TitleText text={`Admin`}/>
+<TitleText text={`Suspend a user`}/>
 
 <div class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
     <h2 class="text-xl font-semibold mb-4">User Management</h2>
