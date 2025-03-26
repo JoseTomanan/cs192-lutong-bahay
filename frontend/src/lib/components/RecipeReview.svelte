@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
+	import { usernameStore } from '$lib/stores/auth';
 
 	let props = $props();
 	let reviewerId = props.recipeReview.reviewer
@@ -51,9 +52,11 @@
   	}
 </script>
 
-<div class="container my-1 py-3 px-10">
-	<p class="font-bold">{username}</p>
+<div class="container my-4 p-5 border">
+	<p class="font-bold text-gray-800 text-lg">{username}</p>
 	<p class="my-1">{props.recipeReview.reviewString}</p>
 	<p class="text-sm text-zinc-400">Rating: {props.recipeReview.reviewRating}</p>
-	<button class="text-sm text-red-600" onclick={deleteReviewById}>Delete Review</button>
+	{#if $usernameStore == username}
+		<button class="text-sm text-secondary" onclick={deleteReviewById}>Delete Review</button>
+	{/if}
 </div>

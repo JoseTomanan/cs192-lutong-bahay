@@ -126,7 +126,8 @@ functionFetchRecipeById(data.id);
 	>Submit review</button>
 </div>
 
-<div class="mt-20">
+<hr>
+<div class="mt-5">
 <h1 class="font-bold text-xl">Reviews</h1>
 {#each recipeReviewList as recipeReview}
 	<RecipeReview recipeReview={recipeReview}/>
