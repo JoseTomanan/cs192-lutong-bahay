@@ -6,7 +6,7 @@
   // do your code magic here pre idk what it looks like tho
 </script>
 
-<TitleText text={`Update a recipe`}/>
+<TitleText text={`Edit recipes`}/>
 
 <form class="">
   <div class="relative">
