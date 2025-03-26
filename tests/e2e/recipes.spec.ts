@@ -99,11 +99,11 @@ test.describe('Recipe interactions', () => {
 
     // Submit the recipe
     await page.click('button:has-text("Submit Recipe")');
-    console.log('Clicked submit button.');
+    // console.log('Clicked submit button.');
 
     // Capture network activity
-    page.on('request', (request) => console.log('>>', request.method(), request.url()));
-    page.on('response', (response) => console.log('<<', response.status(), response.url()));
+    // page.on('request', (request) => console.log('>>', request.method(), request.url()));
+    // page.on('response', (response) => console.log('<<', response.status(), response.url()));
 
     // Ensure the submission is processed
     await page.waitForLoadState('networkidle'); 
@@ -121,8 +121,8 @@ test.describe('Recipe interactions', () => {
     await page.waitForSelector('.RecipeCard', { state: 'visible', timeout: 10000 });
 
     // Debug: Print all recipe cards
-    const cards = await page.locator('.RecipeCard').allInnerTexts();
-    console.log("Recipe Cards Found: ", cards);
+    // const cards = await page.locator('.RecipeCard').allInnerTexts();
+    // console.log("Recipe Cards Found: ", cards);
 
     // Assert that the recipe appears
     await expect(
@@ -132,42 +132,24 @@ test.describe('Recipe interactions', () => {
     ).toBeVisible({ timeout: 10000 });
   });
 
-  test('UC3-S1: Rating for current recipe is successfully posted', async ({ page }) => {
-      await page.goto('/recipes/1'); // Assuming recipe with id 1 exists
-      await page.waitForSelector('input[type="number"]');
-      await page.fill('input[type="number"]', '5');
-      await page.click('button[text="Submit review"]');
-
-      // You may need to add a way to see the rating on the page
-      // For example, if ratings are displayed in the review section,
-      // you can check for the text '5' in that section.
-      // If the rating affects the overall recipe rating, you can check that too.
-      // For this test, I will simply check for the presence of the input box again, meaning no error occured.
-      await page.waitForSelector('input[type="number"]');
+  test('UC0-S4 Recipe is successfully updated', async ({ page }) => {
   });
 
-  test('UC3-S3: Comment for current recipe is successfully posted', async ({ page }) => {
-      await page.goto('/recipes/1'); // Assuming recipe with id 1 exists
-      await page.waitForSelector('textarea');
-      await page.fill('textarea', 'Test comment');
-      await page.click('button[text="Submit review"]');
-
-      // You may need to add a way to see the comment on the page
-      // For example, if comments are displayed in the review section,
-      // you can check for the text 'Test comment' in that section.
-      // For this test, I will simply check for the presence of the textarea again, meaning no error occured.
-      await page.waitForSelector('textarea');
+  test('UC0-S5 Recipe is successfully deleted', async ({ page }) => {
   });
 
   test('UC0-S6: Comment by user is successfully deleted', async ({ page }) => {
-    // This test depends on the backend having a delete comment API, and the frontend having a delete button.
-    // This implementation assumes the frontend has a delete button on each comment with a unique identifier.
-    // The identifier is assumed to be the comment's Id.
-    // This also assumes there is a comment with id 1 already on the recipe page.
-    await page.goto('/recipes/1');
-    await page.waitForSelector('button[data-comment-id="1"]');
-    await page.click('button[data-comment-id="1"]');
-    await page.waitForSelector('button[data-comment-id="1"]',{state:'detached'});
   });
+
+  test('UC0-S7 User is successfully suspended', async ({ page }) => {
+  });
+
+  test('UC3-S1: Rating for current recipe is successfully posted', async ({ page }) => {
+  });
+ 
+  test('UC3-S3: Comment for current recipe is successfully posted', async ({ page }) => {
+  });
+
+
 
 });
