@@ -17,8 +17,13 @@ from .custom_permissions import IsAdminOrReadOnly
 @api_view(["GET", "POST"])
 def get_recipes(request):
     if request.method == "GET":
-        recipes = Recipe.objects.all()
+        ## REMOVE WHEN DATABASE IS CLEANED
+        recipes = Recipe.objects.exclude(recipeName__isnull=True).exclude(
+            recipeName__exact=""
+        )
+        ###
         serializer = RecipeSerializer(recipes, many=True)
+        print(serializer.data)
         return Response(serializer.data)
     else:
         # recipe = Recipe.objects.get(recipeName=request.data["recipeName"])
@@ -34,20 +39,20 @@ def get_recipes(request):
 
         serializer = RecipeSerializer(recipe, many=False)
         return Response(serializer.data)
-    
+
+
 @api_view(["GET"])
 def fetch_all_recipes(request):
     recipes = Recipe.objects.all()
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
+
 @api_view(["GET", "POST"])
 def get_recipe_by_id(request):
     recipes = Recipe.objects.all().filter(id=request.data.get("id"))
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
-
-
 
 
 @api_view(["POST"])
@@ -138,7 +143,6 @@ def add_recipe(request):
     return Response(recipe_serializer.errors)
 
 
-
 @api_view(["GET", "POST"])
 def get_ingredients(request):
     if request.method == "GET":
@@ -159,7 +163,8 @@ def get_ingredients(request):
 
         serializer = RecipeSerializer(recipe, many=False)
         return Response(serializer.data)
-    
+
+
 @api_view(["GET", "POST"])
 def create_recipe(request):
     recipeInfo = request.data[0]
@@ -175,8 +180,15 @@ def create_recipe(request):
 
     # create Recipe
     print(recipeInfo)
-    newRecipeObject = Recipe(recipeName = recipeName, cookDifficulty = recipeDifficulty, equipment = equipment, instructions = instructions, servings = recipeServings, 
-                             price = recipePrice, ratings = ratings)
+    newRecipeObject = Recipe(
+        recipeName=recipeName,
+        cookDifficulty=recipeDifficulty,
+        equipment=equipment,
+        instructions=instructions,
+        servings=recipeServings,
+        price=recipePrice,
+        ratings=ratings,
+    )
     newRecipeObject.save()
 
     # create RecipeIngredients
@@ -184,7 +196,12 @@ def create_recipe(request):
         ingredientId = ingredient["ingredientObject"]["id"]
         ingredientQuantity = ingredient["ingredientQuantity"]
         ingredientObject = Ingredients.objects.get(pk=ingredientId)
-        newRecipeIngredient = RecipeIngredients(quantity=ingredientQuantity, unit="lols", ingredientId=ingredientObject, recipe=newRecipeObject)
+        newRecipeIngredient = RecipeIngredients(
+            quantity=ingredientQuantity,
+            unit="lols",
+            ingredientId=ingredientObject,
+            recipe=newRecipeObject,
+        )
         newRecipeIngredient.save()
 
     # get ingredients from id
@@ -193,6 +210,7 @@ def create_recipe(request):
     # create Recipe entry
     # link UserIngredients to Recipe
     return Response("yes")
+
 
 @api_view(["POST"])
 def del_recipe(request):
@@ -232,4 +250,3 @@ def update_recipe(request):
 
         return Response(recipe_serializer.data)
     return Response(recipe_serializer.errors)
-
