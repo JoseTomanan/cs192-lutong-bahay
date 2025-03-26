@@ -31,6 +31,6 @@
     }
 
     input.small-text-field {
-        @apply bg-gray-100 rounded-sm border hover:border-gray-400; 
+        @apply appearance-none rounded border border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
     }
 }
