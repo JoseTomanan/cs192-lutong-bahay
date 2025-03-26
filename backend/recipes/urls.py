@@ -27,7 +27,9 @@ from .views import (
     get_recipe_by_id,
     get_ingredients,
     create_recipe,
-    fetch_all_recipes
+    fetch_all_recipes,
+    del_recipe,
+    update_recipe,
 )
 
 urlpatterns = [
@@ -39,5 +41,7 @@ urlpatterns = [
     path("get_recipe_by_id/", recipe.get_recipe_by_id),
     path("get_ingredients/", recipe.get_ingredients),
     path("create_recipe/", recipe.create_recipe),
-    path("fetch-all-recipes/", recipe.fetch_all_recipes)
+    path("fetch-all-recipes/", recipe.fetch_all_recipes),
+    path("del_recipe/", recipe.del_recipe),
+    path("update_recipe/", recipe.update_recipe),
 ]
