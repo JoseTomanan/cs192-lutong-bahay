@@ -1,7 +1,13 @@
 <script>
 	import TitleText from "$lib/components/TitleText.svelte";
 
-    let username = "testuser"
+  let username = "testuser"
 </script>
 
-<TitleText text={`Update recipe`}/>
+<TitleText text={`Update a recipe`}/>
+
+<form class="">
+  <!-- search bar -->
+
+  <!-- all same components as submit recipes -->
+</form>
