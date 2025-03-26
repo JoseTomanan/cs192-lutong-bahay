@@ -90,7 +90,6 @@ def check_database_status():
     except OperationalError:
         return False
 
-
 @api_view(["POST"])
 def add_ingredient(request):
     ingredient_serializer = IngredientsSerializer(data=request.data)
@@ -98,7 +97,6 @@ def add_ingredient(request):
         ingredient_serializer.save()
         return Response(ingredient_serializer.data)
     return Response(ingredient_serializer.errors)
-
 
 @api_view(["POST"])
 def search_ingredient(request):

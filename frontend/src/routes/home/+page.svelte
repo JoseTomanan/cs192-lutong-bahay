@@ -5,17 +5,17 @@
 </script>
 
 {#if ($usernameStore) != ""}
-    <TitleText text="Welcome, {Cookies.get("username")}!"/> 
+    <TitleText text="Welcome, {Cookies.get("username")}!"/>
 {:else}
-    <TitleText text="Welcome"/> 
+    <TitleText text="Welcome"/>
 {/if}
 
 <h2 class="italic text-gray-400 pt-1 pb-2"> What would you like to do?</h2>
 
 <pre class="text-gray-500 mt-4">
     ⠀ ／l、
-    （ﾟ､ ｡ ７    
-    ⠀ l、ﾞ ~ヽ    
+    （ﾟ､ ｡ ７
+    ⠀ l、ﾞ ~ヽ
       じしf_, )ノ
 </pre>
 

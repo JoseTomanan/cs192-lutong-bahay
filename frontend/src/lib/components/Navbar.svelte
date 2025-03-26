@@ -2,9 +2,10 @@
     import { page } from '$app/state';
     import { logout, isAuthenticated, isAdmin } from '$lib/stores/auth'
     import { usernameStore } from '$lib/stores/auth';
+    import OutgoingLink from '$lib/static/outgoing_link.svg'
   
     
-    let pages = ['home', 'recipes', 'users', 'profile', 'submit_recipe']
+    let pages = ['home', 'recipes', 'users', 'profile']
   </script>
   
 <!-- <nav class="p-4 bg-white shadow">
@@ -54,15 +55,40 @@ pt-8 px-2">
           {/each}
           {#if $isAdmin}
           <a 
-          href="http://127.0.0.1:8000/admin/" 
+          href="/submit_recipe" 
           class="px-5 py-3 rounded-lg {
-              page.url.pathname === '/' + 'admin'
-              ? 'bg-gradient-to-bl from-gray-600 to-gray-700 text-white' 
+              page.url.pathname === '/' + 'submit_recipe'
+              ? 'bg-main text-white' 
               : 'text-gray-700 bg-white hover:bg-gray-100'
             }"
-      >
+          >
+              Submit Recipe
+          </a>
+
+          <a 
+          href="/admin" 
+          class="px-5 py-3 rounded-lg {
+              page.url.pathname === '/' + 'admin'
+              ? 'bg-main text-white' 
+              : 'text-gray-700 bg-white hover:bg-gray-100'
+            }"
+          >
               Admin
           </a>
+
+          <a 
+          target="_blank"
+          href="http://127.0.0.1:8000/admin" 
+          class="px-5 py-3 rounded-lg text-gray-700 bg-white hover:bg-gray-100
+          flex justify-start gap-2"
+          >
+            <span>Open in Django</span>
+            <img src="{OutgoingLink}" alt="" class="w-4 mt-0.5 opacity-70">
+        
+          </a>
+
+
+
           {/if}
       </div>
   </div>
