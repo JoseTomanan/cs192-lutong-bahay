@@ -56,7 +56,6 @@
 	<p class="font-bold text-gray-800 text-lg">{username}</p>
 	<p class="my-1">{props.recipeReview.reviewString}</p>
 	<p class="text-sm text-zinc-400">Rating: {props.recipeReview.reviewRating}</p>
-	{#if $usernameStore == username}
-		<button class="text-sm text-secondary" onclick={deleteReviewById}>Delete Review</button>
-	{/if}
+	<button class="text-sm text-secondary" onclick={deleteReviewById}>Delete Review</button>
+	
 </div>
