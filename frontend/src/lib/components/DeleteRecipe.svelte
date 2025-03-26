@@ -1,6 +1,5 @@
 <script>
-        
-        let username = "";
+    let recipeName = "";
     let isLoading = false;
 
     function getCookie(name) {
@@ -11,72 +10,48 @@
         }
     }
     
-    async function suspendUser() {
+    async function deleteRecipe() {
         try {
-            const response = await fetch('http://localhost:8000/api/users/suspend-user/', {
+            const response = await fetch('http://localhost:8000/api/recipes/delete-recipe/', {
                 method: 'POST', 
                 credentials: 'include',
                 headers: {
                     'X-CSRFToken': getCookie("csrftoken"),
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({username})
+                body: JSON.stringify({recipeName})
             });
 
-            alert(`${username} suspended`)
+            alert(`${recipeName} deleted`)
         } catch {
-            alert(`failed to suspend ${username}`)
+            alert(`failed to delete ${recipeName}`)
         } 
     }
 
-    async function reactivateUser() {
-        try {
-            const response = await fetch('http://localhost:8000/api/users/activate-user/', {
-                method: 'POST', 
-                credentials: 'include',
-                headers: {
-                    'X-CSRFToken': getCookie("csrftoken"),
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({username})
-            });
 
-            alert(`${username} reactivated`)
-        } catch {
-            alert(`failed to reactivate ${username}`)
-        } 
-    }
 </script>
 
 <div class="max-w-md mt-6 p-6 bg-white rounded-lg border-2">
-    <h2 class="text-xl font-semibold mb-4">User Management</h2>
+    <h2 class="text-xl font-semibold mb-4">Recipe Management</h2>
     
     <div class="mb-4">
-        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Recipe ID</label>
         <input 
             id="username"
             type="text" 
-            bind:value={username}
-            placeholder="Enter username"
+            bind:value={recipeName}
+            placeholder="Enter Recipe"
             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
     </div>
     
     <div class="flex space-x-4">
         <button 
-            on:click={suspendUser}
+            on:click={deleteRecipe}
             disabled={isLoading}
-            class="flex-1 bg-secondary_dark hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
+            class="flex-1 bg-secondary hover:bg-secondary_dark text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
         >
-            Suspend User
-        </button>
-        
-        <button 
-            on:click={reactivateUser}
-            disabled={isLoading}
-            class="flex-1 bg-main hover:bg-main_dark text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
-        >
-            Reactivate User
+            Delete Recipe
         </button>
     </div>
     
