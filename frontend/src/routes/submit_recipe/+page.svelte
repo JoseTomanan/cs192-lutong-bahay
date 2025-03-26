@@ -302,12 +302,14 @@
 			<!-- Display ingredients -->
 			<ul>
 				<li class="flex items-center align-text-bottom">
-					<p class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700">
-						Ingredient Name
-					</p>
-					<p class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700 pl-20">
-						Ingredient Quantity
-					</p>
+					<label
+						class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
+						for="ingredientName"
+					>Ingredient Name</label>
+					<label
+						class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700 pl-20"
+						for="ingredientQuantity"
+					>Ingredient Quantity</label>
 				</li>
 				<!-- {#each ingredients as ingredient} -->
 				{#each ingredients as ingredient}
@@ -337,8 +339,16 @@
 			<!-- Add to list of equipment -->
 			<h1 class="text-lg font-bold">Add Equipment</h1>
 			<form on:submit|preventDefault={addEquipment} class="max-w-md">
-				<label for="equipmentName">Add equipment</label>
-				<input id="equipmentName" type="text" class="small-text-field" bind:value={equipmentName} />
+				<label
+					class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"	
+					for="equipmentName"
+				>Add equipment</label>
+				
+				<input
+					id="equipmentName"
+					type="text"
+					class="small-text-field" bind:value={equipmentName}
+				/>
 				<input
 					id="equipmentQuantity"
 					type="text"
@@ -348,15 +358,19 @@
 				<input
 					type="submit"
 					value="Add Equipment"
-					class="submit-button my-4 rounded bg-zinc-100 px-5 py-4 hover:bg-lime-200"
+					class="submit-button my-4 rounded bg-zinc-100 p-2 hover:bg-lime-200"
 				/>
 			</form>
 
 			<!-- Display equipment -->
 			<ul>
 				<li class="flex items-center align-text-bottom">
-					<p>equipmentName</p>
-					<p class="pl-20">equipmentQuantity</p>
+					<p
+						class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
+					>Equipment Name</p>
+					<p
+						class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700 pl-20"	
+					>Equipment Quantity</p>
 				</li>
 				{#each equipment as equipment}
 					<li class="flex items-center align-text-bottom">
