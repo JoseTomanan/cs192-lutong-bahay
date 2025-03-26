@@ -34,6 +34,12 @@ def get_recipes(request):
 
         serializer = RecipeSerializer(recipe, many=False)
         return Response(serializer.data)
+    
+@api_view(["GET"])
+def fetch_all_recipes(request):
+    recipes = Recipe.objects.all()
+    serializer = RecipeSerializer(recipes, many=True)
+    return Response(serializer.data)
 
 @api_view(["GET", "POST"])
 def get_recipe_by_id(request):

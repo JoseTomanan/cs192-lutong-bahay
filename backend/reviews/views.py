@@ -17,10 +17,10 @@ def post_review(request):
     recipeObject = Recipe.objects.get(pk=recipeId)
 
     # get Reviewer from ID
-    # reviewerId = request.data['reviewerId']
-    reviewerId = request.COOKIES.get("user_id")
-    print(request.COOKIES)
-    print(reviewerId)
+    reviewerId = request.data['reviewerId']
+    # reviewerId = request.COOKIES.get("user_id")
+    # print(request.COOKIES)
+    # print(reviewerId)
     reviewerObject = User.objects.get(pk=reviewerId)
 
     reviewRating = request.data['reviewRating']
@@ -28,4 +28,18 @@ def post_review(request):
     review = Review.create(recipe=recipeObject, reviewer=reviewerObject, reviewRating=reviewRating, reviewString=reviewString)
     review.save()
     return Response({"message": "Review posted successfully"})
-    
+
+@api_view(["GET", "POST"])
+def fetch_reviews(request):
+    # get recipe id
+    recipeId = request.data["recipeId"]
+    reviews = Review.objects.filter(recipe_id = recipeId)
+    result = ReviewSerializer(reviews, many=True)
+    return Response(result.data)
+
+@api_view(["GET", "POST"])
+def delete_review_by_id(request):
+    review_id = request.data["review_id"]
+    review = Review.objects.get(pk=review_id)
+    review.delete()
+    return Response({"message": "Review deleted successfully"})
