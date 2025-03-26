@@ -136,6 +136,15 @@ def suspend_user(request):
     return Response({"message": "User suspended successfully"})
 
 
+@api_view(["POST"])
+@permission_classes([IsAdminUser])
+def activate_user(request):
+    user = User.objects.get(username=request.data["username"])
+    user.is_active = True
+    user.save()
+    return Response({"message": "User activated successfully"})
+
+
 # Google Auth
 class GoogleLoginView(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
