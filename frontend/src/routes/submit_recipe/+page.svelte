@@ -7,7 +7,7 @@
     let recipeName = "";
     let cookDifficulty = "";
     let price = "";
-    let ingredients = ""
+    let ingredients = []
     let equipment = "";
     let servings = 0;
     let instructions = ""
@@ -75,8 +75,8 @@ async function handleAddRecipe() {
         //     "ratings": 0,
         //     "price": price,
         // })
-
         const response = await fetch("http://localhost:8000/api/recipes/add-recipe/", {
+
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -86,6 +86,7 @@ async function handleAddRecipe() {
             cookDifficulty,
             servings,
             equipment,
+			"ingredients": ingredients.split(","),
             instructions,
             price,
             "ratings": 0
@@ -112,22 +113,6 @@ async function handleAddRecipe() {
 }
 
 </script>
-
-<form on:submit={handleAddRecipe}>
-    <button class="p-2 border">test</button>
-</form>
-
-<TitleText text={`Admin`} />
-
-<h1 class="my-2 text-2xl font-sans text-main font-bold">Search User</h1>
-<input 
-    type="search" 
-    id="default-search" 
-    class="block w-1/3 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
-    bind:value={userSearchbar}
-    placeholder="Search a user..." 
-   
-/>
 
 <h1 class="my-2 text-2xl font-sans text-main font-bold">Add a Recipe</h1>
 <form on:submit|preventDefault={handleAddRecipe} class="space-y-4">
