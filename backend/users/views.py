@@ -8,6 +8,7 @@ from urllib.parse import urljoin
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.forms import AuthenticationForm
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
@@ -15,11 +16,27 @@ from dj_rest_auth.registration.views import SocialLoginView
 from users.serializer import UserSerializer
 
 
+class LoginForm(AuthenticationForm):
+    error_messages = {
+        "invalid_login": "Invalid username or password",
+        "inactive": "This account is currently suspended",
+    }
+
+
 @api_view(["POST"])
 def login(request):
     username = request.data["username"]
     password = request.data["password"]
     user = authenticate(username=username, password=password)
+    if User.objects.filter(username=username).first() is not None:
+        if User.objects.filter(username=username).first().is_active == False:
+            return Response(
+                {
+                    "success": False,
+                    "is_staff": False,
+                    "message": "This account is suspended",
+                }
+            )
 
     if user is None:
         return Response(
