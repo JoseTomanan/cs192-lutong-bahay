@@ -44,9 +44,12 @@
 
 		if (response.ok) {
 			username = userObject.username;
+			alert('review delete success')
+			location.reload()
 			console.log('Review delete successful');
 			return;
 		} else {
+			alert('review delete fail')
 			console.log('Review delete fail');
 		}
   	}

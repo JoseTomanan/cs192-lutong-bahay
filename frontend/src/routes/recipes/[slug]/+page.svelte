@@ -67,9 +67,12 @@
 		});
 
 		if (response.ok) {
+			alert('review post succesful')
+			location.reload()
 			console.log('Review post successful');
 			return;
 		} else {
+			alert('review post fail')
 			console.log('Review post fail');
 		}
   }
