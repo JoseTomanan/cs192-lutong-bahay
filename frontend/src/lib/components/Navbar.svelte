@@ -1,12 +1,11 @@
 <script lang="ts">
-    import { page } from '$app/state';
-    import { logout, isAuthenticated, isAdmin } from '$lib/stores/auth'
-    import { usernameStore } from '$lib/stores/auth';
-    import OutgoingLink from '$lib/static/outgoing_link.svg'
-  
-    
-    let pages = ['home', 'recipes', 'users', 'profile']
-  </script>
+  import { page } from '$app/state';
+  import { logout, isAuthenticated, isAdmin } from '$lib/stores/auth'
+  import { usernameStore } from '$lib/stores/auth';
+  import OutgoingLink from '$lib/static/outgoing_link.svg'
+
+  let pages = ['home', 'recipes', 'users', 'profile']
+</script>
   
 <!-- <nav class="p-4 bg-white shadow">
   <div class="flex space-x-4">
@@ -53,40 +52,49 @@ pt-8 px-2">
                   {route[0].toUpperCase() + route.slice(1)}
               </a>
           {/each}
+
           {#if $isAdmin}
           <a 
-          href="/submit_recipe" 
-          class="px-5 py-3 rounded-lg italic font-semibold {
-              page.url.pathname === '/' + 'submit_recipe'
-              ? 'bg-main text-white' 
-              : 'text-gray-700 bg-white hover:bg-gray-100'
-            }"
-          >
-            Admin
-          </a>
-
-          <a 
-          href="/admin" 
-          class="px-5 py-3 rounded-lg italic font-semibold {
+            href="/admin" 
+            class="px-5 py-3 rounded-lg italic font-semibold {
               page.url.pathname === '/' + 'admin'
               ? 'bg-main text-white' 
               : 'text-gray-700 bg-white hover:bg-gray-100'
             }"
           >
-            Submit Recipe
+            Suspend user
           </a>
 
           <a 
-          target="_blank"
-          href="http://127.0.0.1:8000/admin" 
-          class="px-5 py-3 rounded-lg text-gray-700 bg-white hover:bg-gray-100
-          flex justify-start gap-2"
+            href="/submit_recipe" 
+            class="px-5 py-3 rounded-lg italic font-semibold {
+              page.url.pathname === '/' + 'submit_recipe'
+              ? 'bg-main text-white' 
+              : 'text-gray-700 bg-white hover:bg-gray-100'
+            }"
+          >
+            Add recipe
+          </a>
+          
+          <a 
+            href="/update_recipe" 
+            class="px-5 py-3 rounded-lg italic font-semibold {
+              page.url.pathname === '/' + 'update_recipe'
+              ? 'bg-main text-white' 
+              : 'text-gray-700 bg-white hover:bg-gray-100'
+            }"
+          >
+            Update recipe
+          </a>
+
+          <a 
+            target="_blank"
+            href="http://127.0.0.1:8000/admin" 
+            class="px-5 py-3 rounded-lg text-gray-700 bg-white hover:bg-gray-100 flex justify-start gap-2"
           >
             <span class="italic font-semibold">Open in Django</span>
             <img src="{OutgoingLink}" alt="" class="w-4 mt-0.5 opacity-70">
           </a>
-
-
 
           {/if}
       </div>
