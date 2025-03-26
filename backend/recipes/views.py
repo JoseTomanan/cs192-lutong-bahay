@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.db import OperationalError, connection
 from django.db.models import Count
 
-from .models import Recipe, Ingredients, CookedBy
+from .models import Recipe, Ingredients, CookedBy, RecipeIngredients
 from .serializer import RecipeSerializer, IngredientsSerializer, CookedBySerializer
 
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
@@ -34,6 +34,12 @@ def get_recipes(request):
 
         serializer = RecipeSerializer(recipe, many=False)
         return Response(serializer.data)
+    
+@api_view(["GET"])
+def fetch_all_recipes(request):
+    recipes = Recipe.objects.all()
+    serializer = RecipeSerializer(recipes, many=True)
+    return Response(serializer.data)
 
 @api_view(["GET", "POST"])
 def get_recipe_by_id(request):
@@ -132,6 +138,7 @@ def add_recipe(request):
     return Response(recipe_serializer.errors)
 
 
+
 @api_view(["GET", "POST"])
 def get_ingredients(request):
     if request.method == "GET":
@@ -157,9 +164,72 @@ def get_ingredients(request):
 def create_recipe(request):
     recipeInfo = request.data[0]
     ingredientsList = request.data[1]
+
+    recipeName = recipeInfo["recipeName"]
+    recipeDifficulty = recipeInfo["cookDifficulty"]
+    equipment = "hotdogcooker"
+    instructions = recipeInfo["instructions"]
+    recipeServings = recipeInfo["servings"]
+    recipePrice = recipeInfo["price"]
+    ratings = 0
+
+    # create Recipe
+    print(recipeInfo)
+    newRecipeObject = Recipe(recipeName = recipeName, cookDifficulty = recipeDifficulty, equipment = equipment, instructions = instructions, servings = recipeServings, 
+                             price = recipePrice, ratings = ratings)
+    newRecipeObject.save()
+
+    # create RecipeIngredients
+    for ingredient in ingredientsList:
+        ingredientId = ingredient["ingredientObject"]["id"]
+        ingredientQuantity = ingredient["ingredientQuantity"]
+        ingredientObject = Ingredients.objects.get(pk=ingredientId)
+        newRecipeIngredient = RecipeIngredients(quantity=ingredientQuantity, unit="lols", ingredientId=ingredientObject, recipe=newRecipeObject)
+        newRecipeIngredient.save()
+
     # get ingredients from id
     # create UserIngredients with given ingredients
     # get created UserIngredients
     # create Recipe entry
     # link UserIngredients to Recipe
     return Response("yes")
+
+@api_view(["POST"])
+def del_recipe(request):
+    recipe_name = request.data.get("recipeName", None)
+    if not recipe_name:
+        return Response({"error": "recipeName is required"}, status=400)
+    recipe = Recipe.objects.filter(recipeName=recipe_name).first()
+    if not recipe:
+        return Response({"error": "Recipe not found"}, status=404)
+    recipe.delete()
+    return Response({"message": "Recipe deleted successfully"}, status=200)
+
+
+@api_view(["POST"])
+def update_recipe(request):
+    recipe_name = request.data.get("recipeName", None)
+    if not recipe_name:
+        return Response({"error": "recipeName is required"}, status=400)
+    recipe = Recipe.objects.filter(recipeName=recipe_name).first()
+    if not recipe:
+        return Response({"error": "Recipe not found"}, status=404)
+    ingredients = request.data.pop("ingredients", None)
+    recipe_serializer = RecipeSerializer(recipe, data=request.data)
+    if recipe_serializer.is_valid():
+        recipe_serializer.save()
+        CookedBy.objects.filter(recipe=recipe.id).delete()
+        for i in ingredients or []:
+            temp = {}
+            ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id
+            temp["ingredient"] = ingredient_id
+            temp["recipe"] = recipe.id
+            cooked_by_serializer = CookedBySerializer(data=temp)
+            if cooked_by_serializer.is_valid():
+                cooked_by_serializer.save()
+            else:
+                return Response(cooked_by_serializer.errors)
+
+        return Response(recipe_serializer.data)
+    return Response(recipe_serializer.errors)
+

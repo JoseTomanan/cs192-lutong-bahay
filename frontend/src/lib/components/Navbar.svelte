@@ -54,7 +54,7 @@ pt-8 px-2">
           {/each}
           {#if $isAdmin}
           <a 
-          href="/admin" 
+          href="http://127.0.0.1:8000/admin/" 
           class="px-5 py-3 rounded-lg {
               page.url.pathname === '/' + 'admin'
               ? 'bg-gradient-to-bl from-gray-600 to-gray-700 text-white' 

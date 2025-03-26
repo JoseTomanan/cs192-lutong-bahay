@@ -1,10 +1,11 @@
 <script lang="ts">
     import TitleText from "$lib/components/TitleText.svelte";
     import { usernameStore } from '$lib/stores/auth';
+    import Cookies from "js-cookie"
 </script>
 
 {#if ($usernameStore) != ""}
-    <TitleText text="Welcome, {$usernameStore}!"/> 
+    <TitleText text="Welcome, {Cookies.get("username")}!"/> 
 {:else}
     <TitleText text="Welcome"/> 
 {/if}
