@@ -86,7 +86,7 @@ async function handleAddRecipe() {
             cookDifficulty,
             servings,
             equipment,
-			"ingredients": ingredients.split(","),
+			"ingredients": ingredients.split(","), // THIS IS CASE SENSITIVE; INGREDIENTS HAVE TO BE LOWER CASE
             instructions,
             price,
             "ratings": 0

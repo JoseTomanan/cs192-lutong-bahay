@@ -39,5 +39,6 @@ urlpatterns = [
     path("get_recipe_by_id/", recipe.get_recipe_by_id),
     path("get_ingredients/", recipe.get_ingredients),
     path("create_recipe/", recipe.create_recipe),
-    path("fetch-all-recipes/", recipe.fetch_all_recipes)
+    path("fetch-all-recipes/", recipe.fetch_all_recipes),
+    path("update-recipe/", recipe.update_recipe)
 ]
