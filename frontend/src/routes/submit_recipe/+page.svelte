@@ -263,8 +263,12 @@
 				<h1 class="text-lg font-bold">Add Ingredients</h1>
 				<div class="flex">
 					<div>
-						<label for="ingredientName">Ingredient</label>
+						<label
+							class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"	
+							for="ingredientName"
+						>Ingredient</label>
 						<!-- <input id="ingredientName" type="text" bind:value={ingredientName} /> -->
+
 						<select
 							class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
 							bind:value={currentIngredient}
@@ -276,11 +280,14 @@
 					</div>
 
 					<div class="ml-5">
-						<label for="ingredientQuantity">Quantity</label>
+						<label
+							for="ingredientQuantity"
+							class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
+						>Quantity</label>
 						<input
 							id="ingredientQuantity"
 							type="text"
-							class="small-text-field block w-20 appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
+							class="block w-20 appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
 							bind:value={ingredientQuantity}
 						/>
 					</div>
@@ -295,8 +302,12 @@
 			<!-- Display ingredients -->
 			<ul>
 				<li class="flex items-center align-text-bottom">
-					<p>ingredientName</p>
-					<p class="pl-20">ingredientQuantity</p>
+					<p class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700">
+						Ingredient Name
+					</p>
+					<p class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700 pl-20">
+						Ingredient Quantity
+					</p>
 				</li>
 				<!-- {#each ingredients as ingredient} -->
 				{#each ingredients as ingredient}
