@@ -5,6 +5,13 @@
   import OutgoingLink from '$lib/static/outgoing_link.svg'
 
   let pages = ['home', 'recipes', 'users', 'profile']
+
+  let admin_pages = [
+    ['admin', 'Suspend user'],
+    ['submit_recipe', 'Add recipe'],
+    ['update_recipe', 'Update recipe'],
+    ['manage_review', 'Manage reviews']
+    ]
 </script>
   
 <!-- <nav class="p-4 bg-white shadow">
@@ -39,53 +46,33 @@ pt-8 px-2">
   </div> -->
 
   <div class="flex-1 p-2">
-      <div class="flex flex-col space-y-2">
-          {#each pages as route}
-              <a 
-                  href="/{route}" 
-                  class="px-5 py-3 rounded-lg {
-                      page.url.pathname === '/' + route 
-                      ? 'bg-gradient-to-bl from-gray-600 to-gray-700 text-white' 
-                      : 'text-gray-700 bg-white hover:bg-gray-100'
-                  }"
-              >
-                  {route[0].toUpperCase() + route.slice(1)}
-              </a>
+    <div class="flex flex-col space-y-2">
+        {#each pages as route}
+          <a 
+            href="/{route}" 
+            class="px-5 py-3 rounded-lg {
+                page.url.pathname === '/' + route 
+                ? 'bg-gradient-to-bl from-gray-600 to-gray-700 text-white' 
+                : 'text-gray-700 bg-white hover:bg-gray-100'
+            }"
+          >
+              {route[0].toUpperCase() + route.slice(1)}
+          </a>
+        {/each}
+
+        {#if $isAdmin}
+          {#each admin_pages as route}
+            <a
+              href="/{route[0]}" 
+              class="px-5 py-3 rounded-lg italic font-semibold {
+                page.url.pathname === '/' + route[0]
+                ? 'bg-main text-white' 
+                : 'text-gray-700 bg-white hover:bg-gray-100'
+              }"
+            >
+              { route[1] }
+            </a>
           {/each}
-
-          {#if $isAdmin}
-          <a 
-            href="/admin" 
-            class="px-5 py-3 rounded-lg italic font-semibold {
-              page.url.pathname === '/' + 'admin'
-              ? 'bg-main text-white' 
-              : 'text-gray-700 bg-white hover:bg-gray-100'
-            }"
-          >
-            Suspend user
-          </a>
-
-          <a 
-            href="/submit_recipe" 
-            class="px-5 py-3 rounded-lg italic font-semibold {
-              page.url.pathname === '/' + 'submit_recipe'
-              ? 'bg-main text-white' 
-              : 'text-gray-700 bg-white hover:bg-gray-100'
-            }"
-          >
-            Add recipe
-          </a>
-          
-          <a 
-            href="/update_recipe" 
-            class="px-5 py-3 rounded-lg italic font-semibold {
-              page.url.pathname === '/' + 'update_recipe'
-              ? 'bg-main text-white' 
-              : 'text-gray-700 bg-white hover:bg-gray-100'
-            }"
-          >
-            Update recipe
-          </a>
 
           <a 
             target="_blank"
@@ -95,9 +82,8 @@ pt-8 px-2">
             <span class="italic font-semibold">Open in Django</span>
             <img src="{OutgoingLink}" alt="" class="w-4 mt-0.5 opacity-70">
           </a>
-
-          {/if}
-      </div>
+        {/if}
+    </div>
   </div>
 
   
