@@ -27,15 +27,13 @@
             alert(`failed to delete ${recipeName}`)
         } 
     }
-
-
 </script>
 
 <div class="max-w-md mt-6 p-6 bg-white rounded-lg border-2">
     <h2 class="text-xl font-semibold mb-4">Recipe Management</h2>
     
     <div class="mb-4">
-        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Recipe ID</label>
+        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Recipe Name</label>
         <input 
             id="username"
             type="text" 
