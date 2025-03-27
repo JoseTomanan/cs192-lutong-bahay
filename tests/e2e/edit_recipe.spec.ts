@@ -35,6 +35,8 @@ test.describe('Recipe interactions', () => {
     
         await page.click('button:has-text("Add Recipe")');
         console.log('Clicked "Add Recipe" button'); // Console log added
+
+        
     
         // Wait for the API response
         await page.waitForResponse('http://localhost:8000/api/recipes/add-recipe/');
