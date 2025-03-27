@@ -63,27 +63,4 @@ test.describe('Recipe interactions', () => {
     console.log('Assertion passed: Recipe card is visible'); // Console log added
   });
 
-  test('UC0-S4 Recipe is successfully updated', async ({ page }) => {
-    // ...
-  });
-
-  test('UC0-S5 Recipe is successfully deleted', async ({ page }) => {
-    // ...
-  });
-
-  test('UC0-S6: Comment by user is successfully deleted', async ({ page }) => {
-    // ...
-  });
-
-  test('UC0-S7 User is successfully suspended', async ({ page }) => {
-    // ...
-  });
-
-  test('UC3-S1: Rating for current recipe is successfully posted', async ({ page }) => {
-    // ...
-  });
-
-  test('UC3-S3: Comment for current recipe is successfully posted', async ({ page }) => {
-    // ...
-  });
 });
