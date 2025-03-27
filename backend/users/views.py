@@ -51,7 +51,7 @@ def login(request):
         response.set_cookie(
             "username",
             username,
-            max_age=3600,
+            max_age=None,
             httponly=False,
             secure=True,
             samesite="Lax",
@@ -59,7 +59,7 @@ def login(request):
         response.set_cookie(
             "user_id",
             user.id,
-            max_age=3600,
+            max_age=None,
             httponly=False,
             secure=True,
             samesite="Lax",
@@ -74,7 +74,7 @@ def login(request):
         response.set_cookie(
             "username",
             username,
-            max_age=3600,
+            max_age=None,
             httponly=False,
             secure=True,
             samesite="Lax",
@@ -82,7 +82,7 @@ def login(request):
         response.set_cookie(
             "user_id",
             user.id,
-            max_age=3600,
+            max_age=None,
             httponly=False,
             secure=True,
             samesite="Lax",
