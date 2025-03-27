@@ -12,8 +12,8 @@
     
     async function deleteRecipe() {
         try {
-            const response = await fetch('http://localhost:8000/api/recipes/delete-recipe/', {
-                method: 'POST', 
+            const response = await fetch('http://localhost:8000/api/recipes/del-recipe/', {
+                method: 'POST',
                 credentials: 'include',
                 headers: {
                     'X-CSRFToken': getCookie("csrftoken"),
