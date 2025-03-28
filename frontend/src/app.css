@@ -5,32 +5,32 @@
 @import 'tailwindcss/utilities';
 
 @layer base {
-    html {
-        scroll-behavior: smooth;
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    * {
+      @apply font-sans text-gray-700;
     }
-    body {
-        * {
-            @apply font-sans text-gray-700;
-        }
-    }
+  }
 }
 
 @layer components {
-    section {
-        @apply flex min-h-screen items-center justify-center bg-gradient-to-br bg-white;
-    }
+  section {
+    @apply flex min-h-screen items-center justify-center bg-gradient-to-br bg-white;
+  }
 }
 
 @layer utilities {
-    a.hoverable-link {
-        @apply text-blue-500 hover:text-blue-700 hover:underline;
-    }
+  a.hoverable-link {
+    @apply text-blue-500 hover:text-blue-700 hover:underline;
+  }
 
-    input.submit-button {
-        @apply italic underline text-main;
-    }
+  input.submit-button {
+    @apply italic underline text-main;
+  }
 
-    input.small-text-field {
-        @apply appearance-none rounded border border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
-    }
+  input.small-text-field {
+    @apply appearance-none rounded border border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
+  }
 }

@@ -104,72 +104,69 @@
 
 <section class="bg-gradient-to-b from-lime-100 to-lime-200">
   <div
-      class="w-full flex flex-col justify-center max-w-xl space-y-3 rounded-lg 
-      px-12 py-12 shadow-xl border-gray-200 border
-      bg-gradient-to-br from-white to-gray-50"
+    class="w-full flex flex-col justify-center max-w-xl space-y-3 rounded-lg 
+    px-12 py-12 shadow-xl border-gray-200 border
+    bg-gradient-to-br from-white to-gray-50"
   >
-      <form on:submit|preventDefault={handleSubmit} class="space-y-4">
-        <h1 class="text-4xl font-bold mb-7 text-stone-600 bg-gradient-to-br pb-0.5 from-main_dark to-stone-600 text-transparent bg-clip-text">
-            Register an account
-        </h1>
-          <div class="space-y-2">  
-              <input
-                  type="text"
-                  bind:value={username}
-                  placeholder="Username or email"
-                  class="space-y-2 w-full rounded border p-2 hover:border-gray-700 focus:shadow-md"
-                  required
-              />
-              
-              <input
-                  type="password"
-                  bind:value={password}
-                  placeholder="Password" 
-                  class="space-y-2 w-full rounded border p-2 focus:outline-gray-700 focus:ring-0 hover:border-gray-700
-                  focus:shadow-md"
-                  required
-              />
+    <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+      <h1
+        class="text-4xl font-bold mb-7 text-stone-600 bg-gradient-to-br pb-0.5 from-main_dark to-stone-600 text-transparent bg-clip-text"
+      >Register an account</h1>
+      <div class="space-y-2">  
+        <input
+          type="text"
+          bind:value={username}
+          placeholder="Username or email"
+          class="space-y-2 w-full rounded border p-2 hover:border-gray-700 focus:shadow-md"
+          required
+        />
+        <input
+          type="password"
+          bind:value={password}
+          placeholder="Password" 
+          class="space-y-2 w-full rounded border p-2 focus:outline-gray-700 focus:ring-0 hover:border-gray-700 focus:shadow-md"
+          required
+        />
+        <input
+          type="password"
+          bind:value={confirm_password}
+          placeholder="Confirm password" 
+          class="space-y-2 w-full rounded border p-2 focus:outline-gray-700 focus:ring-0 hover:border-gray-700
+          focus:shadow-md"
+          required
+        />
+      </div>
+      <button type="submit" class="w-full rounded bg-stone-600 hover:shadow-md p-2 text-white hover:bg-stone-400">
+        Sign up
+      </button>
+      <div class="flex items-center justify-center pt-4 pb-2">
+        <hr class="flex-grow border-gray-200">
+        <span class="px-4 text-gray-400">
+          OR
+        </span>
+        <hr class="flex-grow border-gray-200">
+      </div>
+    </form>
 
-              <input
-                  type="password"
-
-                  bind:value={confirm_password}
-                  placeholder="Confirm password" 
-                  class="space-y-2 w-full rounded border p-2 focus:outline-gray-700 focus:ring-0 hover:border-gray-700
-                  focus:shadow-md"
-                  required
-              />
-          </div>
-
-          <button type="submit" class="w-full rounded bg-stone-600 hover:shadow-md p-2 text-white hover:bg-stone-400">
-              Sign up
-          </button>
-          
-          <div class="flex items-center justify-center pt-4 pb-2">
-              <hr class="flex-grow border-gray-200">
-              <span class="px-4 text-gray-400">OR</span>
-              <hr class="flex-grow border-gray-200">
-          </div>
-      </form>
-
-      <div class="space-y-3 flex flex-col items-center ">
-          {#each loginMethods as {name, icon, loginFunction}} 
-              <button
-                  type="submit"
-                  class="w-full rounded-full hover:border-gray-700 bg-white p-2 text-gray-700 border hover:bg-gradient-to-br
-                   hover:from-gray-50 hover:to-gray-100 flex items-center gap-3 justify-center hover:shadow-md"
-                   on:click={loginFunction}
-              >
-                  <img src={icon} alt={name} class="w-6 h-6">
-                  Sign in with {name} 
-              </button>  
-          {/each}   
-      </div> 
+    <div class="space-y-3 flex flex-col items-center ">
+      {#each loginMethods as {name, icon, loginFunction}} 
+        <button
+          type="submit"
+          class="w-full rounded-full hover:border-gray-700 bg-white p-2 text-gray-700 border hover:bg-gradient-to-br
+          hover:from-gray-50 hover:to-gray-100 flex items-center gap-3 justify-center hover:shadow-md"
+          on:click={loginFunction}
+        >
+          <img src={icon} alt={name} class="w-6 h-6">
+          Sign in with {name}
+        </button>  
+      {/each}   
+    </div> 
 
       <div class="flex justify-end"> 
-          <a class="mt-2 text-gray-800 hover:text-gray-900 hover:underline text-opacity-90" href="/login"> 
-            Have an account?
-          </a>
+        <a
+          class="mt-2 text-gray-800 hover:text-gray-900 hover:underline text-opacity-90"
+          href="/login"
+        >Have an account?</a>
       </div>
   </div>
 </section> 
