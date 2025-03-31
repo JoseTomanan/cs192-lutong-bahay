@@ -1,8 +1,7 @@
-<script>
+<script lang="ts">
   let pages = ['home', 'recipe', 'users', 'profile', 'submit_recipe']
   console.log(pages);
 </script>
-
 
 <div class="p-4 flex flex-col space-y-3">
   <h1 class="text-2xl font-bold text-gray-800">

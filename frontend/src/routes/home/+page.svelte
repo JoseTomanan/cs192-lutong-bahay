@@ -1,7 +1,7 @@
 <script lang="ts">
-    import TitleText from "$lib/components/TitleText.svelte";
-    import { usernameStore } from '$lib/stores/auth';
-    import Cookies from "js-cookie"
+  import TitleText from "$lib/components/TitleText.svelte";
+  import { usernameStore } from '$lib/stores/auth';
+  import Cookies from "js-cookie"
 </script>
 
 {#if ($usernameStore) != ""}
