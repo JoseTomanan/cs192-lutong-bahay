@@ -1,57 +1,62 @@
-<script>
+<script lang="ts">
   import TitleText from "$lib/components/TitleText.svelte";
   import DeleteRecipe from "$lib/components/DeleteRecipe.svelte";
 
-  let username = "Admin";
-  let userSearchbar = "";
+  let username: string = "Admin";
+  let userSearchbar: string = "";
 
-  let recipeName = "";
-  let cookDifficulty = "";
-  let price = "";
-  let ingredients = []
-  let equipment = "";
-  let servings = 0;
-  let instructions = ""
+  let recipeName: string = ""
+  let cookDifficulty: string = ""
+  let price: string = ""
+  let ingredients: string = ""
+  let equipment: string = ""
+  let servings: number = 0
+  let instructions: string = ""
 
-async function handleEditRecipe() {
-  try {
+  async function handleEditRecipe() {
+    try {
       const response = await fetch("http://localhost:8000/api/recipes/update-recipe/", {
-
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-          recipeName,
-          cookDifficulty,
-          servings,
-          equipment,
-          "ingredients": ingredients.split(","), // THIS IS CASE SENSITIVE; INGREDIENTS HAVE TO BE LOWER CASE
-          instructions,
-          price,
-          "ratings": 0
-          })
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+        recipeName,
+        cookDifficulty,
+        servings,
+        equipment,
+        "ingredients": ingredients.split(","), // THIS IS CASE SENSITIVE; INGREDIENTS HAVE TO BE LOWER CASE
+        instructions,
+        price,
+        "ratings": 0
+        })
       });
+
       const data = await response.json();
+      
       console.log(data)
   
       if (response['status'] == 200) {
-          alert("Recipe edited successfully!");
-          // Reset form fields
-          recipeName = "";
-          cookDifficulty = "";
-          price = "";
-          ingredients = "";
-          equipment = "";
-          servings = 0;
-      } else {
-          alert(data.message || "Error in editing recipe");
+        alert("Recipe edited successfully!");
+        
+        // Reset form fields
+        recipeName = ""
+        cookDifficulty = ""
+        price = ""
+        ingredients = ""
+        equipment = ""
+        servings = 0
       }
-  } catch (err) {
+      
+      else {
+        alert(data.message || "Error in editing recipe")
+      }
+    }
+    
+    catch (err) {
       alert("Error connecting to the server.");
+    }
   }
-}
-
 </script>
 
 <TitleText text="Delete a recipe" />
