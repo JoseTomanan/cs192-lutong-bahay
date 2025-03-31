@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import UserRow from './UserRow.svelte';
 
-	let users = [];
-	let inputEmail = '';
-	let inputPassword = '';
-	let error = '';
+	let users: any[] = [];
+	let inputEmail: string = '';
+	let inputPassword: string = '';
+	let error: string = '';
 
 	async function fetchUsers() {
 		const response = await fetch('http://127.0.0.1:8000/users/');
@@ -35,8 +35,9 @@
 		}
 	}
 
-	async function functionDeleteUserForm(input_id) {
+	async function functionDeleteUserForm(input_id: number) {
 		console.log(input_id);
+
 		const response = await fetch('http://127.0.0.1:8000/delete-user/', {
 			method: 'POST',
 			headers: {
@@ -46,6 +47,7 @@
 		});
 
 		const data = await response.json();
+    
 		console.log(data);
 
 		if (response.ok) {
