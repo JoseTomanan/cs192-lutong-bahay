@@ -9,9 +9,9 @@
   let error = '';
   
   let loginMethods = [
-      {name: 'Google', icon: '/google.webp', loginFunction: loginWithGoogle}, 
-      {name: 'Facebook', icon: '/facebook.png', loginFunction: ()=>{}}, 
-  ] 
+    {name: 'Google', icon: '/google.webp', loginFunction: loginWithGoogle}, 
+    {name: 'Facebook', icon: '/facebook.png', loginFunction: ()=>{}}, 
+    ] 
 
   onMount(async () => {
     const params = new URLSearchParams(window.location.hash.substring(1));
@@ -30,8 +30,8 @@
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) {
       return parts.pop().split(';').shift();
+    }
   }
-}
 
   async function handleSubmit() {
     try { 
