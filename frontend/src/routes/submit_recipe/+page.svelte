@@ -12,57 +12,8 @@
   let servings = 0;
   let instructions = ""
 
-  async function testAddRecipe() {
-    try {
-      // const toSend = JSON.stringify({
-      //     "recipeName": "recipeName",
-      //     "cookDifficulty": cookDifficulty,
-      //     "servings": servings,
-      //     "equipment": equipment,
-      //     "ingredients": ingredients.split(", "),
-      //     "instructions": "",
-      //     "ratings": 0,
-      //     "price": price,
-      // })
-
-      const toSend = JSON.stringify({
-        "recipeName": "this is a test",
-        "cookDifficulty": "test",
-        "servings": 1,
-        "equipment": "pan",
-        "ingredients": ['1', '2', '3'],
-        "instructions": "help me",
-        "ratings": 0,
-        "price": 2,
-      })
-
-      const response = await fetch("http://localhost:8000/api/recipes/add-recipe/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          "recipeName": "this is a test",
-          "cookDifficulty": "test",
-          "servings": 1,
-          "equipment": "pan",
-          "ingredients": ['1', '2', '3'],
-          "instructions": "help me",
-          "ratings": 0,
-          "price": 2,
-        })
-      });
-
-      const data = await response.json()
-      alert('success')
-    }   
-    
-    catch {
-        alert('fail')
-    }
-  }
-
   async function handleAddRecipe() {
+    
     try {
       // const toSend = JSON.stringify({
       //     "recipeName": recipeName,
@@ -118,46 +69,52 @@
 
 <form on:submit|preventDefault={handleAddRecipe} class="space-y-4 mt-4">
   <input 
-    type="text" 
-    class="block w-1/3 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
-    bind:value={recipeName}
-    placeholder="Recipe Name..." 
+      type="text" 
+      class="block w-1/3 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
+      bind:value={recipeName}
+      placeholder="Recipe Name..." 
     />
+
   <input 
-    type="text" 
-    class="block w-1/6 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
-    bind:value={cookDifficulty}
-    placeholder="Cooking Difficulty..." 
+      type="text" 
+      class="block w-1/6 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
+      bind:value={cookDifficulty}
+      placeholder="Cooking Difficulty..."   
     />
+
   <input 
-    type="number" 
-    class="block w-1/6 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
-    bind:value={price}
-    placeholder="Price..."     
+      type="number" 
+      class="block w-1/6 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
+      bind:value={price}
+      placeholder="Price..."    
     />
+
   <input 
-    type="text" 
-    class="block w-1/3 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
-    bind:value={ingredients}
-    placeholder="Ingredients (comma-separated)..."     
+      type="text" 
+      class="block w-1/3 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
+      bind:value={ingredients}
+      placeholder="Ingredients (comma-separated)..." 
     />
+
   <input 
-    type="text" 
-    class="block w-1/3 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
-    bind:value={instructions}
-    placeholder="Instructions" 
+      type="text" 
+      class="block w-1/3 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
+      bind:value={instructions}
+      placeholder="Instructions"   
     />
+
   <input 
-    type="text" 
-    class="block w-1/3 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
-    bind:value={equipment}
-    placeholder="Equipment..."     
+      type="text" 
+      class="block w-1/3 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
+      bind:value={equipment}
+      placeholder="Equipment..." 
     />
+
   <input 
       type="number" 
       class="block w-1/6 p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
       bind:value={servings}
-      placeholder="Servings..."    
+      placeholder="Servings..."   
     />
 
   <button 
