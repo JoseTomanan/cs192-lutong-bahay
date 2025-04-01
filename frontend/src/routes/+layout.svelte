@@ -3,14 +3,14 @@
 	import Navbar from '$lib/components/Navbar.svelte'
 	import { isAuthenticated, isAdmin } from '$lib/stores/auth'
 	import { page } from '$app/state'
-    import { goto } from '$app/navigation'
-    import { onMount } from 'svelte'
-    import { initAuth } from '$lib/stores/auth'
-    
-    onMount(() => {
-        initAuth()
-        console.log(`isAuthenticated: ${$isAuthenticated}`)
-        console.log(`isAdmin: ${$isAdmin}`)
+  import { goto } from '$app/navigation'
+  import { onMount } from 'svelte'
+  import { initAuth } from '$lib/stores/auth'
+  
+  onMount(() => {
+      initAuth()
+      console.log(`isAuthenticated: ${$isAuthenticated}`)
+      console.log(`isAdmin: ${$isAdmin}`)
     })
 
 	let { children } = $props()    

@@ -37,14 +37,11 @@
   </div>
 </nav> -->
 
-
-
 <nav class="fixed top-0 left-0 h-screen w-64 border-r bg-white flex flex-col z-50
 pt-8 px-2">
   <!-- <div class="p-6 border-b">
-      <h1 class="text-2xl font-semibold text-main">Lutong Bahay</h1>
+    <h1 class="text-2xl font-semibold text-main">Lutong Bahay</h1>
   </div> -->
-
   <div class="flex-1 p-2">
     <div class="flex flex-col space-y-2">
       {#each pages as route}
@@ -54,9 +51,9 @@ pt-8 px-2">
               page.url.pathname === '/' + route 
               ? 'bg-gradient-to-bl from-gray-600 to-gray-700 text-white' 
               : 'text-gray-700 bg-white hover:bg-gray-100'
-          }"
+            }"
         >
-          {route[0].toUpperCase() + route.slice(1)}
+            {route[0].toUpperCase() + route.slice(1)}
         </a>
       {/each}
 
@@ -65,10 +62,10 @@ pt-8 px-2">
           <a
             href="/{route[0]}" 
             class="px-5 py-3 rounded-lg {
-              page.url.pathname === '/' + route[0]
-              ? 'bg-main text-white' 
-              : 'text-gray-700 bg-main bg-opacity-10 hover:bg-opacity-20'
-            }"
+                page.url.pathname === '/' + route[0]
+                ? 'bg-main text-white' 
+                : 'text-gray-700 bg-main bg-opacity-10 hover:bg-opacity-20'
+              }"
           >
             { route[1] }
           </a>
@@ -78,7 +75,9 @@ pt-8 px-2">
   </div>
 
   {#if ($usernameStore) != ""}
-    <p class="pl-2 text-gray-400">@{$usernameStore}</p>
+    <p class="pl-2 text-gray-400">
+      @{$usernameStore}
+    </p>
   {/if}
 
   <div class="p-2">

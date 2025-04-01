@@ -1,51 +1,51 @@
-<script>
-        
-        let username = "";
-    let isLoading = false;
+<script lang="ts">
+  let username: string = ""
+  let isLoading: boolean = false
 
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) {
-            return parts.pop().split(';').shift();
-        }
+  function getCookie(name: string) {
+    const value = `; ${document.cookie}`
+    const parts = value.split(`; ${name}=`)
+
+    if (parts.length === 2) {
+      return parts.pop()!.split(';').shift();
     }
-    
-    async function suspendUser() {
-        try {
-            const response = await fetch('http://localhost:8000/api/users/suspend-user/', {
-                method: 'POST', 
-                credentials: 'include',
-                headers: {
-                    'X-CSRFToken': getCookie("csrftoken"),
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({username})
-            });
+  }
+  
+  async function suspendUser() {
+    try {
+      const response = await fetch('http://localhost:8000/api/users/suspend-user/', {
+        method: 'POST', 
+        credentials: 'include',
+        headers: {
+          'X-CSRFToken': getCookie("csrftoken"),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({username})
+      });
 
-            alert(`${username} suspended`)
-        } catch {
-            alert(`failed to suspend ${username}`)
-        } 
-    }
+      alert(`${username} suspended`)
+    } catch {
+      alert(`failed to suspend ${username}`)
+    } 
+  }
 
-    async function reactivateUser() {
-        try {
-            const response = await fetch('http://localhost:8000/api/users/activate-user/', {
-                method: 'POST', 
-                credentials: 'include',
-                headers: {
-                    'X-CSRFToken': getCookie("csrftoken"),
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({username})
-            });
+  async function reactivateUser() {
+    try {
+      const response = await fetch('http://localhost:8000/api/users/activate-user/', {
+        method: 'POST', 
+        credentials: 'include',
+        headers: {
+          'X-CSRFToken': getCookie("csrftoken"),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({username})
+      });
 
-            alert(`${username} reactivated`)
-        } catch {
-            alert(`failed to reactivate ${username}`)
-        } 
-    }
+      alert(`${username} reactivated`)
+    } catch {
+      alert(`failed to reactivate ${username}`)
+    } 
+  }
 </script>
 
 <div class="max-w-md mt-6 p-6 bg-white rounded-lg shadow-md">

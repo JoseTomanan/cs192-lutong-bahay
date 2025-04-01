@@ -1,6 +1,6 @@
-<script>
-    import TitleText from "$lib/components/TitleText.svelte";
-    import SuspendUser from "$lib/components/SuspendUser.svelte"
+<script lang="ts">
+  import TitleText from "$lib/components/TitleText.svelte";
+  import SuspendUser from "$lib/components/SuspendUser.svelte"
 
 </script>
 

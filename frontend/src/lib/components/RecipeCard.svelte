@@ -1,17 +1,13 @@
 <script lang="ts">
-    export let cookDifficulty: string
-    export let ratings
-    export let price
-    export let ingredients
-    export let id: number
-    export let equipment: string
-    
-    
-    export let instruction
-   
-   
-    export let recipeName: string
-    export let servings: number
+  export let cookDifficulty: string
+  export let ratings
+  export let price
+  export let ingredients
+  export let id: number
+  export let equipment: string
+  
+  export let recipeName: string
+  export let servings: number
 
 </script>
 

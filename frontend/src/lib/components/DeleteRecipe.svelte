@@ -1,32 +1,35 @@
-<script>
-    let recipeName = "";
-    let isLoading = false;
+<script lang="ts">
+  let recipeName = ""
+  let isLoading = false
 
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) {
-            return parts.pop().split(';').shift();
-        }
+  function getCookie(name: string) {
+    const value: string = `; ${document.cookie}`;
+    const parts: string[] = value.split(`; ${name}=`);
+
+    if (parts.length === 2) {
+      return parts.pop()!.split(';').shift()
+    }
+  }
+  
+  async function deleteRecipe() {
+    try {
+      const response = await fetch('http://localhost:8000/api/recipes/del-recipe/', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'X-CSRFToken': getCookie("csrftoken"),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({recipeName})
+      });
+      
+      alert(`${recipeName} deleted`)
     }
     
-    async function deleteRecipe() {
-        try {
-            const response = await fetch('http://localhost:8000/api/recipes/del-recipe/', {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'X-CSRFToken': getCookie("csrftoken"),
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({recipeName})
-            });
-
-            alert(`${recipeName} deleted`)
-        } catch {
-            alert(`failed to delete ${recipeName}`)
-        } 
-    }
+    catch {
+      alert(`failed to delete ${recipeName}`)
+    } 
+  }
 </script>
 
 <div class="max-w-md mt-6 p-6 bg-white rounded-lg border-2">
