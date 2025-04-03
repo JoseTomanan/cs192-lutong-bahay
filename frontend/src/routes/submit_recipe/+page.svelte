@@ -9,61 +9,33 @@
 	let ingredientsDb: any[];
 
 	let recipeName = '';
-	let cookDifficulty = 0;
+	let cookDifficulty = 3;
 	let instructions = '';
 	let servings = 1;
-	let price = 20;
+	let price = 50;
 
-	let ingredients = [
-		{
-			ingredientObject: {
-				id: 3,
-				ingredientName: 'hotdog'
-			},
+	let ingredients =
+    [{
+			ingredientObject: {id: 4, ingredientName: 'salt'},
 			ingredientQuantity: 4
-		}
-	];
-	let ingredientName = '';
+		}];
+	let ingredientNames: string[] = ['salt'];
 	let ingredientQuantity = 0;
 
 	let currentIngredient = { id: 0, ingredientName: '' };
 
 	let equipment = [
 		{
-			equipmentName: 'Pan',
+			equipmentName: 'pan',
 			equipmentQuantity: 1
 		}
 	];
 	let equipmentName = '';
-	let equipmentQuantity = 0;
+	let equipmentQuantity = 1;
 
 	onMount(async () => {
 		fetchIngredients();
 	});
-
-	async function fetchRecipes() {
-		console.log(recipeName);
-		try {
-			const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ recipeName })
-			});
-
-			const data = await response.json();
-			if (data.hasOwnProperty('error')) {
-				alert('No recipes found');
-			} else {
-				const recipes = [data];
-				console.log(data);
-				console.log(recipes.length);
-			}
-		} catch {
-			alert('No database connection');
-		}
-	}
 
 	async function fetchIngredients() {
 		console.log(recipeName);
@@ -125,22 +97,70 @@
 		}
 	}
 
+  async function handleAddRecipe() {
+    let passableRecipe = {
+        recipeName, cookDifficulty, servings, equipment,
+        "ingredients": ingredientNames,
+        instructions, price,
+        "ratings": 0
+      }
+
+    try {
+      const response = await fetch("http://localhost:8000/api/recipes/add-recipe/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(passableRecipe)
+      });
+
+      const data = await response.json();
+
+      console.log(data)
+  
+      if (response['status'] == 200) {
+        alert("Recipe added successfully!");
+        recipeName = "";
+        cookDifficulty = 3;
+        price = 30;
+        ingredientNames = [];
+        equipment = [];
+        servings = 0;
+      }
+      
+      else
+        alert(data.message || "Failed to add recipe.");
+
+    } catch (err) {
+      alert("Error connecting to the server.");
+    }
+  }
+
 	// https://svelte.dev/playground/9983c53df057451db328b94553b88202?version=5.25.2
 	const addIngredient = () => {
 		ingredients = [
-			...ingredients,
-			{
-				ingredientObject: currentIngredient,
-				ingredientQuantity
-			}
-		];
-		currentIngredient;
+        ...ingredients,
+        {ingredientObject: currentIngredient, ingredientQuantity}
+		  ];
+
+    ingredientNames = [
+        ...ingredientNames,
+        currentIngredient.ingredientName
+      ]
+		
+    currentIngredient;
 		ingredientQuantity = 0;
 		console.log(ingredients);
 	};
 
 	const removeIngredient = (ingredient: { ingredientObject: { id: number; ingredientName: string; }; ingredientQuantity: number; }) => {
-		ingredients = ingredients.filter((i) => i.ingredientObject.ingredientName !== ingredient.ingredientObject.ingredientName);
+		ingredients = ingredients.filter(
+        (i) => i.ingredientObject.ingredientName !== ingredient.ingredientObject.ingredientName
+      );
+
+    ingredientNames = ingredientNames.filter(
+        (i) => !(ingredientNames.includes(i))
+      )
 	};
 
 	const addEquipment = () => {
@@ -367,7 +387,7 @@
 			<!-- Submit recipe -->
 			<button
 				class="bg-main hover:bg-main-dark rounded border px-4 py-2 font-bold text-white"
-        on:click={submitRecipe}
+        on:click|preventDefault={handleAddRecipe}
       >Submit Recipe</button>
 		</div>
 		<!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
