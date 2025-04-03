@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import RecipeCard from '$lib/components/RecipeCard.svelte';
 	// let recipes = []
 	// let recipeName = ''
 	// let direction = 'ascending'
@@ -14,7 +13,6 @@
 	let instructions = '';
 	let servings = 1;
 	let price = 20;
-	let ratings = 5;
 
 	let ingredients = [
 		{
@@ -222,9 +220,7 @@
 					<label
 						class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
 						for="cookDifficulty"
-					>
-						Difficulty
-					</label>
+					>Difficulty</label>
 					<input
 						id="cookDifficulty"
 						class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
@@ -240,9 +236,7 @@
 					<label
 						class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700"
 						for="instructions"
-					>
-						Instructions
-					</label>
+					>Instructions</label>
 					<input
 						id="instructions"
 						class="mb-3 block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
@@ -344,36 +338,37 @@
 					<p>equipmentName</p>
 					<p class="pl-20">equipmentQuantity</p>
 				</li>
-				{#each equipment as equipment}
-					<li class="flex items-center align-text-bottom">
-						<!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
-						<input
-							id="equipmentName"
-							type="text"
-							class="small-text-field"
-							bind:value={equipment.equipmentName}
-						/>
-						<input
-							id="equipmentQuantity"
-							type="text"
-							class="small-text-field"
-							bind:value={equipment.equipmentQuantity}
-						/>
 
-						<button
-							type="button"
-							class="py-0.3 mb-2 me-2 rounded-full bg-red-700 px-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-							on:click={() => removeEquipment(equipment)}>x</button
-						>
-					</li>
-				{/each}
+        {#each equipment as equipment}
+          <li class="flex items-center align-text-bottom">
+            <!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
+            <input
+              id="equipmentName"
+              type="text"
+              class="small-text-field"
+              bind:value={equipment.equipmentName}
+            />
+            <input
+              id="equipmentQuantity"
+              type="text"
+              class="small-text-field"
+              bind:value={equipment.equipmentQuantity}
+            />
+
+            <button
+              type="button"
+              class="py-0.3 mb-2 me-2 rounded-full bg-red-700 px-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+              on:click={() => removeEquipment(equipment)}
+            >x</button>
+          </li>
+        {/each}
 			</ul>
 
 			<!-- Submit recipe -->
 			<button
 				class="bg-main hover:bg-main-dark rounded border px-4 py-2 font-bold text-white"
-				on:click={submitRecipe}>Submit Recipe</button
-			>
+        on:click={submitRecipe}
+      >Submit Recipe</button>
 		</div>
 		<!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
 	</div>
