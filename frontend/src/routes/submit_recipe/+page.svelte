@@ -139,8 +139,8 @@
 		console.log(ingredients);
 	};
 
-	const removeIngredient = (ingredient: string) => {
-		ingredients = ingredients.filter((i) => i.ingredientObject.ingredientName !== ingredient);
+	const removeIngredient = (ingredient: { ingredientObject: { id: number; ingredientName: string; }; ingredientQuantity: number; }) => {
+		ingredients = ingredients.filter((i) => i.ingredientObject.ingredientName !== ingredient.ingredientObject.ingredientName);
 	};
 
 	const addEquipment = () => {
