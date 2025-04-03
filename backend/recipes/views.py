@@ -117,11 +117,11 @@ def add_recipe(request):
 
         for i in ingredients or []:
             temp = {}
-            ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id
+            ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id # type: ignore
             temp["ingredient"] = ingredient_id
             recipe_id = None
             recipe_id = (
-                Recipe.objects.filter(recipeName=request.data["recipeName"]).first().id
+                Recipe.objects.filter(recipeName=request.data["recipeName"]).first().id # type: ignore
             )
             temp["recipe"] = recipe_id
             cooked_by_serializer = CookedBySerializer(data=temp)
@@ -228,12 +228,12 @@ def update_recipe(request):
     recipe_serializer = RecipeSerializer(recipe, data=request.data)
     if recipe_serializer.is_valid():
         recipe_serializer.save()
-        CookedBy.objects.filter(recipe=recipe.id).delete()
+        CookedBy.objects.filter(recipe=recipe.id).delete() # type: ignore
         for i in ingredients or []:
             temp = {}
-            ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id
+            ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id # type: ignore
             temp["ingredient"] = ingredient_id
-            temp["recipe"] = recipe.id
+            temp["recipe"] = recipe.id # type: ignore
             cooked_by_serializer = CookedBySerializer(data=temp)
             if cooked_by_serializer.is_valid():
                 cooked_by_serializer.save()

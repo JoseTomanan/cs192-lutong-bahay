@@ -12,7 +12,7 @@ class Ingredients(models.Model):
 
 class UserIngredientsInventory(models.Model):
     ingredientId = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0) # type: ignore
     quantity = models.IntegerField()
 
 class Recipe(models.Model):
