@@ -41,11 +41,11 @@ def get_recipes(request):
         return Response(serializer.data)
 
 
-# @api_view(["GET"])
-# def fetch_all_recipes(request):
-#     recipes = Recipe.objects.all()
-#     serializer = RecipeSerializer(recipes, many=True)
-#     return Response(serializer.data)
+@api_view(["GET"])
+def fetch_all_recipes(request):
+    recipes = Recipe.objects.all()
+    serializer = RecipeSerializer(recipes, many=True)
+    return Response(serializer.data)
 
 
 @api_view(["GET", "POST"])
