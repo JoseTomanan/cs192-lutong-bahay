@@ -26,7 +26,7 @@
 	let ingredientName = '';
 	let ingredientQuantity = 0;
 
-	let currentIngredient = {};
+	let currentIngredient = { id: 0, ingredientName: '' };
 
 	let equipment = [
 		{
@@ -140,7 +140,7 @@
 	};
 
 	const removeIngredient = (ingredient: string) => {
-		ingredients = ingredients.filter((i) => i !== ingredient);
+		ingredients = ingredients.filter((i) => i.ingredientObject.ingredientName !== ingredient);
 	};
 
 	const addEquipment = () => {
