@@ -111,8 +111,10 @@ def search_ingredient(request):
 def add_recipe(request):
     ingredients = request.data.pop("ingredients", None)
     recipe_serializer = RecipeSerializer(data=request.data)
+
     if recipe_serializer.is_valid():
         recipe_serializer.save()
+
         for i in ingredients or []:
             temp = {}
             ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id
@@ -129,6 +131,7 @@ def add_recipe(request):
                 return Response(cooked_by_serializer.errors)
 
         return Response(recipe_serializer.data)
+    
     return Response(recipe_serializer.errors)
 
 
@@ -161,7 +164,7 @@ def create_recipe(request):
 
     recipeName = recipeInfo["recipeName"]
     recipeDifficulty = recipeInfo["cookDifficulty"]
-    equipment = "hotdogcooker"
+    equipment = 'pan'
     instructions = recipeInfo["instructions"]
     recipeServings = recipeInfo["servings"]
     recipePrice = recipeInfo["price"]
@@ -187,7 +190,7 @@ def create_recipe(request):
         ingredientObject = Ingredients.objects.get(pk=ingredientId)
         newRecipeIngredient = RecipeIngredients(
             quantity=ingredientQuantity,
-            unit="lols",
+            unit='units',
             ingredientId=ingredientObject,
             recipe=newRecipeObject,
         )
