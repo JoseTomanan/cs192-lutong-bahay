@@ -23,7 +23,7 @@ def get_recipes(request):
         )
         ###
         serializer = RecipeSerializer(recipes, many=True)
-        print(serializer.data)
+        # print(serializer.data)
         return Response(serializer.data)
     else:
         # recipe = Recipe.objects.get(recipeName=request.data["recipeName"])
