@@ -41,11 +41,11 @@ def get_recipes(request):
         return Response(serializer.data)
 
 
-@api_view(["GET"])
-def fetch_all_recipes(request):
-    recipes = Recipe.objects.all()
-    serializer = RecipeSerializer(recipes, many=True)
-    return Response(serializer.data)
+# @api_view(["GET"])
+# def fetch_all_recipes(request):
+#     recipes = Recipe.objects.all()
+#     serializer = RecipeSerializer(recipes, many=True)
+#     return Response(serializer.data)
 
 
 @api_view(["GET", "POST"])
@@ -85,15 +85,6 @@ def sort_recipes(request):
         recipes = Recipe.objects.order_by(sort_parameter)
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
-
-
-def check_database_status():
-    try:
-        connection.cursor()
-        return True
-
-    except OperationalError:
-        return False
 
 @api_view(["POST"])
 def add_ingredient(request):
