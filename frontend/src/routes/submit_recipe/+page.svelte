@@ -14,12 +14,10 @@
 	let servings = 1;
 	let price = 50;
 
-	let ingredients =
-    [{
+	let ingredients = [{
 			ingredientObject: {id: 4, ingredientName: 'salt'},
-			ingredientQuantity: 4
+			ingredientQuantity: 1
 		}];
-	let ingredientNames: string[] = ['salt'];
 	let ingredientQuantity = 0;
 
 	let currentIngredient = { id: 0, ingredientName: '' };
@@ -97,56 +95,12 @@
 		}
 	}
 
-  async function handleAddRecipe() {
-    let passableRecipe = {
-        recipeName, cookDifficulty, servings, equipment,
-        "ingredients": ingredientNames,
-        instructions, price,
-        "ratings": 0
-      }
-
-    try {
-      const response = await fetch("http://localhost:8000/api/recipes/add-recipe/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(passableRecipe)
-      });
-
-      const data = await response.json();
-
-      console.log(data)
-  
-      if (response['status'] == 200) {
-        alert("Recipe added successfully!");
-        recipeName = "";
-        cookDifficulty = 3;
-        price = 30;
-        ingredientNames = [];
-        equipment = [];
-        servings = 0;
-      }
-      
-      else
-        alert(data.message || "Failed to add recipe.");
-
-    } catch (err) {
-      alert("Error connecting to the server.");
-    }
-  }
-
 	// https://svelte.dev/playground/9983c53df057451db328b94553b88202?version=5.25.2
 	const addIngredient = () => {
 		ingredients = [
         ...ingredients,
         {ingredientObject: currentIngredient, ingredientQuantity}
 		  ];
-
-    ingredientNames = [
-        ...ingredientNames,
-        currentIngredient.ingredientName
-      ]
 		
     currentIngredient;
 		ingredientQuantity = 0;
@@ -157,10 +111,6 @@
 		ingredients = ingredients.filter(
         (i) => i.ingredientObject.ingredientName !== ingredient.ingredientObject.ingredientName
       );
-
-    ingredientNames = ingredientNames.filter(
-        (i) => !(ingredientNames.includes(i))
-      )
 	};
 
 	const addEquipment = () => {
@@ -387,7 +337,7 @@
 			<!-- Submit recipe -->
 			<button
 				class="bg-main hover:bg-main-dark rounded border px-4 py-2 font-bold text-white"
-        on:click|preventDefault={handleAddRecipe}
+        on:click|preventDefault={submitRecipe}
       >Submit Recipe</button>
 		</div>
 		<!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
