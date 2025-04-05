@@ -36,9 +36,9 @@
 			equipmentName: 'pan',
 			equipmentQuantity: 1
 		}];
-  
-	let equipmentName = '';
-	let equipmentQuantity = 1;
+
+  let equipmentName: string = '';
+	let equipmentQuantity: number = 1;
 
 	onMount(async () => {
 		fetchIngredients();
@@ -70,10 +70,14 @@
 	}
 
 	async function handleCreateRecipe() {
+    const equipmentListOfNames: string = equipment
+      .map(item => item.equipmentName)
+      .join(', ');
+
 		let input = {
 			recipeName: recipeName,
 			cookDifficulty: cookDifficulty,
-			equipment: equipment.toString(),
+			equipment: equipmentListOfNames,
 			instructions: instructions,
 			servings: servings,
 			price: price,
@@ -97,7 +101,7 @@
 				alert('No recipes found');
 			} else {
 				const result = data;
-				// console.log(result)
+        console.log(result)
 			}
 		} catch {
 			alert('No database connection');
@@ -132,7 +136,7 @@
 	};
 
 	const removeEquipment = (equipment_i: EquipmentItem) => {
-		equipment = equipment.filter((i) => i !== equipment_i);
+		equipment = equipment.filter((i) => i !== equipment_i)
 	};
 </script>
 
