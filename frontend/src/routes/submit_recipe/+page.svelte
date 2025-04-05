@@ -246,8 +246,9 @@
 							class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
 							bind:value={currentIngredient}
 						>
+              <option disabled selected>Choose...</option>
 							{#each ingredientsDb as ingredient}
-								<option value={ingredient}> {ingredient.ingredientName} </option>
+								<option value={ingredient}>{ ingredient.ingredientName }</option>
 							{/each}
 						</select>
 					</div>
