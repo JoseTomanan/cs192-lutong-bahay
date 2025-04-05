@@ -20,11 +20,13 @@ class RecipeSerializer(serializers.ModelSerializer):
         ingredients = RecipeIngredientsSerializer(
             RecipeIngredients.objects.filter(recipe=recipe.id), many=True
         ).data
-        ingredient_list = [
-            Ingredients.objects.get(id=i["ingredientId"]).ingredientName
+        ingredient_ids = [
+            Ingredients.objects.get(id=i["ingredientId"]).id
             for i in ingredients
         ]
-        return ingredient_list
+        ingredient_objects = Ingredients.objects.filter(id__in=ingredient_ids)
+        serialized_ingredients = IngredientsSerializer(ingredient_objects, many=True).data
+        return serialized_ingredients
     
 
 class RecipeIngredientsSerializer(serializers.ModelSerializer):
