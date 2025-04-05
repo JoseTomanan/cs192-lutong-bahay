@@ -27,10 +27,14 @@
   }
 
   input.submit-button {
-    @apply italic underline text-main;
+    @apply my-4 rounded bg-zinc-100 hover:bg-zinc-300 text-main_dark;
   }
 
   input.small-text-field {
     @apply appearance-none rounded border border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
+  }
+
+  label.for-small-field {
+    @apply mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700;
   }
 }
