@@ -1,10 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	// let recipes = []
-	// let recipeName = ''
-	// let direction = 'ascending'
-	// let is_negative = true
-	// let sort= 'recipeName'
 
 	let ingredientsDb: any[];
 
@@ -22,12 +17,11 @@
 
 	let currentIngredient = { id: 0, ingredientName: '' };
 
-	let equipment = [
-		{
+	let equipment = [{
 			equipmentName: 'pan',
 			equipmentQuantity: 1
-		}
-	];
+		}];
+  
 	let equipmentName = '';
 	let equipmentQuantity = 1;
 
@@ -60,7 +54,7 @@
 		}
 	}
 
-	async function submitRecipe() {
+	async function handleCreateRecipe() {
 		let input = {
 			recipeName: recipeName,
 			cookDifficulty: cookDifficulty,
@@ -116,10 +110,7 @@
 	const addEquipment = () => {
 		equipment = [
 			...equipment,
-			{
-				equipmentName,
-				equipmentQuantity
-			}
+			{equipmentName, equipmentQuantity}
 		];
 		equipmentName = '';
 		equipmentQuantity = 0;
@@ -337,7 +328,7 @@
 			<!-- Submit recipe -->
 			<button
 				class="bg-main hover:bg-main-dark rounded border px-4 py-2 font-bold text-white"
-        on:click|preventDefault={submitRecipe}
+        on:click|preventDefault={handleCreateRecipe}
       >Submit Recipe</button>
 		</div>
 		<!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
