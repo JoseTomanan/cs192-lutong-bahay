@@ -102,6 +102,7 @@
 			} else {
 				const result = data;
         console.log(result)
+        alert(`Recipe added successfully!\n${result}`)
 			}
 		} catch {
 			alert('No database connection');
