@@ -237,7 +237,7 @@
         </h1>
         
 				<div class="flex gap-x-5">
-					<div>
+					<div class="w-1/3">
 						<label
               class="for-small-field"
               for="ingredientName"
@@ -253,7 +253,7 @@
 						</select>
 					</div>
 
-					<div>
+					<div class="w-1/3">
 						<label
               class="for-small-field"
               for="ingredientQuantity"
@@ -261,22 +261,18 @@
             <input
 							id="ingredientQuantity"
 							type="text"
-							class="small-text-field px-4 py-3 w-20"
+							class="small-text-field px-4 py-3"
 							bind:value={ingredientQuantity}
 						/>
-						<!-- <input
-							id="ingredientQuantity"
-							type="text"
-							class="small-text-field block w-20 appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
-							bind:value={ingredientQuantity}
-						/> -->
 					</div>
 
-          <input
-            type="submit"
-            value="+"
-            class="submit-button w-1/4"
-          />
+          <div class="w-1/3">
+            <input
+              type="submit"
+              value="+"
+              class="submit-button w-1/3"
+            />
+          </div>
 				</div>
 			</form>
 
