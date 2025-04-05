@@ -26,7 +26,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         ]
         ingredient_objects = Ingredients.objects.filter(id__in=ingredient_ids)
         serialized_ingredients = IngredientsSerializer(ingredient_objects, many=True).data
-        return serialized_ingredients
+        return ingredients
     
 
 class RecipeIngredientsSerializer(serializers.ModelSerializer):

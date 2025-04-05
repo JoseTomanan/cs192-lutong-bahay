@@ -10,7 +10,7 @@
 	import Cookies from 'js-cookie';
 
 	// for editing logic
-	let is_editing = $state(1);
+	let is_editing = $state(true);
 	let currentIngredient;
 	let ingredientQuantity = 0;
 
@@ -144,34 +144,43 @@
 	<h1 class="text-4xl font-bold">
 		{recipeName}
 	</h1>
-	<button class="text-blue-600">Edit Recipe</button>
+	<button class="text-blue-600" on:click={() => is_editing = !is_editing}>Edit Recipe</button>
 </div>
 
 <div class="my-5">
 	<h1 class="text-xl font-bold">Ingredients</h1>
+  {#if !is_editing}
 	<ul class="list-disc">
 		{#each ingredients as ingredient}
 			<li class="ml-5">
-				{ingredient}
+				{ingredientsDb[ingredient.ingredientId].ingredientName}
 			</li>
 		{/each}
 	</ul>
-	{#if is_editing == 1}
-		<p>Editing</p>
+  {/if}
+	{#if is_editing}
 		{#each ingredients as ingredient}
 			<li class="flex items-center align-text-bottom">
 				<!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
-				<input
+				<!-- <input
 					id="ingredientName"
 					type="text"
 					class="small-text-field"
-					value={ingredient}
-				/>
+					value={ingredientsDb[ingredient.ingredientId].ingredientName}
+				/> -->
+        <select
+							class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
+							value={ingredientsDb[ingredient.ingredientId]}
+						>
+							{#each ingredientsDb as ingredient}
+								<option value={ingredient}> {ingredient.ingredientName} </option>
+							{/each}
+						</select>
 				<input
 					id="ingredientQuantity"
-					type="text"
-					class="small-text-field"
-					value={ingredient}
+					type="number"
+					class="small-text-field w-10 ml-1"
+					value={ingredient.quantity}
 				/>
 				<button
 					type="button"
