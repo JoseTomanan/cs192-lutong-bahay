@@ -316,23 +316,36 @@
 			<h1 class="text-lg font-bold">
         Add Equipment
       </h1>
-			<form on:submit|preventDefault={addEquipment} class="max-w-md">
-				<label
-          class="for-small-field"
-          for="equipmentName"
-        >ADD EQUIPMENT</label>
-				<input
-          id="equipmentName"
-          type="text"
-          class="small-text-field w-1/3"
-          bind:value={equipmentName}
-          />
-				<input
-					id="equipmentQuantity"
-					type="text"
-					class="small-text-field w-1/3"
-					bind:value={equipmentQuantity}
-				  />
+			<form
+        class="max-w-md flex gap-x-5"
+        on:submit|preventDefault={addEquipment}
+      >
+				<div class="w-1/3">
+          <label
+            class="for-small-field"
+            for="equipmentName"
+          >EQUIPMENT</label>
+          <input
+            id="equipmentName"
+            type="text"
+            class="small-text-field px-4 py-3"
+            bind:value={equipmentName}
+            />
+        </div>
+
+        <div class="w-1/3">
+          <label
+            class="for-small-field"
+            for="equipmentName"
+          >QUANTITY</label>
+          <input
+            id="equipmentQuantity"
+            type="text"
+            class="small-text-field px-4 py-3"
+            bind:value={equipmentQuantity}
+            />
+        </div>
+
 				<input
           type="submit"
           value="+"
