@@ -26,10 +26,6 @@
     @apply text-blue-500 hover:text-blue-700 hover:underline;
   }
 
-  input.submit-button {
-    @apply my-4 rounded bg-zinc-100 hover:bg-zinc-300 text-main_dark;
-  }
-
   input.small-text-field {
     @apply appearance-none rounded border border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
   }
@@ -37,4 +33,15 @@
   label.for-small-field {
     @apply mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700;
   }
+
+  button.add-item {
+    @apply rounded-full px-2 text-center text-sm font-medium focus:outline-none focus:ring-4;
+    @apply bg-green-100 text-green-600 hover:bg-green-300 hover:text-green-800;
+  }
+
+  button.remove-item {
+    @apply rounded-full px-2 text-center text-sm font-medium focus:outline-none focus:ring-4;
+    @apply bg-red-100 text-red-600 hover:bg-red-300 hover:text-red-800 focus:ring-red-300;
+  }
+
 }
