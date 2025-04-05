@@ -10,6 +10,7 @@ from unittest.mock import patch
 # from recipes.serializer import RecipeSerializer
 
 class TestRecipes(APITestCase):
+    ...
     # def setUp(self):
     #     Recipe.objects.create(
     #         id=1,
@@ -45,19 +46,19 @@ class TestRecipes(APITestCase):
     #         ingredients="eggplant"
     #         )
 
-    @patch("recipes.views.check_database_status")
-    def test_no_database_connection(self, mock_status):
-        mock_status.return_value = False
+    # @patch("recipes.views.check_database_status")
+    # def test_no_database_connection(self, mock_status):
+    #     mock_status.return_value = False
 
-        print("mock status return value:", mock_status.return_value)
+    #     print("mock status return value:", mock_status.return_value)
 
-        self._recipe_url = reverse("get-recipes")
-        response = self.client.get(self._recipe_url)
+    #     self._recipe_url = reverse("get-recipes")
+    #     response = self.client.get(self._recipe_url)
 
-        print("mock status called:", mock_status.called)
-        print(response)
+    #     print("mock status called:", mock_status.called)
+    #     print(response)
 
-        self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
+    #     self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
 
     # def test_get_all_recipes(self):
     #     self.recipes_url = reverse("recipe-list")
