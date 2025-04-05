@@ -1,18 +1,23 @@
 <script lang="ts">
     // /** @type {import('./$types').PageProps} */
     // let { data } = $props();
-    export let data;
+    // export let data;
+    import type { PageProps } from './$types';
+
+	  let { data }: PageProps = $props();
     import { onMount } from "svelte";
     import RecipeReview from '$lib/components/RecipeReview.svelte'
     import Cookies from "js-cookie"
     
+    // for editing logic
+    let is_editing = $state(0);
     
     let recipe;
     let retrievedRecipe;
-    let recipeName: String;
-    let recipePrice: Number;
-    let recipeInstructions: String;
-    let ingredients: String[];
+    let recipeName: String = $state('');
+    let recipePrice: Number = $state(0);
+    let recipeInstructions: String = $state('');
+    let ingredients: String[] = $state([]);
     
     // reviews
     let reviewString = ""
@@ -105,6 +110,7 @@
   <h1 class="font-bold text-4xl">
     {recipeName}
   </h1>
+  <button class="text-blue-600">Edit Recipe</button>
 </div>
 
 <div class="my-5">

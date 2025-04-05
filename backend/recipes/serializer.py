@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Recipe, Ingredients, CookedBy
+from .models import Recipe, Ingredients, RecipeIngredients#, CookedBy
 
 
 class IngredientsSerializer(serializers.ModelSerializer):
@@ -17,18 +17,16 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_ingredients(self, recipe):
-        ingredients = CookedBySerializer(
-            CookedBy.objects.filter(recipe=recipe.id), many=True
+        ingredients = RecipeIngredientsSerializer(
+            RecipeIngredients.objects.filter(recipe=recipe.id), many=True
         ).data
         ingredient_list = [
             Ingredients.objects.get(id=i["ingredient"]).ingredientName
             for i in ingredients
         ]
         return ingredient_list
-
-
-class CookedBySerializer(serializers.ModelSerializer):
+class RecipeIngredientsSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = CookedBy
+        model = RecipeIngredients
         fields = "__all__"
