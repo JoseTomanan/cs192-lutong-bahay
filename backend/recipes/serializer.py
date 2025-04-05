@@ -21,12 +21,13 @@ class RecipeSerializer(serializers.ModelSerializer):
             RecipeIngredients.objects.filter(recipe=recipe.id), many=True
         ).data
         ingredient_list = [
-            Ingredients.objects.get(id=i["ingredient"]).ingredientName
+            Ingredients.objects.get(id=i["ingredientId"]).ingredientName
             for i in ingredients
         ]
         return ingredient_list
-class RecipeIngredientsSerializer(serializers.ModelSerializer):
+    
 
+class RecipeIngredientsSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecipeIngredients
         fields = "__all__"
