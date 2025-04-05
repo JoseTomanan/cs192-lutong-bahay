@@ -22,11 +22,13 @@ class Recipe(models.Model):
     equipment = models.CharField(max_length=1000)
     instructions = models.CharField(max_length=1000)
     ratings = models.FloatField()
+    
 class RecipeIngredients(models.Model):
     ingredientId = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     unit = models.CharField(max_length=50)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+
 class CookedBy(models.Model):
     recipe = models.ForeignKey(
         Recipe, related_name="has_ingredients", on_delete=models.CASCADE
