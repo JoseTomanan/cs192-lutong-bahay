@@ -145,7 +145,7 @@
 
 <div class="gap-2 w-1/3 space-y-8">
   <!-- Recipe info -->
-  <article class="space-y-2">
+  <article class="space-y-4">
     <h1 class="text-lg font-bold">
       Set Recipe Info
     </h1>
@@ -168,7 +168,7 @@
         </div>
       </div>
   
-      <div class="flex flex-wrap">
+      <div class="flex gap-x-3">
         <div class="w-1/3">
           <label
             class="for-small-field"
@@ -232,13 +232,13 @@
 
   <!-- Add to list of ingredients -->
   <article class="w-full max-w-lg space-y-4">
-    <form class="max-w-md space-y-5" on:submit|preventDefault={addIngredient}>
+    <form class="max-w-md space-y-4" on:submit|preventDefault={addIngredient}>
       <h1 class="text-lg font-bold">
         Add Ingredients
       </h1>
 
-      <div class="flex gap-x-4">
-        <div class="w-1/2">
+      <div class="flex gap-x-3">
+        <div class="grow">
           <label
             class="for-small-field"
             for="ingredientName"
@@ -269,12 +269,16 @@
           />
         </div>
 
-        <!-- <div class="h-max"> -->
+        <div class="h-max shrink">
+          <label
+            class="for-small-field w-max opacity-0"
+            for=""
+          >.</label>
           <button
             type="submit"
-            class="add-item w-max h-min"
+            class="add-item py-1"
           >+</button>
-        <!-- </div> -->
+        </div>
       </div>
     </form>
 
@@ -296,6 +300,7 @@
             id="ingredientName"
             type="text"
             class="small-text-field w-1/2 px-2"
+            disabled
             bind:value={ingredient.ingredientObject.ingredientName}
           />
           <input
@@ -318,15 +323,15 @@
   <!-- Add to list of equipment -->
   <article class="w-full max-w-lg space-y-4">
     <form
-      class="max-w-md space-y-5"
+      class="max-w-md space-y-4"
       on:submit|preventDefault={addEquipment}
     >
       <h1 class="text-lg font-bold">
-        Add Ingredients
+        Add Equipment
       </h1>
 
-      <div class="flex gap-x-4">
-        <div class="w-1/2 gap-x-4">
+      <div class="flex gap-x-3">
+        <div class="grow gap-x-2">
           <label
             class="for-small-field"
             for="equipmentName"
@@ -339,6 +344,7 @@
             bind:value={equipmentName}
           />
         </div>
+
         <div class="w-1/3">
           <label
             class="for-small-field"
@@ -351,13 +357,18 @@
             bind:value={equipmentQuantity}
             />
         </div>
-        <!-- <div class="w-1/3 flex align-items-center"> -->
-        <button
-          type="submit"
-          class="add-item h-min"
-        >+</button>
+
+        <div class="shrink">
+          <label
+            class="for-small-field w-max opacity-0"
+            for=""
+          >.</label>
+          <button
+            type="submit"
+            class="add-item py-1"
+          >+</button>
+        </div>
       </div>
-      <!-- </div> -->
     </form>
 
     <!-- Display equipment -->
