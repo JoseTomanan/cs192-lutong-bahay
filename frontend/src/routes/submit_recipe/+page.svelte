@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+  interface IngredientObject {
+    id: number;
+    ingredientName: string;
+  }
+
   interface IngredientItem {
-    ingredientObject: {
-        id: number;
-        ingredientName: string;
-      },
+    ingredientObject: IngredientObject;
     ingredientQuantity: number;
   }
 
@@ -22,15 +24,15 @@
 	let servings: number = 1;
 	let price: number = 50;
 
+  let currentIngredient: IngredientObject = { id: 0, ingredientName: '' };
+
 	let ingredients: IngredientItem[] = [{
 			ingredientObject: {id: 4, ingredientName: 'salt'},
 			ingredientQuantity: 1
 		}];
 	let ingredientQuantity = 0;
 
-	let currentIngredient = { id: 0, ingredientName: '' };
-
-	let equipment = [{
+	let equipment: EquipmentItem[] = [{
 			equipmentName: 'pan',
 			equipmentQuantity: 1
 		}];
