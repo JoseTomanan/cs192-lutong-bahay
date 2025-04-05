@@ -20,11 +20,11 @@ def get_recipes(request):
         ## REMOVE WHEN DATABASE IS CLEANED
         recipes = Recipe.objects.exclude(recipeName__isnull=True).exclude(
             recipeName__exact=""
-        )
-        ###
+            )
+        
         serializer = RecipeSerializer(recipes, many=True)
-        # print(serializer.data)
         return Response(serializer.data)
+    
     else:
         # recipe = Recipe.objects.get(recipeName=request.data["recipeName"])
         # serializer = RecipeSerializer(recipe, many=False)
@@ -62,7 +62,7 @@ def sort_recipes(request):
     if request.data.get("ingredients", None):
         ingredients = Ingredients.objects.filter(
             ingredientName__in=request.data["ingredients"]
-        )
+            )
 
         if not ingredients:
             return Response({"error": "Ingredient(s) not found"}, status=404)
@@ -70,16 +70,15 @@ def sort_recipes(request):
         cooked_by = CookedBy.objects.select_related("ingredient", "recipe").all()
         cooked_by = cooked_by.filter(
             ingredient__ingredientName__in=request.data["ingredients"]
-        )
+            )
+        
         result = cooked_by.values("recipe").annotate(count=Count("recipe"))
         result = [i["recipe"] for i in result if i["count"] == len(ingredients)]
 
         recipes = Recipe.objects.filter(id__in=result)
         
         if not recipes:
-            return Response(
-                {"error": "No recipes found with the given ingredients"}, status=404
-            )
+            return Response({"error": "No recipes found with the given ingredients"}, status=404)
         
     is_negative = "" if request.data["is_negative"] else "-"
     sort_parameter = (is_negative + request.data["sort"]).replace(" ", "")
@@ -92,6 +91,7 @@ def sort_recipes(request):
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
+
 @api_view(["POST"])
 def add_ingredient(request):
     ingredient_serializer = IngredientsSerializer(data=request.data)
@@ -101,6 +101,7 @@ def add_ingredient(request):
         return Response(ingredient_serializer.data)
     
     return Response(ingredient_serializer.errors)
+
 
 @api_view(["POST"])
 def search_ingredient(request):
@@ -130,12 +131,15 @@ def add_recipe(request):
             temp = {}
             ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id # type: ignore
             temp["ingredient"] = ingredient_id
+
             recipe_id = None
             recipe_id = (
                 Recipe.objects.filter(recipeName=request.data["recipeName"]).first().id # type: ignore
-            )
+                )
+            
             temp["recipe"] = recipe_id
             cooked_by_serializer = CookedBySerializer(data=temp)
+
             if cooked_by_serializer.is_valid():
                 cooked_by_serializer.save()
             else:
@@ -178,14 +182,14 @@ def create_recipe(request):
 
     recipeName = recipeInfo["recipeName"]
     recipeDifficulty = recipeInfo["cookDifficulty"]
-    equipment = 'pan'
+    equipment = recipeInfo["equipment"]
     instructions = recipeInfo["instructions"]
     recipeServings = recipeInfo["servings"]
     recipePrice = recipeInfo["price"]
     ratings = 0
 
-    # create Recipe
     print(recipeInfo)
+
     newRecipeObject = Recipe(
         recipeName=recipeName,
         cookDifficulty=recipeDifficulty,
@@ -194,20 +198,24 @@ def create_recipe(request):
         servings=recipeServings,
         price=recipePrice,
         ratings=ratings,
-    )
+        )
+    
     newRecipeObject.save()
 
     # create RecipeIngredients
     for ingredient in ingredientsList:
         ingredientId = ingredient["ingredientObject"]["id"]
         ingredientQuantity = ingredient["ingredientQuantity"]
+
         ingredientObject = Ingredients.objects.get(pk=ingredientId)
+
         newRecipeIngredient = RecipeIngredients(
             quantity=ingredientQuantity,
             unit='units',
             ingredientId=ingredientObject,
             recipe=newRecipeObject,
-        )
+            )
+        
         newRecipeIngredient.save()
 
     # get ingredients from id
@@ -215,7 +223,7 @@ def create_recipe(request):
     # get created UserIngredients
     # create Recipe entry
     # link UserIngredients to Recipe
-    return Response("yes")
+    return Response((recipeInfo, ingredientsList))
 
 
 @api_view(["POST"])
