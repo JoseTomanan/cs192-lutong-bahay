@@ -100,9 +100,9 @@
 			if (data.hasOwnProperty('error')) {
 				alert('No recipes found');
 			} else {
-				const result = data;
+				const result = data[0].toString();
         console.log(result)
-        alert(`Recipe added successfully!\n${result}`)
+        alert(`Recipe added successfully!`)
 			}
 		} catch {
 			alert('No database connection');
