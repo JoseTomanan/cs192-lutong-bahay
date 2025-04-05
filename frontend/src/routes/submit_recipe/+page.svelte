@@ -1,15 +1,28 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	let ingredientsDb: any[];
+  interface IngredientItem {
+    ingredientObject: {
+        id: number;
+        ingredientName: string;
+      },
+    ingredientQuantity: number;
+  }
 
-	let recipeName = '';
-	let cookDifficulty = 3;
-	let instructions = '';
-	let servings = 1;
-	let price = 50;
+  interface EquipmentItem {
+    equipmentName: string,
+    equipmentQuantity: number;
+  }
 
-	let ingredients = [{
+	let ingredientsDb: any[] = [];
+
+	let recipeName: string = '';
+	let cookDifficulty: number = 3;
+	let instructions: string = '';
+	let servings: number = 1;
+	let price: number = 50;
+
+	let ingredients: IngredientItem[] = [{
 			ingredientObject: {id: 4, ingredientName: 'salt'},
 			ingredientQuantity: 1
 		}];
@@ -101,7 +114,7 @@
 		console.log(ingredients);
 	};
 
-	const removeIngredient = (ingredient: { ingredientObject: { id: number; ingredientName: string; }; ingredientQuantity: number; }) => {
+	const removeIngredient = (ingredient: IngredientItem) => {
 		ingredients = ingredients.filter(
         (i) => i.ingredientObject.ingredientName !== ingredient.ingredientObject.ingredientName
       );
@@ -116,7 +129,7 @@
 		equipmentQuantity = 0;
 	};
 
-	const removeEquipment = (equipment_i: { equipmentName: string; equipmentQuantity: number; }) => {
+	const removeEquipment = (equipment_i: EquipmentItem) => {
 		equipment = equipment.filter((i) => i !== equipment_i);
 	};
 </script>
