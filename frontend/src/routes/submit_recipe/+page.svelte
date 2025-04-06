@@ -143,7 +143,7 @@
 
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->
 
-<div class="gap-2 w-1/3 space-y-8">
+<div class="gap-2 w-5/12 space-y-12">
   <!-- Recipe info -->
   <article class="space-y-4">
     <h1 class="text-lg font-bold">
@@ -212,15 +212,15 @@
         </div>
       </div>
   
-      <div class="-mx-3 mb-6 flex flex-wrap">
-        <div class="w-full px-3">
+      <div class="flex flex-wrap">
+        <div class="w-full">
           <label
             class="for-small-field"
             for="cookDifficulty"
           >INSTRUCTIONS</label>
           <input
             id="instructions"
-            class="mb-3 block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
+            class="small-text-field px-4 py-3 w-full"
             type="text"
             placeholder="Instructions"
             bind:value={instructions}
@@ -232,13 +232,16 @@
 
   <!-- Add to list of ingredients -->
   <article class="w-full max-w-lg space-y-4">
-    <form class="max-w-md space-y-4" on:submit|preventDefault={addIngredient}>
+    <form
+      class="max-w-md space-y-4"
+      on:submit|preventDefault={addIngredient}
+    >
       <h1 class="text-lg font-bold">
         Add Ingredients
       </h1>
 
       <div class="flex gap-x-3">
-        <div class="grow">
+        <div class="grow gap-x-2">
           <label
             class="for-small-field"
             for="ingredientName"
@@ -323,7 +326,7 @@
   <!-- Add to list of equipment -->
   <article class="w-full max-w-lg space-y-4">
     <form
-      class="max-w-md space-y-4"
+      class="space-y-4"
       on:submit|preventDefault={addEquipment}
     >
       <h1 class="text-lg font-bold">
@@ -405,11 +408,10 @@
         </li>
       {/each}
     </ul>
-
-    <!-- Submit recipe -->
-    <button
-      class="bg-main hover:bg-main-dark rounded border px-4 py-2 font-bold text-white"
-      on:click|preventDefault={handleCreateRecipe}
-    >Submit Recipe</button>
   </article>
+
+  <button
+    class="bg-main hover:bg-main-dark rounded border px-4 py-2 font-bold text-white"
+    on:click|preventDefault={handleCreateRecipe}
+  >Submit Recipe</button>
 </div>
