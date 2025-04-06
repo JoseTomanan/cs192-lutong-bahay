@@ -13,11 +13,12 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from .custom_permissions import IsAdminOrReadOnly
 
 
-# Create your views here.
+"""
+Get recipe, either all recipes or by search
+"""
 @api_view(["GET", "POST"])
 def get_recipes(request):
     if request.method == "GET":
-        ## REMOVE WHEN DATABASE IS CLEANED
         recipes = Recipe.objects.exclude(recipeName__isnull=True).exclude(
             recipeName__exact=""
             )
@@ -30,31 +31,40 @@ def get_recipes(request):
         # serializer = RecipeSerializer(recipe, many=False)
         # return Response(serializer.data)
         recipe_name = request.data.get("recipeName", None)
+
         if not recipe_name:
             return Response({"error": "recipeName is required"}, status=400)
 
         recipe = Recipe.objects.filter(recipeName=recipe_name).first()
+
         if not recipe:
             return Response({"error": "Recipe not found"}, status=404)
 
         serializer = RecipeSerializer(recipe, many=False)
         return Response(serializer.data)
 
-
+"""
+Fetching all recipe (Zach version).
+To remove and replace all instances with get_recipes -- please resolve when you have time
+"""
 @api_view(["GET"])
 def fetch_all_recipes(request):
     recipes = Recipe.objects.all()
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
-
+"""
+Retrieve single recipe using ID (key)
+"""
 @api_view(["GET", "POST"])
 def get_recipe_by_id(request):
     recipes = Recipe.objects.all().filter(id=request.data.get("id"))
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
-
+"""
+Retrieve recipes using filter
+"""
 @api_view(["POST"])
 def sort_recipes(request):
     recipes = None
@@ -91,7 +101,10 @@ def sort_recipes(request):
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
-
+"""
+Add ingredient to recipe;
+Recipe must exist already before using
+"""
 @api_view(["POST"])
 def add_ingredient(request):
     ingredient_serializer = IngredientsSerializer(data=request.data)
@@ -102,7 +115,9 @@ def add_ingredient(request):
     
     return Response(ingredient_serializer.errors)
 
-
+"""
+Search ingredient by name
+"""
 @api_view(["POST"])
 def search_ingredient(request):
     ingredient_name = request.data.get("ingredientName", None)
@@ -118,7 +133,9 @@ def search_ingredient(request):
     serializer = IngredientsSerializer(ingredient, many=False)
     return Response(serializer.data)
 
-
+"""
+Add recipe (Elijah version)
+"""
 @api_view(["POST"])
 def add_recipe(request):
     ingredients = request.data.pop("ingredients", None)
@@ -149,7 +166,9 @@ def add_recipe(request):
     
     return Response(recipe_serializer.errors)
 
-
+"""
+Get ingredients, either all or by filter
+"""
 @api_view(["GET", "POST"])
 def get_ingredients(request):
     if request.method == "GET":
@@ -174,7 +193,10 @@ def get_ingredients(request):
         serializer = RecipeSerializer(recipe, many=False)
         return Response(serializer.data)
 
-
+"""
+Add recipe (Zach version);
+Has quantity property for ingredients, equipment
+"""
 @api_view(["GET", "POST"])
 def create_recipe(request):
     recipeInfo = request.data[0]
@@ -225,7 +247,9 @@ def create_recipe(request):
     # link UserIngredients to Recipe
     return Response((recipeInfo, ingredientsList))
 
-
+"""
+Delete recipe from name
+"""
 @api_view(["POST"])
 def del_recipe(request):
     recipe_name = request.data.get("recipeName", None)
@@ -241,7 +265,9 @@ def del_recipe(request):
     recipe.delete()
     return Response({"message": "Recipe deleted successfully"}, status=200)
 
-
+"""
+Edit recipe (must exist already)
+"""
 @api_view(["POST"])
 def update_recipe(request):
     recipe_name = request.data.get("recipeName", None)
