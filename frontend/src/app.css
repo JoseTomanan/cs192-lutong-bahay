@@ -36,8 +36,8 @@
   }
 
   button.add-item {
-    @apply rounded-full px-2 text-center text-lg font-bold focus:outline-none focus:ring-4;
-    @apply text-green-600 hover:bg-green-400 hover:text-green-700 focus:ring-green-300;
+    @apply rounded-md px-2 text-center text-lg font-bold outline focus:outline-none focus:ring-4;
+    @apply bg-white text-green-600 hover:bg-green-300 focus:ring-green-300;
   }
 
   button.remove-item {
