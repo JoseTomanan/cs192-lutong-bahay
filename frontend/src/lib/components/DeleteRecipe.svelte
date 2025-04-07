@@ -52,10 +52,8 @@
     <button 
       on:click={deleteRecipe}
       disabled={isLoading}
-      class="flex-1 bg-secondary hover:bg-secondary_dark text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
-    >
-      Delete Recipe
-    </button>
+      class="destructive-text"
+    >Delete Recipe</button>
   </div>
   
   {#if isLoading}
