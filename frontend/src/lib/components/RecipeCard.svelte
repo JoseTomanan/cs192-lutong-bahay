@@ -1,6 +1,6 @@
 <script lang="ts">
-  import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte'
   import IngredientItem from '$lib/../routes/submit_recipe/+page.svelte'
+  // import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte'
 
   export let cookDifficulty: string
   export let ratings: number
@@ -31,7 +31,7 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
       <span class="font-semibold">
         Cooking Difficulty:
       </span>
-      {cookDifficulty}
+      { cookDifficulty }
     </span>
 
     <p class="text-gray-700 text-base">
@@ -49,35 +49,35 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
       <span class="font-semibold">
         Price (PHP):
       </span>
-      {price}
+      { price }
     </p>
     
     <p class="text-gray-700 text-base">
       <span class="font-semibold">
         Ingredients:
       </span>
-      {displayableIngredients}
+      { displayableIngredients }
     </p>
 
     <p class="text-gray-700 text-base">
       <span class="font-semibold">
         ID:
       </span>
-      {id}
+      { id }
     </p>
     
     <p class="text-gray-700 text-base">
       <span class="font-semibold">
         Equipment:
       </span>
-      {equipment}
+      { equipment }
     </p>
     
     <p class="text-gray-700 text-base">
       <span class="font-semibold">
         Servings:
       </span>
-      {servings}
+      { servings }
     </p>
   </div>
 
