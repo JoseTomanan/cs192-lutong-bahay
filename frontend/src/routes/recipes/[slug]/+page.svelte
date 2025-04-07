@@ -10,7 +10,7 @@
 	import Cookies from 'js-cookie';
 
 	// for editing logic
-	let is_editing = $state(true);
+	let is_editing = $state(false);
 	let currentIngredient;
 	let ingredientQuantity = 0;
 
@@ -136,6 +136,10 @@
 		}
 	}
 
+	async function handleRecipeEdit() {
+		console.log("RECIPE EDIT")
+	}
+
 	console.log(data.id);
 	functionFetchRecipeById(data.id);
 </script>
@@ -194,17 +198,29 @@
 
 <div class="my-5">
 	<h1 class="text-xl font-bold">Instructions</h1>
-	<p>{recipeInstructions}</p>
+	{#if is_editing}
+		<input type="text" bind:value={recipeInstructions}>
+	{:else}
+		<p>{recipeInstructions}</p>
+	{/if}
 </div>
 
+
+{#if is_editing}
+<!-- SUBMIT EDIT -->
+<button
+class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
+on:click={handleRecipeEdit}>Apply changes</button
+>
+<!-- REVIEW SECTION -->
+{:else} 
 <div class="my-5">
 	<h1 class="text-xl font-bold">Leave a review</h1>
 	<textarea class="my-3 block w-full p-2.5" bind:value={reviewString}></textarea>
 	<input class="block" type="number" bind:value={reviewRating} />
-
 	<button
-		class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
-		on:click={postReview}>Submit review</button
+	class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
+	on:click={postReview}>Submit review</button
 	>
 </div>
 
@@ -217,3 +233,4 @@
 		<!-- <p>{recipeReview.reviewString}</p> -->
 	{/each}
 </div>
+{/if}
