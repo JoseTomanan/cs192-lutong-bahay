@@ -142,26 +142,34 @@
 
 	console.log(data.id);
 	functionFetchRecipeById(data.id);
+  
 </script>
 
 <div class="mb-10">
 	<h1 class="text-4xl font-bold">
 		{recipeName}
 	</h1>
-	<button class="text-blue-600" on:click={() => is_editing = !is_editing}>Edit Recipe</button>
+	<button
+    class="text-blue-600"
+    onclick={() => is_editing = !is_editing}
+  >Edit Recipe</button>
 </div>
 
 <div class="my-5">
-	<h1 class="text-xl font-bold">Ingredients</h1>
+	<h1 class="text-xl font-bold">
+    Ingredients
+  </h1>
+
   {#if !is_editing}
-	<ul class="list-disc">
-		{#each ingredients as ingredient}
-			<li class="ml-5">
-				{ingredientsDb[ingredient.ingredientId].ingredientName}
-			</li>
-		{/each}
-	</ul>
+    <ul class="list-disc">
+      {#each ingredients as ingredient}
+        <li class="ml-5">
+          {ingredientsDb[ingredient.ingredientId].ingredientName}
+        </li>
+      {/each}
+    </ul>
   {/if}
+
 	{#if is_editing}
 		{#each ingredients as ingredient}
 			<li class="flex items-center align-text-bottom">
@@ -207,30 +215,35 @@
 
 
 {#if is_editing}
-<!-- SUBMIT EDIT -->
-<button
-class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
-on:click={handleRecipeEdit}>Apply changes</button
->
-<!-- REVIEW SECTION -->
+  <button
+    class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
+    onclick={handleRecipeEdit}
+  >Apply changes</button>
+  <!-- REVIEW SECTION -->
 {:else} 
-<div class="my-5">
-	<h1 class="text-xl font-bold">Leave a review</h1>
-	<textarea class="my-3 block w-full p-2.5" bind:value={reviewString}></textarea>
-	<input class="block" type="number" bind:value={reviewRating} />
-	<button
-	class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
-	on:click={postReview}>Submit review</button
-	>
-</div>
+  <div class="my-5">
+    <h1 class="text-xl font-bold">
+      Leave a review
+    </h1>
+    <textarea class="my-3 block w-full p-2.5" bind:value={reviewString}></textarea>
+    <input
+      class="block"
+      type="number"
+      bind:value={reviewRating}
+    />
+    <button
+      class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
+      on:click={postReview}
+    >Submit review</button>
+  </div>
 
-<hr />
+  <hr />
 
-<div class="mt-5">
-	<h1 class="text-xl font-bold">Reviews</h1>
-	{#each recipeReviewList as recipeReview}
-		<RecipeReview {recipeReview} />
-		<!-- <p>{recipeReview.reviewString}</p> -->
-	{/each}
-</div>
+  <div class="mt-5">
+    <h1 class="text-xl font-bold">Reviews</h1>
+    {#each recipeReviewList as recipeReview}
+      <RecipeReview {recipeReview} />
+      <!-- <p>{recipeReview.reviewString}</p> -->
+    {/each}
+  </div>
 {/if}
