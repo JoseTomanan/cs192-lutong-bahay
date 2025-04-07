@@ -19,14 +19,15 @@
 	let recipeName: String = $state('');
 	let recipePrice: Number = $state(0);
 	let recipeInstructions: String = $state('');
-	let ingredients = $state([]);
-  let ingredientsDb = $state([])
+  
+	let ingredients = $state<{ ingredientId: number; quantity: number }[]>([]);
+  let ingredientsDb = $state<{ id: number; ingredientName: string }[]>([])
 
 	// reviews
-	let reviewString = '';
-	let reviewRating = 0;
+	let reviewString = $state('');
+	let reviewRating = $state(0);
 
-	let recipeReviewList: any[];
+	let recipeReviewList: any[] = $state([]);
 
 	let user_id: String | undefined;
 
@@ -126,7 +127,7 @@
 				alert('No recipes found');
 			} else {
 				const result = data;
-				ingredientsDb = result.map((val) => {
+				ingredientsDb = result.map((val: { id: any; ingredientName: any; }) => {
 					return { id: val.id, ingredientName: val.ingredientName };
 				});
 				// console.log(ingredientsDb);
@@ -143,6 +144,9 @@
 	console.log(data.id);
 	functionFetchRecipeById(data.id);
   
+	function removeIngredient(ingredient: { ingredientId: number; quantity: number; }): any {
+		throw new Error('Function not implemented.');
+	}
 </script>
 
 <div class="mb-10">
@@ -197,8 +201,8 @@
 				<button
 					type="button"
 					class="py-0.3 mb-2 me-2 rounded-full bg-red-700 px-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-					on:click={() => removeIngredient(ingredient)}>x</button
-				>
+					onclick={() => removeIngredient(ingredient)}
+        >x</button>
 			</li>
 		{/each}
 	{/if}
@@ -229,11 +233,11 @@
     <input
       class="block"
       type="number"
-      bind:value={reviewRating}
+      bind:value={ reviewRating }
     />
     <button
       class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
-      on:click={postReview}
+      onclick={ postReview }
     >Submit review</button>
   </div>
 
