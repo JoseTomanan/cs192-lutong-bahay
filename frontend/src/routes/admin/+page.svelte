@@ -50,36 +50,36 @@
   }
 </script>
 
-<TitleText text={`Administrator`}/>
+<TitleText text={`Administration`}/>
 
-<article class="rounded-lg my-8 w">
+<article class="rounded-lg my-8 w space-y-4 w-1/3">
   <h2 class="text-lg font-semibold mb-4">Suspend a user</h2>
 
-  <div class="mb-4">
+  <div>
     <label
       for="username"
       class="for-small-field"
     >Enter username</label>
     <input 
       id="username"
-      class="small-text-field px-4 py-2"
+      class="small-text-field px-4 py-2 w-max"
       type="text" 
       bind:value={username}
       placeholder="Username..."
     />
   </div>
   
-  <div class="flex space-x-4 w-1/2">
+  <div class="flex space-x-4">
     <button 
       on:click={suspendUser}
       disabled={isLoading}
-      class="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
+      class="destructive-text"
     >Suspend</button>
     
     <button 
       on:click={reactivateUser}
       disabled={isLoading}
-      class="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
+      class="cta-text"
     >Reactivate</button>
   </div>
     
