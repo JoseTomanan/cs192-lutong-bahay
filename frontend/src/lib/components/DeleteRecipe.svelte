@@ -4,7 +4,7 @@
 
   let recipeName = ""
   let loading: boolean = false
-  let loadingText: string = "Suspending user..."
+  let loadingText: string = "Deleting recipe..."
 
   function getCookie(name: string) {
     const value: string = `; ${document.cookie}`;

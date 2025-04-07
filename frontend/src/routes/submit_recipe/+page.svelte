@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
   import toast, { Toaster } from 'svelte-french-toast';
   import DefaultLoader from '$lib/components/DefaultLoader.svelte';
+  import BarLoader from '$lib/components/BarLoader.svelte';
 
   let loading = false
   let loadingText = ""
