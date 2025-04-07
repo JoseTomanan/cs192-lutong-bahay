@@ -26,7 +26,7 @@
     @apply text-blue-500 hover:text-blue-700 hover:underline;
   }
 
-  input.small-text-field {
+  input.small-text-field, textarea.small-text-field {
     @apply appearance-none rounded border;
     @apply border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
   }
