@@ -220,7 +220,7 @@
           >INSTRUCTIONS</label>
           <textarea
             id="instructions"
-            class="small-text-field px-4 py-3 w-full"
+            class="px-4 py-3 w-full resize-none"
             placeholder="Instructions"
             rows="4"
             bind:value={instructions}
