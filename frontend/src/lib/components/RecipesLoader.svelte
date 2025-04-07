@@ -1,3 +1,5 @@
+<!-- from https://cssloaders.github.io/ -->
+
 <span class="loader"></span>
 
 <style>

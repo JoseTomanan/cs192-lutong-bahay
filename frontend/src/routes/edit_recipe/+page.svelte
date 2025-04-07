@@ -12,6 +12,8 @@
   let servings: number = 0
   let instructions: string = ""
 
+  let loading = false
+
   async function handleEditRecipe() {
     try {
       const response = await fetch("http://localhost:8000/api/recipes/update-recipe/", {
