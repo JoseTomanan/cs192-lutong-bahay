@@ -1,10 +1,8 @@
 <script lang="ts">
-	import TitleText from "$lib/components/TitleText.svelte";
-
   let username = "testuser"
 </script>
 
-<TitleText text={`Users`}/>
+<h1 class="title-text">Users</h1>
 
 <div class="flex items-center justify-center">
   <pre style="font-family:monospace;" class="text-gray-500 mt-8">

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import TitleText from "$lib/components/TitleText.svelte";
   import DeleteRecipe from "$lib/components/DeleteRecipe.svelte";
 
   let username: string = "Admin";
@@ -59,13 +58,14 @@
   }
 </script>
 
-<TitleText text="Delete a recipe" />
+<h1 class="title-text">Delete a recipe</h1>
 
 <DeleteRecipe />
 
 <hr class="my-5">
 
-<TitleText text="Edit a recipe" />
+<h1 class="title-text">Edit a recipe</h1>
+
 <form on:submit|preventDefault={handleEditRecipe} class="space-y-4 mt-4">
   <input 
     type="text" 
