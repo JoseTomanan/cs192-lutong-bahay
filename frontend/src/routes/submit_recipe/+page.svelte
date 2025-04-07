@@ -218,13 +218,13 @@
             class="for-small-field"
             for="cookDifficulty"
           >INSTRUCTIONS</label>
-          <input
+          <textarea
             id="instructions"
             class="small-text-field px-4 py-3 w-full"
-            type="text"
             placeholder="Instructions"
+            rows="4"
             bind:value={instructions}
-          />
+          ></textarea>
         </div>
       </div>
     </form>
