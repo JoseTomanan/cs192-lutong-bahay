@@ -9,7 +9,7 @@
 	import RecipeReview from '$lib/components/RecipeReview.svelte';
 	import Cookies from 'js-cookie';
 
-  import IngredientObject from '../../submit_recipe/+page.svelte';
+  import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
 
 	// for editing logic
 	let is_editing = $state(false);
