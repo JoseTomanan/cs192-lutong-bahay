@@ -19,7 +19,7 @@
         method: 'POST', 
         credentials: 'include',
         headers: {
-          'X-CSRFToken': getCookie("csrftoken"),
+          ...(getCookie("csrftoken") && { 'X-CSRFToken': getCookie("csrftoken") }),
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({username})
@@ -33,11 +33,11 @@
 
   async function reactivateUser() {
     try {
-      const response = await fetch('http://localhost:8000/api/users/activate-user/', {
+      await fetch('http://localhost:8000/api/users/activate-user/', {
         method: 'POST', 
         credentials: 'include',
         headers: {
-          'X-CSRFToken': getCookie("csrftoken"),
+          ...(getCookie("csrftoken") ? { 'X-CSRFToken': getCookie("csrftoken") } : {}),
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({username})
