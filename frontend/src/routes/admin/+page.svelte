@@ -50,37 +50,37 @@
   }
 </script>
 
-<TitleText text={`Suspend a user`}/>
+<TitleText text={`Administrator`}/>
 
-<div class="max-w-md mt-6 p-6 bg-white rounded-lg shadow-md">
-  <h2 class="text-xl font-semibold mb-4">User Management</h2>
-  
+<article class="rounded-lg my-8 w">
+  <h2 class="text-lg font-semibold mb-4">Suspend a user</h2>
+
   <div class="mb-4">
     <label
       for="username"
-      class="block text-sm font-medium text-gray-700 mb-1"
-    >Username</label>
+      class="for-small-field"
+    >Enter username</label>
     <input 
       id="username"
+      class="small-text-field px-4 py-2"
       type="text" 
       bind:value={username}
-      placeholder="Enter username"
-      class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+      placeholder="Username..."
     />
   </div>
   
-  <div class="flex space-x-4">
+  <div class="flex space-x-4 w-1/2">
     <button 
       on:click={suspendUser}
       disabled={isLoading}
       class="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
-    >Suspend User</button>
+    >Suspend</button>
     
     <button 
       on:click={reactivateUser}
       disabled={isLoading}
       class="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
-    >Reactivate User</button>
+    >Reactivate</button>
   </div>
     
   {#if isLoading}
@@ -88,7 +88,8 @@
       Processing...
     </div>
   {/if}
-</div>
+
+</article>
 
 <!-- <pre class="text-gray-500 mt-4">
 ⠀ ／l、         
