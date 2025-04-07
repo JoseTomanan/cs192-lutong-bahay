@@ -17,6 +17,7 @@
 	})
 
   async function fetchRecipes() { 
+    loading = true
     console.log(recipeName)
     try {
       const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
@@ -37,7 +38,9 @@
       }
     } catch { 
       alert('No database connection')
-    } 
+    } finally {
+      loading = false
+    }
 	}
 
   async function fetchAllRecipes() { 
@@ -69,6 +72,7 @@
 	}
 
   async function fetchByIngredients() { 
+    loading = true
     console.log(recipeName)
     try {
       const response = await fetch('http://127.0.0.1:8000/api/recipes/sort-recipes/', {
@@ -89,11 +93,14 @@
       } 
     } catch { 
       alert('No database connection')
-    }  
+    } finally {
+      loading = false
+    }
 	}
 
 
   async function sortRecipes() { 
+    loading = true
     console.log(sort)
     try {
       is_negative = direction == 'ascending' ? true : false
@@ -111,7 +118,9 @@
       console.log(recipes) 
     } catch {
       alert('No database connection')
-    } 
+    } finally {
+      loading = false
+    }
   }
 </script> 
 
