@@ -55,7 +55,7 @@
 			retrievedRecipe = recipe[0];
 			recipeName = retrievedRecipe.recipeName;
 			ingredients = retrievedRecipe.ingredients;
-      console.log("ingredients: " + ingredients)
+      		// console.log("ingredients: " + ingredients)
 			recipePrice = retrievedRecipe.recipePrice;
 			recipeInstructions = retrievedRecipe.instructions;
 			// goto('dbtest');
@@ -138,7 +138,14 @@
 
 	async function handleRecipeEdit() {
 		console.log("RECIPE EDIT")
+		console.log(ingredients)
 	}
+
+	const removeIngredient = (ingredient) => {
+		ingredients = ingredients.filter(
+        (i) => i.ingredientObject.ingredientName !== ingredient.ingredientObject.ingredientName
+      );
+	};
 
 	console.log(data.id);
 	functionFetchRecipeById(data.id);
@@ -163,7 +170,7 @@
 	</ul>
   {/if}
 	{#if is_editing}
-		{#each ingredients as ingredient}
+		{#each ingredients as ingredient, index}
 			<li class="flex items-center align-text-bottom">
 				<!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
 				<!-- <input
@@ -174,7 +181,7 @@
 				/> -->
         <select
 							class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
-							value={ingredientsDb[ingredient.ingredientId]}
+							value={ingredientsDb[index]}
 						>
 							{#each ingredientsDb as ingredient}
 								<option value={ingredient}> {ingredient.ingredientName} </option>
@@ -199,7 +206,7 @@
 <div class="my-5">
 	<h1 class="text-xl font-bold">Instructions</h1>
 	{#if is_editing}
-		<input type="text" bind:value={recipeInstructions}>
+		<input type="text" value={recipeInstructions}>
 	{:else}
 		<p>{recipeInstructions}</p>
 	{/if}

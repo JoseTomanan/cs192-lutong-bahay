@@ -3,11 +3,9 @@ from .models import Recipe, Ingredients, RecipeIngredients#, CookedBy
 
 
 class IngredientsSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Ingredients
         fields = "__all__"
-
 
 class RecipeSerializer(serializers.ModelSerializer):
     ingredients = serializers.SerializerMethodField()
@@ -30,6 +28,12 @@ class RecipeSerializer(serializers.ModelSerializer):
     
 
 class RecipeIngredientsSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
     class Meta:
         model = RecipeIngredients
         fields = "__all__"
+
+    def get_name(self, recipe_ingredient):
+        name = IngredientsSerializer(Ingredients.objects.get(pk=recipe_ingredient.ingredientId.id)).data["ingredientName"]
+        return name
