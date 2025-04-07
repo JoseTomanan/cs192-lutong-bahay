@@ -1,6 +1,10 @@
 <script lang="ts">
+  import toast, { Toaster } from 'svelte-french-toast';
+  import DefaultLoader from './DefaultLoader.svelte';
+
   let recipeName = ""
-  let isLoading = false
+  let loading: boolean = false
+  let loadingText: string = "Suspending user..."
 
   function getCookie(name: string) {
     const value: string = `; ${document.cookie}`;
@@ -12,6 +16,7 @@
   }
   
   async function deleteRecipe() {
+    loading = true
     try {
       const response = await fetch('http://localhost:8000/api/recipes/del-recipe/', {
         method: 'POST',
@@ -23,14 +28,18 @@
         body: JSON.stringify({recipeName})
       });
       
-      alert(`${recipeName} deleted`)
+      toast.success(`${recipeName} deleted`)
     }
     
     catch {
-      alert(`failed to delete ${recipeName}`)
-    } 
+      toast.error(`failed to delete ${recipeName}`)
+    } finally {
+      loading = false
+    }
   }
 </script>
+
+<Toaster/>
 
 <div class="max-w-md mt-6 p-6 bg-white rounded-lg border-2">
   <h2 class="text-xl font-semibold mb-4">
@@ -51,14 +60,16 @@
   <div class="flex space-x-4">
     <button 
       on:click={deleteRecipe}
-      disabled={isLoading}
       class="destructive-text"
     >Delete Recipe</button>
   </div>
   
-  {#if isLoading}
-    <div class="mt-4 text-center text-gray-500">
-      Processing...
-    </div>
-  {/if}
+
+{#if loading}
+  <div class="flex flex-col items-center justify-center mt-4 space-y-2">
+    <DefaultLoader />
+    <span class="text-gray-500 text-sm">{loadingText}</span>
+  </div>
+{/if}
+
 </div>

@@ -1,9 +1,11 @@
 <script lang="ts">
   import DefaultLoader from "$lib/components/DefaultLoader.svelte";
+  import toast, { Toaster } from 'svelte-french-toast';
+
   let username: string = ""
   let loading: boolean = false
   let loadingText: string = ""
-  import toast, { Toaster } from 'svelte-french-toast';
+  
 
   function getCookie(name: string) {
     const value = `; ${document.cookie}`
@@ -64,7 +66,7 @@
 
 <h1 class="title-text text-2xl font-bold mb-6">Administration</h1>
 
-<article class="rounded-lg my-8 w-full max-w-lg mx-auto space-y-6 bg-white p-6 shadow-md">
+<article class="rounded-lg my-8 w-full max-w-lg space-y-6 bg-white p-6 shadow-md">
   <h2 class="text-lg font-semibold mb-4">Suspend or Reactivate a User</h2>
 
   <div class="space-y-4">

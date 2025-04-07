@@ -6,6 +6,7 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { initAuth } from '$lib/stores/auth'
+
   
   onMount(() => {
       initAuth()
