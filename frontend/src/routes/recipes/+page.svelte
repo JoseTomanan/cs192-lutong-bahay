@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
   import RecipesLoader from '$lib/components/RecipesLoader.svelte'
+  import toast, { Toaster } from 'svelte-french-toast';
 
   let recipes: any[] = []
   let recipeName = '' 
@@ -9,6 +10,7 @@
   let is_negative = true
   let sort= 'recipeName'
   let loading = false
+  
  
   let ingredients = ''
 
@@ -18,7 +20,6 @@
 
   async function fetchRecipes() { 
     loading = true
-    console.log(recipeName)
     try {
       const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
         method: 'POST',
@@ -30,14 +31,14 @@
 
       const data = await response.json()
       if (data.hasOwnProperty('error')) {
-        alert('No recipes found')
+        toast.error('No recipes found')
       } else {
         recipes = [data] 
         console.log(data)
         console.log(recipes.length)
       }
     } catch { 
-      alert('No database connection')
+      toast.error('Something went wrong')
     } finally {
       loading = false
     }
@@ -56,7 +57,7 @@
 
       const data = await response.json()
       if (data.hasOwnProperty('error')) {
-        alert('No recipes found')
+        toast.error('No recipes found')
       } else {
         recipes = data
         console.log("fetch all recipes: ", data)
@@ -64,7 +65,7 @@
         // console.log(recipes.length)
       }
     } catch { 
-      alert('No database connection')
+      toast.error('No database connection')
     } finally {
       loading = false
     }
@@ -85,14 +86,14 @@
 
       const data = await response.json()
       if (data.hasOwnProperty('error')) {
-        alert('No recipes found')
+        toast.error('No recipes found')
       } else {
         recipes = data 
         console.log(data)
         console.log(recipes.length)
       } 
     } catch { 
-      alert('No database connection')
+      toast.error('No database connection')
     } finally {
       loading = false
     }
@@ -117,12 +118,14 @@
       recipes = data 
       console.log(recipes) 
     } catch {
-      alert('No database connection')
+      toast.error('No database connection')
     } finally {
       loading = false
     }
   }
 </script> 
+
+<Toaster />
 
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->  
 

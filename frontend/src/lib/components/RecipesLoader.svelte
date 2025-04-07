@@ -6,7 +6,6 @@
         width: 100px;
         height: 130px;
         background: #efefef;
-        border-radius: 4px;
       }
       .loader:before{
         content: '';
