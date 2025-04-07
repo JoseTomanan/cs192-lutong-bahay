@@ -7,7 +7,7 @@
   let pages = ['home', 'recipes', 'users', 'profile']
 
   let admin_pages = [
-    ['admin', 'Suspend user'],
+    ['admin', 'Administration'],
     ['submit_recipe', 'Add recipe'],
     ['edit_recipe', 'Edit recipe'],
     ['manage_review', 'Manage reviews']
