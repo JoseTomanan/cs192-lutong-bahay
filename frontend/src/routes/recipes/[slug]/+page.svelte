@@ -9,6 +9,8 @@
 	import RecipeReview from '$lib/components/RecipeReview.svelte';
 	import Cookies from 'js-cookie';
 
+  import IngredientObject from '../../submit_recipe/+page.svelte';
+
 	// for editing logic
 	let is_editing = $state(false);
 	let currentIngredient;
@@ -20,8 +22,8 @@
 	let recipePrice: Number = $state(0);
 	let recipeInstructions: String = $state('');
   
-	let ingredients = $state<{ ingredientId: number; quantity: number }[]>([]);
-  let ingredientsDb = $state<{ id: number; ingredientName: string }[]>([])
+	let ingredients = $state<IngredientObject[]>([]);
+  let ingredientsDb = $state<IngredientObject[]>([])
 
 	// reviews
 	let reviewString = $state('');
@@ -123,11 +125,13 @@
 			});
 
 			const data = await response.json();
+      
 			if (data.hasOwnProperty('error')) {
 				alert('No recipes found');
-			} else {
+			}
+      else {
 				const result = data;
-				ingredientsDb = result.map((val: { id: any; ingredientName: any; }) => {
+				ingredientsDb = result.map((val: IngredientObject) => {
 					return { id: val.id, ingredientName: val.ingredientName };
 				});
 				// console.log(ingredientsDb);
@@ -144,7 +148,7 @@
 	console.log(data.id);
 	functionFetchRecipeById(data.id);
   
-	function removeIngredient(ingredient: { ingredientId: number; quantity: number; }): any {
+	function removeIngredient(ingredient: IngredientObject): any {
 		throw new Error('Function not implemented.');
 	}
 </script>
