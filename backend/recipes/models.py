@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+
 class Ingredients(models.Model):
     ingredientName = models.CharField(max_length=100)
     ingredientMeasurementUnit = models.CharField(max_length=100)
@@ -9,9 +9,10 @@ class Ingredients(models.Model):
     proteinPerUnit = models.IntegerField()
     fatPerUnit = models.IntegerField()
     carbsPerUnit = models.IntegerField()
+
 class UserIngredientsInventory(models.Model):
     ingredientId = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0) # type: ignore
     quantity = models.IntegerField()
 
 class Recipe(models.Model):

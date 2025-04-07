@@ -26,11 +26,23 @@
     @apply text-blue-500 hover:text-blue-700 hover:underline;
   }
 
-  input.submit-button {
-    @apply italic underline text-main;
+  input.small-text-field {
+    @apply appearance-none rounded border;
+    @apply border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
   }
 
-  input.small-text-field {
-    @apply appearance-none rounded border border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
+  label.for-small-field {
+    @apply mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700;
   }
+
+  button.add-item {
+    @apply rounded-md px-2 text-center text-lg font-bold outline focus:outline-none focus:ring-4;
+    @apply bg-white text-green-600 hover:bg-green-300 focus:ring-green-300;
+  }
+
+  button.remove-item {
+    @apply rounded-full px-2 text-center text-sm font-medium focus:outline-none focus:ring-4;
+    @apply text-red-400 hover:bg-red-200 hover:text-red-600 focus:ring-red-300;
+  }
+
 }
