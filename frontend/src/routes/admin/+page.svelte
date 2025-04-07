@@ -1,6 +1,4 @@
 <script lang="ts">
-  import TitleText from "$lib/components/TitleText.svelte";
-
   let username: string = ""
   let isLoading: boolean = false
 
@@ -50,7 +48,7 @@
   }
 </script>
 
-<TitleText text={`Administration`}/>
+<h1 class="title-text">Administration</h1>
 
 <article class="rounded-lg my-8 w space-y-4 w-1/3">
   <h2 class="text-lg font-semibold mb-4">Suspend a user</h2>
