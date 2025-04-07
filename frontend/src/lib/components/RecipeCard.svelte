@@ -38,7 +38,11 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
       <span class="font-semibold">
         Rating:
       </span>
-      {ratings}
+      {#if ratings != 0}
+        { ratings }
+      {:else}
+        -
+      {/if}
     </p>
     
     <p class="text-gray-700 text-base">
