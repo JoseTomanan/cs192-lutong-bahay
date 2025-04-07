@@ -1,20 +1,17 @@
 <script lang="ts">
   import IngredientItem from '$lib/../routes/submit_recipe/+page.svelte'
-  // import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte'
+  import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte'
 
   export let cookDifficulty: string
   export let ratings: number
   export let price: number
-  export let ingredients: IngredientItem[]
+  export let ingredients: IngredientObject[]
   export let id: number
-  export let equipment: string
-  
   export let recipeName: string
+  export let equipment: string
   export let servings: number
 
-  let displayableIngredients: string = ingredients
-    .map(i => i.ingredientName )
-    .join(', ');
+  console.log(recipeName, ingredients)
 </script>
 
 <div class="rounded-2 duration-75 shadow-sm hover:shadow-lg border hover:border-primary overflow-hidden w-full
@@ -49,15 +46,17 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
       <span class="font-semibold">
         Price (PHP):
       </span>
-      { price }
+      { price }.00
     </p>
     
-    <p class="text-gray-700 text-base">
+    <!-- <p class="text-gray-700 text-md">
       <span class="font-semibold">
         Ingredients:
       </span>
-      { displayableIngredients }
-    </p>
+      {#each ingredients as ingredient, idx}
+        { ingredient.id }{#if idx < ingredients.length - 1}, {/if}
+      {/each}
+    </p> -->
 
     <p class="text-gray-700 text-base">
       <span class="font-semibold">
