@@ -28,12 +28,12 @@ class RecipeSerializer(serializers.ModelSerializer):
     
 
 class RecipeIngredientsSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField()
+    ingredientName = serializers.SerializerMethodField()
 
     class Meta:
         model = RecipeIngredients
         fields = "__all__"
 
-    def get_name(self, recipe_ingredient):
-        name = IngredientsSerializer(Ingredients.objects.get(pk=recipe_ingredient.ingredientId.id)).data["ingredientName"]
-        return name
+    def get_ingredientName(self, recipe_ingredient):
+        ingredientName = IngredientsSerializer(Ingredients.objects.get(pk=recipe_ingredient.ingredientId.id)).data["ingredientName"]
+        return ingredientName

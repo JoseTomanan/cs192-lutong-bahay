@@ -126,9 +126,10 @@
 				alert('No recipes found');
 			} else {
 				const result = data;
-				ingredientsDb = result.map((val) => {
-					return { id: val.id, ingredientName: val.ingredientName };
-				});
+				// ingredientsDb = result.map((val) => {
+				// 	return { id: val.id, ingredientName: val.ingredientName };
+				// });
+				ingredientsDb = result;
 				// console.log(ingredientsDb);
 			}
 		} catch {
@@ -138,12 +139,15 @@
 
 	async function handleRecipeEdit() {
 		console.log("RECIPE EDIT")
+		// console.log(ingredients[0].ingredientName)
+		// console.log(ingredientsDb[0].ingredientName)
+		// console.log(ingredientsDb)
 		console.log(ingredients)
 	}
 
 	const removeIngredient = (ingredient) => {
 		ingredients = ingredients.filter(
-        (i) => i.ingredientObject.ingredientName !== ingredient.ingredientObject.ingredientName
+        (i) => i.ingredientName !== ingredient.ingredientName
       );
 	};
 
@@ -164,7 +168,7 @@
 	<ul class="list-disc">
 		{#each ingredients as ingredient}
 			<li class="ml-5">
-				{ingredientsDb[ingredient.ingredientId].ingredientName}
+				{ingredient.ingredientName}
 			</li>
 		{/each}
 	</ul>
@@ -179,14 +183,15 @@
 					class="small-text-field"
 					value={ingredientsDb[ingredient.ingredientId].ingredientName}
 				/> -->
-        <select
-							class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
-							value={ingredientsDb[index]}
-						>
-							{#each ingredientsDb as ingredient}
-								<option value={ingredient}> {ingredient.ingredientName} </option>
-							{/each}
-						</select>
+				{console.log(ingredient.ingredientName)}
+       			<select
+					class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
+					value={ingredient.ingredientName}
+					>
+					{#each ingredientsDb as ingredient}
+						<option value={ingredient.ingredientName}> {ingredient.ingredientName} </option>
+					{/each}
+				</select>
 				<input
 					id="ingredientQuantity"
 					type="number"
