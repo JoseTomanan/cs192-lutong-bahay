@@ -1,5 +1,4 @@
 <script lang="ts">
-  import TitleText from "$lib/components/TitleText.svelte";
 
   let username = "Admin";
   let userSearchbar = "";
@@ -65,7 +64,7 @@
 
 </script>
 
-<TitleText text="Add a recipe" />
+<h1 class="title-text">Add a recipe</h1>
 
 <form on:submit|preventDefault={handleAddRecipe} class="space-y-4 mt-4">
   <input 
