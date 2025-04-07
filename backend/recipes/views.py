@@ -6,8 +6,8 @@ from django.shortcuts import render
 from django.db import OperationalError, connection
 from django.db.models import Count
 
-from .models import Recipe, Ingredients, CookedBy, RecipeIngredients
-from .serializer import RecipeSerializer, IngredientsSerializer, CookedBySerializer
+from .models import Recipe, Ingredients, RecipeIngredients
+from .serializer import RecipeSerializer, IngredientsSerializer
 
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from .custom_permissions import IsAdminOrReadOnly
@@ -77,7 +77,7 @@ def sort_recipes(request):
         if not ingredients:
             return Response({"error": "Ingredient(s) not found"}, status=404)
 
-        cooked_by = CookedBy.objects.select_related("ingredient", "recipe").all()
+        cooked_by = RecipeIngredients.objects.select_related("ingredient", "recipe").all()
         cooked_by = cooked_by.filter(
             ingredient__ingredientName__in=request.data["ingredients"]
             )
