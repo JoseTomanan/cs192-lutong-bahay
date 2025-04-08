@@ -17,14 +17,18 @@
 	let recipe;
 	let retrievedRecipe;
 	let recipeName: String = $state('');
-	let recipePrice: Number = $state(0);
+	let cookDifficulty: String = $state('');
+	let recipeEquipment: String = $state('');
 	let recipeInstructions: String = $state('');
+	let recipeServings: Number = $state(0);
+	let recipePrice: Number = $state(0);
+	let recipeRating: Number = $state(0);	
 	let ingredients = $state([]);
   	let ingredientsDb = $state([])
 
 	// reviews
-	let reviewString = '';
-	let reviewRating = 0;
+	let reviewString = $state('');
+	let reviewRating = $state(0);
 
 	let recipeReviewList = $state([]);
 
@@ -34,7 +38,7 @@
 	onMount(async () => {
 		fetchRecipeReviews();
 		user_id = Cookies.get('user_id');
-    fetchIngredients();
+    	fetchIngredients();
 	});
 
 	async function functionFetchRecipeById(input_id: String) {
@@ -55,9 +59,12 @@
 			retrievedRecipe = recipe[0];
 			recipeName = retrievedRecipe.recipeName;
 			ingredients = retrievedRecipe.ingredients;
+			cookDifficulty = retrievedRecipe.cookDifficulty;
+			recipeEquipment = retrievedRecipe.equipment;
       		// console.log("ingredients: " + ingredients)
-			recipePrice = retrievedRecipe.recipePrice;
 			recipeInstructions = retrievedRecipe.instructions;
+			recipePrice = retrievedRecipe.recipePrice;
+			recipeRating = retrievedRecipe.ratings;
 			// goto('dbtest');
 			return;
 		} else {
@@ -141,6 +148,7 @@
 		console.log("RECIPE EDIT")
 		console.log(ingredients)
 
+
 		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe/", {
 			method: 'POST',
 			credentials: 'include',
@@ -148,8 +156,11 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				recipeId: data.id,
-				recipeName: recipeName,
+				recipe: {
+					// recipeId: data.id,
+					recipeName: recipeName,
+					// cookDifficulty: cookDifficulty,
+				},
 				ingredients: ingredients
 			})
 		});

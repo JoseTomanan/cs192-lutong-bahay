@@ -23,6 +23,7 @@ class Recipe(models.Model):
     equipment = models.CharField(max_length=1000)
     instructions = models.CharField(max_length=1000)
     ratings = models.FloatField()
+
 class RecipeIngredients(models.Model):
     ingredientId = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
     quantity = models.IntegerField()

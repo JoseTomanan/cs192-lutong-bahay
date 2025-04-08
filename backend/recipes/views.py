@@ -321,8 +321,9 @@ def update_recipe(request):
         return Response({"error": "Recipe not found"}, status=404)
     
     ingredients = request.data["ingredients"]
-    # recipe_serializer = RecipeSerializer(recipe, data=request.data)
-    recipe_serializer = RecipeSerializer(recipe, many=False)
+    # print(ingredients)
+    print(request.data["recipeId"])
+    recipe_serializer = RecipeSerializer(recipe, data=request.data["recipeId"])
     
     if recipe_serializer.is_valid():
         recipe_serializer.save()
@@ -333,6 +334,9 @@ def update_recipe(request):
             ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id # type: ignore
             temp["ingredient"] = ingredient_id
             temp["recipe"] = recipe.id # type: ignore
+            temp["quantity"] = i.quantity
+            temp["unit"] = i.unit
+            print(temp)
             cooked_by_serializer = RecipeIngredients(data=temp)
             
             if cooked_by_serializer.is_valid():
