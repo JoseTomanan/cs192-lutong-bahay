@@ -2,7 +2,7 @@
   export let cookDifficulty: string
   export let ratings
   export let price
-  export let ingredients
+  export let ingredientsString
   export let id: number
   export let equipment: string
   
@@ -41,7 +41,7 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
       <span class="font-semibold">
         Ingredients:
       </span>
-      {ingredients}
+      {ingredientsString}
     </p>
     <p class="text-gray-700 text-base">
       <span class="font-semibold">

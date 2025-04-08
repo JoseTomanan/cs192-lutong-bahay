@@ -9,6 +9,7 @@ class IngredientsSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
     ingredients = serializers.SerializerMethodField()
+    ingredientsString = serializers.SerializerMethodField()
 
     class Meta:
         model = Recipe
@@ -18,17 +19,30 @@ class RecipeSerializer(serializers.ModelSerializer):
         ingredients = RecipeIngredientsSerializer(
             RecipeIngredients.objects.filter(recipe=recipe.id), many=True
         ).data
-        ingredient_ids = [
-            Ingredients.objects.get(id=i["ingredientId"]).id
+        # ingredient_ids = [
+        #     Ingredients.objects.get(id=i["ingredientId"]).id
+        #     for i in ingredients
+        # ]
+        # ingredient_objects = Ingredients.objects.filter(id__in=ingredient_ids)
+        # serialized_ingredients = IngredientsSerializer(ingredient_objects, many=True).data
+        return ingredients
+
+    def get_ingredientsString(self, recipe):
+        ingredients = RecipeIngredientsSerializer(
+            RecipeIngredients.objects.filter(recipe=recipe.id), many=True
+        ).data
+        ingredientsString = [
+            Ingredients.objects.get(id=i["ingredientId"]).ingredientName
             for i in ingredients
         ]
-        ingredient_objects = Ingredients.objects.filter(id__in=ingredient_ids)
-        serialized_ingredients = IngredientsSerializer(ingredient_objects, many=True).data
-        return ingredients
+        # ingredient_objects = Ingredients.objects.filter(id__in=ingredient_ids)
+        # serialized_ingredients = IngredientsSerializer(ingredient_objects, many=True).data
+        return ingredientsString
     
 
 class RecipeIngredientsSerializer(serializers.ModelSerializer):
     ingredientName = serializers.SerializerMethodField()
+    ingredientObject = serializers.SerializerMethodField()
 
     class Meta:
         model = RecipeIngredients
@@ -37,3 +51,7 @@ class RecipeIngredientsSerializer(serializers.ModelSerializer):
     def get_ingredientName(self, recipe_ingredient):
         ingredientName = IngredientsSerializer(Ingredients.objects.get(pk=recipe_ingredient.ingredientId.id)).data["ingredientName"]
         return ingredientName
+    
+    def get_ingredientObject(self, recipe_ingredient):
+        ingredientObject = IngredientsSerializer(Ingredients.objects.get(pk=recipe_ingredient.ingredientId.id)).data
+        return ingredientObject

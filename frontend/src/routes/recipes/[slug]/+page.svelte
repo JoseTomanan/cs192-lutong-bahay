@@ -20,7 +20,7 @@
 	let recipePrice: Number = $state(0);
 	let recipeInstructions: String = $state('');
 	let ingredients = $state([]);
-  let ingredientsDb = $state([])
+  	let ingredientsDb = $state([])
 
 	// reviews
 	let reviewString = '';
