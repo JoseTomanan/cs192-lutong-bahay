@@ -12,6 +12,15 @@ from .serializer import RecipeSerializer, IngredientsSerializer, RecipeIngredien
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from .custom_permissions import IsAdminOrReadOnly
 
+from django.db.models import Prefetch
+
+Recipe.objects.prefetch_related(
+    Prefetch(
+        "recipeingredient_set",  # or the related_name if set
+        queryset=RecipeIngredients.objects.select_related("ingredient")
+    )
+)
+
 
 """
 Get recipe, either all recipes or by search
