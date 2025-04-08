@@ -40,6 +40,10 @@
     @apply border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none;
   }
 
+  input.md-text-field {
+    @apply block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-main focus:border-main;
+  }
+
   label.for-small-field {
     @apply mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700;
   }
@@ -55,10 +59,12 @@
   }
 
   button.destructive-text {
-    @apply flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50;
+    /* @apply flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50; */
+    @apply px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition;
   }
 
   button.cta-text {
-    @apply flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50;
+    /* @apply flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50; */
+    @apply px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition;
   }
 }
