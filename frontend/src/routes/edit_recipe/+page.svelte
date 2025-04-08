@@ -67,13 +67,16 @@
   }
 </script>
 
-<h1 class="title-text">Delete a recipe</h1>
+<h1 class="title-text">Edit/delete a recipe</h1>
 
 <DeleteRecipe />
 
 <hr class="my-5">
 
-<h1 class="title-text">Edit a recipe</h1>
+<!--
+  <h1 class="title-text">Edit a recipe</h1>
+  ^^ removing this; pa-merge with the edit interface na lang
+ -->
 
 <form on:submit|preventDefault={handleEditRecipe} class="space-y-4 mt-4">
   <input 
