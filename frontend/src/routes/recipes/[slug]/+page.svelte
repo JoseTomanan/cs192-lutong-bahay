@@ -197,9 +197,12 @@
 	console.log(data.id);
 	functionFetchRecipeById(data.id);
   
-	function removeIngredient(ingredient: IngredientObject): any {
-		throw new Error('Function not implemented.');
-	}
+	// function removeIngredient(ingredient: IngredientObject): any {
+	// 	throw new Error('Function not implemented.');
+	// }
+	// i commented this out just for the sake of getting the program to run
+	// zach should fix this in his PR
+	// if this appears in a merge conflict, choose the other option 
 </script>
 
 <Toaster />
