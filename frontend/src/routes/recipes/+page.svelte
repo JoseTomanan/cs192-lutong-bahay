@@ -4,9 +4,22 @@
   import RecipesLoader from '$lib/components/RecipesLoader.svelte';
   import toast, { Toaster } from 'svelte-french-toast';
   import { recipesStore, recipesLoaded } from '$lib/stores/recipes';
+  import IngredientItem from '$lib/../routes/submit_recipe/+page.svelte'
+  import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte'
 
-  let recipes = [];
-  let filteredRecipes = [];
+  interface RecipeObject {
+    cookDifficulty: string
+    ratings: number
+    price: number
+    ingredients: IngredientObject[]
+    id: number
+    recipeName: string
+    equipment: string
+    servings: number
+  }
+
+  let recipes: RecipeObject[] = [];
+  let filteredRecipes: RecipeObject[] = [];
   let recipeName = '';
   let direction = 'ascending';
   let sort = 'recipeName';
@@ -36,8 +49,8 @@
       if (data.hasOwnProperty('error')) {
         toast.error('No recipes found');
       } else {
-        recipesStore.set(data); // Cache recipes in the store
-        recipesLoaded.set(true); // Mark recipes as loaded
+        recipesStore.set(data); 
+        recipesLoaded.set(true); 
         recipes = data;
         filteredRecipes = [...recipes];
       }
@@ -52,7 +65,7 @@
     filteredRecipes = recipes.filter((recipe) =>
       recipe.recipeName.toLowerCase().includes(recipeName.toLowerCase())
     );
-    sortRecipes(); // Ensure the filtered results are sorted
+    sortRecipes();
   }
 
   function filterByIngredients() {
@@ -62,13 +75,13 @@
         ingredientList.includes(ingredient.ingredientName.toLowerCase())
       )
     );
-    sortRecipes(); // Ensure the filtered results are sorted
+    sortRecipes();
   }
 
   function sortRecipes() {
     filteredRecipes = [...filteredRecipes].sort((a, b) => {
-      const aValue = a[sort];
-      const bValue = b[sort];
+      const aValue = a[sort as keyof RecipeObject];
+      const bValue = b[sort as keyof RecipeObject];
 
       if (typeof aValue === 'string' && typeof bValue === 'string') {
         return direction === 'ascending'
@@ -76,7 +89,7 @@
           : bValue.localeCompare(aValue);
       }
 
-      return direction === 'ascending' ? aValue - bValue : bValue - aValue;
+      return direction === 'ascending' ? Number(aValue) - Number(bValue) : Number(bValue) - Number(aValue);
     });
   }
 </script>
