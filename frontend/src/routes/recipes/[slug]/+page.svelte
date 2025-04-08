@@ -8,6 +8,7 @@
 	import { onMount } from 'svelte';
 	import RecipeReview from '$lib/components/RecipeReview.svelte';
 	import Cookies from 'js-cookie';
+	import toast, { Toaster } from 'svelte-french-toast';
 
   import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
 
@@ -84,12 +85,12 @@
 		});
 
 		if (response.ok) {
-			alert('review post succesful');
+			toast.success('review post succesful');
 			location.reload();
 			console.log('Review post successful');
 			return;
 		} else {
-			alert('review post fail');
+			toast.error('review post fail');
 			console.log('Review post fail');
 		}
 	}
@@ -127,7 +128,7 @@
 			const data = await response.json();
       
 			if (data.hasOwnProperty('error')) {
-				alert('No recipes found');
+				toast.error('No recipes found');
 			}
       else {
 				const result = data;
@@ -137,7 +138,7 @@
 				// console.log(ingredientsDb);
 			}
 		} catch {
-			alert('No database connection');
+			toast.error('No database connection');
 		}
 	}
 
@@ -152,6 +153,8 @@
 		throw new Error('Function not implemented.');
 	}
 </script>
+
+<Toaster />
 
 <div class="mb-10">
 	<h1 class="text-4xl font-bold">
