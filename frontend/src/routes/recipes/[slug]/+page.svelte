@@ -16,6 +16,7 @@
 
 	let recipe;
 	let retrievedRecipe;
+	let recipeId = $state(0);
 	let recipeName: String = $state('');
 	let cookDifficulty: String = $state('');
 	let recipeEquipment: String = $state('');
@@ -57,6 +58,7 @@
 		if (response.ok) {
 			console.log('Recipe fetch successful');
 			retrievedRecipe = recipe[0];
+			recipeId = retrievedRecipe.id;
 			recipeName = retrievedRecipe.recipeName;
 			ingredients = retrievedRecipe.ingredients;
 			cookDifficulty = retrievedRecipe.cookDifficulty;
@@ -158,6 +160,7 @@
 			body: JSON.stringify({
 				recipe: {
 					// recipeId: data.id,
+					recipeId: recipeId,
 					recipeName: recipeName,
 					cookDifficulty: cookDifficulty,
 					equipment: recipeEquipment,
