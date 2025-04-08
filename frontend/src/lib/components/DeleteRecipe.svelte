@@ -41,29 +41,31 @@
 
 <Toaster/>
 
-<div class="max-w-md mt-6 p-6 bg-white rounded-lg border-2">
+<div class="max-w-md mt-8 p-6 bg-white rounded-lg border-2 space-y-6">
   <h2 class="text-lg font-semibold mb-4">
     Delete a recipe
   </h2>
   
-  <div class="mb-4">
-    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">
-      Enter recipe name
-    </label>
-    <input 
-      id="username"
-      type="text" 
-      bind:value={recipeName}
-      placeholder="Enter Recipe"
-      class="md-text-field"
-    />
-  </div>
-  
-  <div class="flex space-x-4">
-    <button 
-      on:click={deleteRecipe}
-      class="destructive-text"
-    >Delete</button>
+  <div class="space-y-4">
+    <div class="space-y-2">
+      <label for="username" class="block text-sm font-medium text-gray-700">
+        Enter recipe name
+      </label>
+      <input
+        id="username"
+        type="text"
+        bind:value={recipeName}
+        placeholder="Enter recipe name..."
+        class="md-text-field"
+      />
+    </div>
+    
+    <div class="flex justify-end">
+      <button
+        on:click={deleteRecipe}
+        class="destructive-text"
+      >Delete</button>
+    </div>
   </div>
   
 

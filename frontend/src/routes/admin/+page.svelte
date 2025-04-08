@@ -70,10 +70,10 @@
   <h2 class="text-lg font-semibold mb-4">Suspend or Reactivate a User</h2>
 
   <div class="space-y-4">
-    <div>
+    <div class="space-y-2">
       <label
         for="username"
-        class="block text-sm font-medium text-gray-700 mb-2"
+        class="block text-sm font-medium text-gray-700"
       >Enter Username</label>
       <input 
         id="username"
