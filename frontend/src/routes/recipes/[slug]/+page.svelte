@@ -139,10 +139,30 @@
 
 	async function handleRecipeEdit() {
 		console.log("RECIPE EDIT")
-		// console.log(ingredients[0].ingredientName)
-		// console.log(ingredientsDb[0].ingredientName)
-		// console.log(ingredientsDb)
 		console.log(ingredients)
+
+		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe/", {
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				recipeId: data.id,
+				recipeName: recipeName,
+				ingredients: ingredients
+			})
+		});
+
+		if (response.ok) {
+			alert('Recipe update succesful');
+			location.reload();
+			console.log('Recipe update successful');
+			return;
+		} else {
+			alert('Recipe update fail');
+			console.log('Recipe update fail');
+		}
 	}
 
 	const removeIngredient = (ingredient) => {
@@ -186,7 +206,7 @@
 				{console.log(ingredient.ingredientName)}
        			<select
 					class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
-					value={ingredient.ingredientName}
+					bind:value={ingredient.ingredientName}
 					>
 					{#each ingredientsDb as ingredient}
 						<option value={ingredient.ingredientName}> {ingredient.ingredientName} </option>
@@ -196,8 +216,17 @@
 					id="ingredientQuantity"
 					type="number"
 					class="small-text-field w-10 ml-1"
-					value={ingredient.quantity}
+					bind:value={ingredient.quantity}
 				/>
+				<select
+					class="block ml-1 w-max appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
+					bind:value={ingredient.unit}
+				>
+					<option value="pcs"> pcs </option>
+					<option value="g"> g </option>
+					<option value="oz"> oz </option>
+					<option value="lols"> lols </option>
+				</select>
 				<button
 					type="button"
 					class="py-0.3 mb-2 me-2 rounded-full bg-red-700 px-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
