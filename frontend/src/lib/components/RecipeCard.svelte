@@ -49,6 +49,15 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
       { price }.00
     </p>
     
+    <!-- <p class="text-gray-700 text-md">
+      <span class="font-semibold">
+        Ingredients:
+      </span>
+      {#each ingredients as ingredient, idx}
+        { ingredient.id }{#if idx < ingredients.length - 1}, {/if}
+      {/each}
+    </p> -->
+
     <p class="text-gray-700 text-base">
       <span class="font-semibold">
         ID:

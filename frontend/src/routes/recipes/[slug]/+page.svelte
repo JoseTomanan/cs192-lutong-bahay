@@ -19,11 +19,10 @@
 
 	let recipe;
 	let retrievedRecipe;
-	let recipeId = $state(0);
 	let recipeName: String = $state('');
-	let cookDifficulty: String = $state('');
-	let recipeEquipment: String = $state('');
-	let recipeInstructions: String = $state('');  
+	let recipePrice: Number = $state(0);
+	let recipeInstructions: String = $state('');
+  
 	let ingredients = $state<IngredientObject[]>([]);
   let ingredientsDb = $state<IngredientObject[]>([])
 
@@ -39,7 +38,7 @@
 	onMount(async () => {
 		fetchRecipeReviews();
 		user_id = Cookies.get('user_id');
-    	fetchIngredients();
+    fetchIngredients();
 	});
 
 	async function functionFetchRecipeById(input_id: String) {
@@ -58,15 +57,11 @@
 		if (response.ok) {
 			console.log('Recipe fetch successful');
 			retrievedRecipe = recipe[0];
-			recipeId = retrievedRecipe.id;
 			recipeName = retrievedRecipe.recipeName;
 			ingredients = retrievedRecipe.ingredients;
-			cookDifficulty = retrievedRecipe.cookDifficulty;
-			recipeEquipment = retrievedRecipe.equipment;
-      		// console.log("ingredients: " + ingredients)
+      console.log("ingredients: " + ingredients)
+			recipePrice = retrievedRecipe.recipePrice;
 			recipeInstructions = retrievedRecipe.instructions;
-			recipePrice = retrievedRecipe.price;
-			recipeRating = retrievedRecipe.ratings;
 			// goto('dbtest');
 			return;
 		} else {
@@ -149,50 +144,7 @@
 
 	async function handleRecipeEdit() {
 		console.log("RECIPE EDIT")
-		console.log(ingredients)
-
-
-		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe/", {
-			method: 'POST',
-			credentials: 'include',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				recipe: {
-					// recipeId: data.id,
-					recipeId: recipeId,
-					recipeName: recipeName,
-					cookDifficulty: cookDifficulty,
-					equipment: recipeEquipment,
-					// ingredients: ingredients,
-					// console.log("ingredients: " + ingredients)
-					instructions: recipeInstructions,
-					servings: recipeServings,
-					price: recipePrice,
-					ratings: recipeRating
-			// goto('dbtest');
-				},
-				ingredients: ingredients
-			})
-		});
-
-		if (response.ok) {
-			alert('Recipe update succesful');
-			location.reload();
-			console.log('Recipe update successful');
-			return;
-		} else {
-			alert('Recipe update fail');
-			console.log('Recipe update fail');
-		}
 	}
-
-	const removeIngredient = (ingredient) => {
-		ingredients = ingredients.filter(
-        (i) => i.ingredientName !== ingredient.ingredientName
-      );
-	};
 
 	console.log(data.id);
 	functionFetchRecipeById(data.id);
@@ -230,7 +182,7 @@
   {/if}
 
 	{#if is_editing}
-		{#each ingredients as ingredient, index}
+		{#each ingredients as ingredient}
 			<li class="flex items-center align-text-bottom">
 				<!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
 				<!-- <input
@@ -239,30 +191,20 @@
 					class="small-text-field"
 					value={ingredientsDb[ingredient.ingredientId].ingredientName}
 				/> -->
-				{console.log(ingredient.ingredientName)}
-       			<select
-					class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
-					bind:value={ingredient.ingredientName}
-					>
-					{#each ingredientsDb as ingredient}
-						<option value={ingredient.ingredientName}> {ingredient.ingredientName} </option>
-					{/each}
-				</select>
+        <select
+							class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
+							value={ingredientsDb[ingredient.ingredientId]}
+						>
+							{#each ingredientsDb as ingredient}
+								<option value={ingredient}> {ingredient.ingredientName} </option>
+							{/each}
+						</select>
 				<input
 					id="ingredientQuantity"
 					type="number"
 					class="small-text-field w-10 ml-1"
-					bind:value={ingredient.quantity}
+					value={ingredient.quantity}
 				/>
-				<select
-					class="block ml-1 w-max appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
-					bind:value={ingredient.unit}
-				>
-					<option value="pcs"> pcs </option>
-					<option value="g"> g </option>
-					<option value="oz"> oz </option>
-					<option value="lols"> lols </option>
-				</select>
 				<button
 					type="button"
 					class="py-0.3 mb-2 me-2 rounded-full bg-red-700 px-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
@@ -276,7 +218,7 @@
 <div class="my-5">
 	<h1 class="text-xl font-bold">Instructions</h1>
 	{#if is_editing}
-		<input type="text" value={recipeInstructions}>
+		<input type="text" bind:value={recipeInstructions}>
 	{:else}
 		<p>{recipeInstructions}</p>
 	{/if}
