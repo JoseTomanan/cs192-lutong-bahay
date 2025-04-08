@@ -38,7 +38,7 @@
 	onMount(async () => {
 		fetchRecipeReviews();
 		user_id = Cookies.get('user_id');
-    	fetchIngredients();
+    fetchIngredients();
 	});
 
 	async function functionFetchRecipeById(input_id: String) {
@@ -70,7 +70,6 @@
 	}
 
 	async function postReview() {
-		user_id = Cookies.get('user_id');	
 		const response = await fetch('http://127.0.0.1:8000/api/reviews/post-review/', {
 			method: 'POST',
 			credentials: 'include',
@@ -78,19 +77,22 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				"recipeId": data.id,
-				"reviewerId": user_id,
-				"reviewRating": reviewRating,
-				"reviewString": reviewString
+				reviewRating: reviewRating,
+				reviewString: reviewString,
+				recipeId: data.id,
+				reviewerId: user_id
 			})
 		});
 
 		if (response.ok) {
 			toast.success('review post succesful');
 			fetchRecipeReviews()
+			location.reload()
+			console.log('Review post successful');
 			return;
 		} else {
 			toast.error('review post fail');
+			console.log('Review post fail');
 		}
 	}
 
