@@ -20,11 +20,7 @@ from django.urls import path, include
 from savedby.views import user_save_recipe, user_delete_recipe, user_get_saved_recipes
 
 urlpatterns = [
-    path("api/user_save_recipe/", user_save_recipe, name="user_save_recipe"),
-    path("api/user_delete_recipe/", user_delete_recipe, name="user_delete_recipe"),
-    path(
-        "api/user_get_saved_recipes/",
-        user_get_saved_recipes,
-        name="user_get_saved_recipes",
-    ),
+    path("user-save-recipe/", user_save_recipe),
+    path("user-delete-recipe/", user_delete_recipe),
+    path("user-get-saved_recipes/", user_get_saved_recipes),
 ]
