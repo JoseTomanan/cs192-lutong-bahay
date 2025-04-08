@@ -63,7 +63,7 @@
 			recipeEquipment = retrievedRecipe.equipment;
       		// console.log("ingredients: " + ingredients)
 			recipeInstructions = retrievedRecipe.instructions;
-			recipePrice = retrievedRecipe.recipePrice;
+			recipePrice = retrievedRecipe.price;
 			recipeRating = retrievedRecipe.ratings;
 			// goto('dbtest');
 			return;
@@ -159,7 +159,15 @@
 				recipe: {
 					// recipeId: data.id,
 					recipeName: recipeName,
-					// cookDifficulty: cookDifficulty,
+					cookDifficulty: cookDifficulty,
+					equipment: recipeEquipment,
+					// ingredients: ingredients,
+					// console.log("ingredients: " + ingredients)
+					instructions: recipeInstructions,
+					servings: recipeServings,
+					price: recipePrice,
+					ratings: recipeRating
+			// goto('dbtest');
 				},
 				ingredients: ingredients
 			})

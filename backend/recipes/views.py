@@ -310,7 +310,8 @@ Edit recipe (must exist already)
 """
 @api_view(["POST"])
 def update_recipe(request):
-    recipe_name = request.data.get("recipeName", None)
+    recipe = request.data.get("recipe", None)
+    recipe_name = recipe["recipeName"]
     
     if not recipe_name:
         return Response({"error": "recipeName is required"}, status=400)
@@ -322,8 +323,14 @@ def update_recipe(request):
     
     ingredients = request.data["ingredients"]
     # print(ingredients)
-    print(request.data["recipeId"])
-    recipe_serializer = RecipeSerializer(recipe, data=request.data["recipeId"])
+    # 
+    recipe_serializer = RecipeSerializer(recipe, data=request.data["recipe"])
+    if not(recipe_serializer.is_valid()):
+        print(recipe_serializer.errors)
+        print("invalid recipe_serializer")
+        print(request.data["recipe"])
+    else:
+        print("recipe_serializer valid")
     
     if recipe_serializer.is_valid():
         recipe_serializer.save()
