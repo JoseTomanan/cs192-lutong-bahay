@@ -66,7 +66,7 @@
 
 <h1 class="title-text text-2xl font-bold mb-6">Administration</h1>
 
-<article class="rounded-lg my-8 w-full max-w-lg space-y-6 bg-white p-6 shadow-md">
+<article class="rounded-lg my-8 w-full max-w-lg space-y-6 bg-white p-6 border-2 border-gray">
   <h2 class="text-lg font-semibold mb-4">Suspend or Reactivate a User</h2>
 
   <div class="space-y-4">
@@ -77,7 +77,7 @@
       >Enter Username</label>
       <input 
         id="username"
-        class="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-main focus:border-main"
+        class="md-text-field"
         type="text" 
         bind:value={username}
         placeholder="Enter username..."
@@ -87,12 +87,12 @@
     <div class="flex justify-between">
       <button 
         on:click={suspendUser}
-        class="px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition"
+        class="destructive-text"
       >Suspend</button>
       
       <button 
         on:click={reactivateUser}
-        class="px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition"
+        class="cta-text"
       >Reactivate</button>
     </div>
   </div>
