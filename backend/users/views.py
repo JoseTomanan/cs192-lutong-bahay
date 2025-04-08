@@ -28,8 +28,9 @@ def login(request):
     username = request.data["username"]
     password = request.data["password"]
     user = authenticate(username=username, password=password)
+    
     if User.objects.filter(username=username).first() is not None:
-        if User.objects.filter(username=username).first().is_active == False:
+        if User.objects.filter(username=username).first().is_active == False: # type: ignore
             return Response(
                 {
                     "success": False,
@@ -58,7 +59,7 @@ def login(request):
         )
         response.set_cookie(
             "user_id",
-            user.id,
+            user.id, # type: ignore
             max_age=None,
             httponly=False,
             secure=True,
@@ -81,7 +82,7 @@ def login(request):
         )
         response.set_cookie(
             "user_id",
-            user.id,
+            user.id, # type: ignore
             max_age=None,
             httponly=False,
             secure=True,

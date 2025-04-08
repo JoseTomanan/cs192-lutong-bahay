@@ -1,6 +1,7 @@
 <script lang="ts">
-  import TitleText from "$lib/components/TitleText.svelte";
   import DeleteRecipe from "$lib/components/DeleteRecipe.svelte";
+  import toast, { Toaster } from 'svelte-french-toast';
+  import DefaultLoader from "$lib/components/DefaultLoader.svelte";
 
   let username: string = "Admin";
   let userSearchbar: string = "";
@@ -13,7 +14,12 @@
   let servings: number = 0
   let instructions: string = ""
 
+  let loading: boolean = false
+  let loadingText: string = ""
+
   async function handleEditRecipe() {
+    loading = true
+    loadingText = "Editing the recipe..."
     try {
       const response = await fetch("http://localhost:8000/api/recipes/update-recipe/", {
         method: "POST",
@@ -37,7 +43,7 @@
       console.log(data)
   
       if (response['status'] == 200) {
-        alert("Recipe edited successfully!");
+        toast.success("Recipe edited successfully!");
         
         // Reset form fields
         recipeName = ""
@@ -49,23 +55,29 @@
       }
       
       else {
-        alert(data.message || "Error in editing recipe")
+        toast.error(data.message || "Error in editing recipe")
       }
     }
     
     catch (err) {
-      alert("Error connecting to the server.");
+      toast.error("Error connecting to the server.");
+    } finally {
+      loading = false
     }
   }
 </script>
 
-<TitleText text="Delete a recipe" />
+<h1 class="title-text">Edit/delete a recipe</h1>
 
 <DeleteRecipe />
 
 <hr class="my-5">
 
-<TitleText text="Edit a recipe" />
+<!--
+  <h1 class="title-text">Edit a recipe</h1>
+  ^^ removing this; pa-merge with the edit interface na lang
+ -->
+
 <form on:submit|preventDefault={handleEditRecipe} class="space-y-4 mt-4">
   <input 
     type="text" 
@@ -123,3 +135,10 @@
     Edit Recipe
   </button>
 </form>
+
+{#if loading}
+  <div class="flex gap-3 items-center mt-3">
+    <DefaultLoader />
+    <span class="text-gray-500 text-sm">{loadingText}</span>
+  </div>
+{/if}

@@ -7,7 +7,7 @@
   let pages = ['home', 'recipes', 'users', 'profile']
 
   let admin_pages = [
-    ['admin', 'Suspend user'],
+    ['admin', 'Administration'],
     ['submit_recipe', 'Add recipe'],
     ['edit_recipe', 'Edit recipe'],
     ['manage_review', 'Manage reviews']
@@ -85,9 +85,9 @@ pt-8 px-2">
       <a 
         target="_blank"
         href="http://127.0.0.1:8000/admin" 
-        class="px-5 py-3 my-2 rounded-lg text-gray-500 bg-white hover:bg-gray-100 flex justify-start gap-2"
+        class="px-5 py-3 my-2 rounded-lg text-gray-500 bg-white hover:bg-gray-100 hover:underline flex justify-start gap-2"
       >
-        <span class="italic">Open in Django</span>
+        <span class="italic text-gray-500">Open in Django</span>
         <img src="{OutgoingLink}" alt="" class="w-4 mt-0.5 opacity-60"/>
       </a>
     {/if}
