@@ -7,7 +7,7 @@ from django.db import OperationalError, connection
 from django.db.models import Count
 
 from .models import Recipe, Ingredients, RecipeIngredients
-from .serializer import RecipeSerializer, IngredientsSerializer
+from .serializer import RecipeSerializer, IngredientsSerializer, RecipeIngredientsSerializer
 
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from .custom_permissions import IsAdminOrReadOnly
@@ -338,13 +338,14 @@ def update_recipe(request):
         
         for i in ingredients or []:
             temp = {}
-            ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id # type: ignore
+            # ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id # type: ignore
+            ingredient_id = i["ingredientId"]
             temp["ingredient"] = ingredient_id
             temp["recipe"] = recipe.id # type: ignore
-            temp["quantity"] = i.quantity
-            temp["unit"] = i.unit
+            temp["quantity"] = i["quantity"]
+            temp["unit"] = i["unit"]
             print(temp)
-            cooked_by_serializer = RecipeIngredients(data=temp)
+            cooked_by_serializer = RecipeIngredientsSerializer(data=temp)
             
             if cooked_by_serializer.is_valid():
                 cooked_by_serializer.save()
