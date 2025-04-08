@@ -151,7 +151,6 @@
 		console.log("RECIPE EDIT")
 		console.log(ingredients)
 
-
 		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe/", {
 			method: 'POST',
 			credentials: 'include',

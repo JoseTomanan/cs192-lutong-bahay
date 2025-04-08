@@ -4,25 +4,27 @@
   import RecipesLoader from '$lib/components/RecipesLoader.svelte';
   import toast, { Toaster } from 'svelte-french-toast';
   import { recipesStore, recipesLoaded } from '$lib/stores/recipes';
-  import IngredientItem from '$lib/../routes/submit_recipe/+page.svelte'
-  import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte'
+
+  interface IngredientObject {
+    ingredientName: string;
+  }
 
   interface RecipeObject {
-    cookDifficulty: string
-    ratings: number
-    price: number
-    ingredients: IngredientObject[]
-    id: number
-    recipeName: string
-    equipment: string
-    servings: number
+    cookDifficulty: string;
+    ratings: number;
+    price: number;
+    ingredients: IngredientObject[];
+    id: number;
+    recipeName: string;
+    equipment: string;
+    servings: number;
   }
 
   let recipes: RecipeObject[] = [];
   let filteredRecipes: RecipeObject[] = [];
   let recipeName = '';
-  let direction = 'ascending';
-  let sort = 'recipeName';
+  let direction: 'ascending' | 'descending' = 'ascending';
+  let sort: keyof RecipeObject = 'recipeName';
   let ingredients = '';
   let loading = false;
 
@@ -45,12 +47,12 @@
         },
       });
 
-      const data = await response.json();
+      const data: RecipeObject[] = await response.json();
       if (data.hasOwnProperty('error')) {
         toast.error('No recipes found');
       } else {
-        recipesStore.set(data); 
-        recipesLoaded.set(true); 
+        recipesStore.set(data);
+        recipesLoaded.set(true);
         recipes = data;
         filteredRecipes = [...recipes];
       }
@@ -96,31 +98,15 @@
 
 <Toaster />
 
-<div class="flex gap-2">
+<div class="flex flex-wrap gap-4 items-center mb-4">
   <!-- Search Recipes -->
-  <div class="space-y-5 w-1/3">
-    <label for="search" class="mb-2 text-sm font-medium text-black sr-only">Search</label>
+  <div class="flex-1">
+    <label for="search" class="sr-only">Search Recipes</label>
     <div class="relative">
-      <div class="absolute inset-y-0 start-0 flex ps-3 pointer-events-none">
-        <svg
-          class="w-4 h-4 text-dark_gray"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
-        ></svg>
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-        />
-      </div>
       <input
         type="search"
         id="default-search"
-        class="block w-full p-4 text-sm rounded border focus:outline-gray-700 focus:ring-0"
+        class="block w-full p-3 text-sm rounded-lg border border-gray-300 focus:ring-main focus:border-main"
         bind:value={recipeName}
         placeholder="Search Recipes..."
         on:input={searchRecipes}
@@ -129,56 +115,42 @@
   </div>
 
   <!-- Filter by Ingredients -->
-  <div class="space-y-5 w-1/3">
-    <label for="filter" class="mb-2 text-sm font-medium text-black sr-only">Filter</label>
+  <div class="flex-1">
+    <label for="filter" class="sr-only">Filter by Ingredients</label>
     <div class="relative">
-      <div class="absolute inset-y-0 start-0 flex ps-3 pointer-events-none">
-        <svg
-          class="w-4 h-4 text-dark_gray"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
-        ></svg>
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-        />
-      </div>
       <input
         type="search"
         id="filter-ingredients"
-        class="block w-full p-4 text-sm rounded border focus:outline-gray-700 focus:ring-0"
+        class="block w-full p-3 text-sm rounded-lg border border-gray-300 focus:ring-main focus:border-main"
         bind:value={ingredients}
-        placeholder="Filter by ingredient..."
+        placeholder="Filter by Ingredients (comma-separated)..."
         on:change={filterByIngredients}
       />
     </div>
   </div>
 
   <!-- Sort Recipes -->
-  <select
-    bind:value={sort}
-    on:change={() => sortRecipes()}
-    class="bg-white border border-gray-200 text-gray-700 text-sm rounded focus:ring-main focus:border-2 focus:border-gray-700 block w-3/12 p-2.5"
-  >
-    {#each ['id', 'recipeName', 'price', 'cookDifficulty', 'ratings'] as sortMethod}
-      <option value={sortMethod}>Sort by {sortMethod}</option>
-    {/each}
-  </select>
+  <div class="flex gap-2">
+    <select
+      bind:value={sort}
+      on:change={() => sortRecipes()}
+      class="bg-white border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-main focus:border-main p-3 h-[44px]"
+    >
+      {#each ['id', 'recipeName', 'price', 'cookDifficulty', 'ratings'] as sortMethod}
+        <option value={sortMethod}>Sort by {sortMethod}</option>
+      {/each}
+    </select>
 
-  <select
-    bind:value={direction}
-    on:change={() => sortRecipes()}
-    class="bg-white border border-gray-200 text-gray-700 text-sm rounded focus:ring-main focus:border-2 focus:border-gray-700 block w-3/12 p-2.5"
-  >
-    {#each ['ascending', 'descending'] as sortMethod}
-      <option value={sortMethod}>{sortMethod}</option>
-    {/each}
-  </select>
+    <select
+      bind:value={direction}
+      on:change={() => sortRecipes()}
+      class="bg-white border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-main focus:border-main p-3 h-[44px]"
+    >
+      {#each ['ascending', 'descending'] as sortMethod}
+        <option value={sortMethod}>{sortMethod}</option>
+      {/each}
+    </select>
+  </div>
 </div>
 
 <!-- Recipes List -->
