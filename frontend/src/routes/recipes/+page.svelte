@@ -1,10 +1,22 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
+  import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte'
   import RecipesLoader from '$lib/components/RecipesLoader.svelte'
   import toast, { Toaster } from 'svelte-french-toast';
 
-  let recipes: any[] = []
+  interface RecipeItem {
+    id: number
+    recipeName: string
+    cookDifficulty: string
+    ratings: number
+    price: number
+    equipment: string
+    servings: number
+    ingredients: IngredientObject[]
+  }
+
+  let recipes: RecipeItem[] = []
   let recipeName = '' 
   let direction = 'ascending'
   let is_negative = true

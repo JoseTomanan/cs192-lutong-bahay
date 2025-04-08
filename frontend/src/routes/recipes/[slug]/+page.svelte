@@ -10,7 +10,7 @@
 	import Cookies from 'js-cookie';
 	import toast, { Toaster } from 'svelte-french-toast';
 
-  import IngredientObject from '../../submit_recipe/+page.svelte';
+  import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
 
 	// for editing logic
 	let is_editing = $state(false);
