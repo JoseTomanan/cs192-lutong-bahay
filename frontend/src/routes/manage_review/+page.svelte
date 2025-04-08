@@ -1,10 +1,8 @@
 <script lang="ts">
-  import TitleText from "$lib/components/TitleText.svelte";
-
   let username = "testuser"
 </script>
 
-<TitleText text={`Manage reviews`}/>
+<h1 class="title-text">Manage reviews</h1>
 
 <form class="">
   <!-- search bar -->

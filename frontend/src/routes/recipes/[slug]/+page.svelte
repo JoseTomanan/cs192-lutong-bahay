@@ -8,6 +8,9 @@
 	import { onMount } from 'svelte';
 	import RecipeReview from '$lib/components/RecipeReview.svelte';
 	import Cookies from 'js-cookie';
+	import toast, { Toaster } from 'svelte-french-toast';
+
+  import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
 
 	// for editing logic
 	let is_editing = $state(false);
@@ -20,18 +23,15 @@
 	let recipeName: String = $state('');
 	let cookDifficulty: String = $state('');
 	let recipeEquipment: String = $state('');
-	let recipeInstructions: String = $state('');
-	let recipeServings: Number = $state(0);
-	let recipePrice: Number = $state(0);
-	let recipeRating: Number = $state(0);	
-	let ingredients = $state([]);
-  	let ingredientsDb = $state([])
+	let recipeInstructions: String = $state('');  
+	let ingredients = $state<IngredientObject[]>([]);
+  let ingredientsDb = $state<IngredientObject[]>([])
 
 	// reviews
 	let reviewString = $state('');
 	let reviewRating = $state(0);
 
-	let recipeReviewList = $state([]);
+	let recipeReviewList: any[] = $state([]);
 
 	let user_id: String | undefined;
 
@@ -90,12 +90,12 @@
 		});
 
 		if (response.ok) {
-			alert('review post succesful');
+			toast.success('review post succesful');
 			location.reload();
 			console.log('Review post successful');
 			return;
 		} else {
-			alert('review post fail');
+			toast.error('review post fail');
 			console.log('Review post fail');
 		}
 	}
@@ -131,18 +131,19 @@
 			});
 
 			const data = await response.json();
+      
 			if (data.hasOwnProperty('error')) {
-				alert('No recipes found');
-			} else {
+				toast.error('No recipes found');
+			}
+      else {
 				const result = data;
-				// ingredientsDb = result.map((val) => {
-				// 	return { id: val.id, ingredientName: val.ingredientName };
-				// });
-				ingredientsDb = result;
+				ingredientsDb = result.map((val: IngredientObject) => {
+					return { id: val.id, ingredientName: val.ingredientName };
+				});
 				// console.log(ingredientsDb);
 			}
 		} catch {
-			alert('No database connection');
+			toast.error('No database connection');
 		}
 	}
 
@@ -195,26 +196,39 @@
 
 	console.log(data.id);
 	functionFetchRecipeById(data.id);
+  
+	function removeIngredient(ingredient: IngredientObject): any {
+		throw new Error('Function not implemented.');
+	}
 </script>
+
+<Toaster />
 
 <div class="mb-10">
 	<h1 class="text-4xl font-bold">
 		{recipeName}
 	</h1>
-	<button class="text-blue-600" on:click={() => is_editing = !is_editing}>Edit Recipe</button>
+	<button
+    class="text-blue-600"
+    onclick={() => is_editing = !is_editing}
+  >Edit Recipe</button>
 </div>
 
 <div class="my-5">
-	<h1 class="text-xl font-bold">Ingredients</h1>
+	<h1 class="text-xl font-bold">
+    Ingredients
+  </h1>
+
   {#if !is_editing}
-	<ul class="list-disc">
-		{#each ingredients as ingredient}
-			<li class="ml-5">
-				{ingredient.ingredientName}
-			</li>
-		{/each}
-	</ul>
+    <ul class="list-disc">
+      {#each ingredients as ingredient}
+        <li class="ml-5">
+          {ingredientsDb[ingredient.ingredientId].ingredientName}
+        </li>
+      {/each}
+    </ul>
   {/if}
+
 	{#if is_editing}
 		{#each ingredients as ingredient, index}
 			<li class="flex items-center align-text-bottom">
@@ -252,8 +266,8 @@
 				<button
 					type="button"
 					class="py-0.3 mb-2 me-2 rounded-full bg-red-700 px-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-					on:click={() => removeIngredient(ingredient)}>x</button
-				>
+					onclick={() => removeIngredient(ingredient)}
+        >x</button>
 			</li>
 		{/each}
 	{/if}
@@ -270,30 +284,35 @@
 
 
 {#if is_editing}
-<!-- SUBMIT EDIT -->
-<button
-class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
-on:click={handleRecipeEdit}>Apply changes</button
->
-<!-- REVIEW SECTION -->
+  <button
+    class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
+    onclick={handleRecipeEdit}
+  >Apply changes</button>
+  <!-- REVIEW SECTION -->
 {:else} 
-<div class="my-5">
-	<h1 class="text-xl font-bold">Leave a review</h1>
-	<textarea class="my-3 block w-full p-2.5" bind:value={reviewString}></textarea>
-	<input class="block" type="number" bind:value={reviewRating} />
-	<button
-	class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
-	on:click={postReview}>Submit review</button
-	>
-</div>
+  <div class="my-5">
+    <h1 class="text-xl font-bold">
+      Leave a review
+    </h1>
+    <textarea class="my-3 block w-full p-2.5" bind:value={reviewString}></textarea>
+    <input
+      class="block"
+      type="number"
+      bind:value={ reviewRating }
+    />
+    <button
+      class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
+      onclick={ postReview }
+    >Submit review</button>
+  </div>
 
-<hr />
+  <hr />
 
-<div class="mt-5">
-	<h1 class="text-xl font-bold">Reviews</h1>
-	{#each recipeReviewList as recipeReview}
-		<RecipeReview {recipeReview} />
-		<!-- <p>{recipeReview.reviewString}</p> -->
-	{/each}
-</div>
+  <div class="mt-5">
+    <h1 class="text-xl font-bold">Reviews</h1>
+    {#each recipeReviewList as recipeReview}
+      <RecipeReview {recipeReview} />
+      <!-- <p>{recipeReview.reviewString}</p> -->
+    {/each}
+  </div>
 {/if}

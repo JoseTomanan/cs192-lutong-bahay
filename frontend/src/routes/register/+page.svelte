@@ -2,16 +2,22 @@
 	import { goto } from "$app/navigation";
   import { isAuthenticated, setAuth } from '$lib/stores/auth'
   import { onMount } from "svelte";
+  import { usernameStore } from '$lib/stores/auth';
+  import toast, { Toaster } from "svelte-french-toast"
+  import BarLoader from "$lib/components/BarLoader.svelte";
 
   let username = '';
   let password = '';
   let confirm_password = '';
   let error = '';
+  let loading = false
   
   let loginMethods = [
       {name: 'Google', icon: '/google.webp', loginFunction: loginWithGoogle}, 
       {name: 'Facebook', icon: '/facebook.png', loginFunction: ()=>{}}, 
   ] 
+
+  
 
   onMount(async () => {
     const params = new URLSearchParams(window.location.hash.substring(1));
@@ -26,6 +32,7 @@
   });
 
   async function handleSubmit() {
+    loading = true
     try { 
       const response = await fetch('http://localhost:8000/api/users/add-user/', {
         method: 'POST',
@@ -43,13 +50,15 @@
       console.log(data)
 
       if (!success) {
-        alert(data.message)
+        toast.error(data.message)
       } else {
-        alert(message)
+        // alert(message)
         goto('/login')
       }       
     } catch (err) {
-      alert('No database connection')
+      toast.error('No database connection')
+    } finally {
+      loading = false
     }
   }
 
@@ -101,6 +110,16 @@
     }
   }
 </script>
+
+<Toaster />
+
+
+
+{#if loading}
+  <BarLoader />
+{/if}
+
+
 
 <section class="bg-gradient-to-b from-lime-100 to-lime-200">
   <div
@@ -170,3 +189,18 @@
       </div>
   </div>
 </section> 
+
+<style>
+  .animate-pulse {
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+</style>

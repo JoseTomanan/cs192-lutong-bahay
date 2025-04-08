@@ -62,7 +62,7 @@
 
 <div class="flex">
 	<div class="w-lg">
-		<h1 class="text-2xl font-bold text-gray-800">User Database</h1>
+		<h1 class="title-text">User Database</h1>
 		<div class="-m-1.5 overflow-x-auto">
 			<div class="inline-block min-w-full p-1.5 align-middle">
 				<div class="overflow-hidden">

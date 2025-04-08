@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "svelte-firebase": "^0.0.0-0",
+    "svelte-french-toast": "^1.2.0"
+  }
+}

@@ -1,7 +1,5 @@
 <script lang="ts">
-	import TitleText from "$lib/components/TitleText.svelte";
-
   let username = "testuser"
 </script>
 
-<TitleText text={`Profile`}/>
+<h1 class="title-text">Profile</h1>
