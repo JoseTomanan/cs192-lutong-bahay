@@ -26,7 +26,7 @@
 	let reviewString = '';
 	let reviewRating = 0;
 
-	let recipeReviewList: any[];
+	let recipeReviewList = $state([]);
 
 	let user_id: String | undefined;
 
