@@ -1,5 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+  import toast, { Toaster } from 'svelte-french-toast';
+  import DefaultLoader from '$lib/components/DefaultLoader.svelte';
+  import BarLoader from '$lib/components/BarLoader.svelte';
+
+  let loading = false
+  let loadingText = ""
 
   interface IngredientObject {
     id: number;
@@ -45,6 +51,8 @@
 	});
 
 	async function fetchIngredients() {
+    loading = true
+    loadingText = "Fetching ingredients..."
 		console.log(recipeName);
 		try {
 			const response = await fetch('http://127.0.0.1:8000/api/recipes/get_ingredients/', {
@@ -56,7 +64,7 @@
 
 			const data = await response.json();
 			if (data.hasOwnProperty('error')) {
-				alert('No recipes found');
+				toast.error('No recipes found');
 			} else {
 				const result = data;
 				ingredientsDb = result.map((val: { id: any; ingredientName: any; }) => {
@@ -65,11 +73,15 @@
 				console.log(ingredientsDb);
 			}
 		} catch {
-			alert('No database connection');
-		}
+			toast.error('No database connection');
+		} finally {
+      loading = false
+    }
 	}
 
 	async function handleCreateRecipe() {
+    loading = true
+    loadingText = "Adding recipe..."
     const equipmentListOfNames: string = equipment
       .map(item => item.equipmentName)
       .join(', ');
@@ -98,15 +110,17 @@
 
 			const data = await response.json();
 			if (data.hasOwnProperty('error')) {
-				alert('No recipes found');
+				toast.error('No recipes found');
 			} else {
 				const result = data[0].toString();
         console.log(result)
-        alert(`Recipe added successfully!`)
+        toast.success(`Recipe added successfully!`)
 			}
 		} catch {
-			alert('No database connection');
-		}
+			toast.error('No database connection');
+		} finally {
+      loading = false
+    }
 	}
 
 	// https://svelte.dev/playground/9983c53df057451db328b94553b88202?version=5.25.2
@@ -140,6 +154,8 @@
 		equipment = equipment.filter((i) => i !== equipment_i)
 	};
 </script>
+
+<Toaster />
 
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->
 
@@ -410,8 +426,17 @@
     </ul>
   </article>
 
+
   <button
-    class="bg-main hover:bg-main-dark rounded border px-4 py-2 font-bold text-white"
+    class="bg-main hover:bg-main_dark rounded border px-4 py-2 font-bold text-white"
     on:click|preventDefault={handleCreateRecipe}
   >Submit Recipe</button>
 </div>
+
+{#if loading}
+
+  <DefaultLoader />
+  <div class="text-gray-500 text-sm">{loadingText}</div>
+ 
+{/if}
+

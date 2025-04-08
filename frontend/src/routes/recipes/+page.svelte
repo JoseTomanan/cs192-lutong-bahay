@@ -1,12 +1,16 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
+  import RecipesLoader from '$lib/components/RecipesLoader.svelte'
+  import toast, { Toaster } from 'svelte-french-toast';
 
   let recipes: any[] = []
   let recipeName = '' 
   let direction = 'ascending'
   let is_negative = true
   let sort= 'recipeName'
+  let loading = false
+  
  
   let ingredients = ''
 
@@ -15,7 +19,7 @@
 	})
 
   async function fetchRecipes() { 
-    console.log(recipeName)
+    loading = true
     try {
       const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
         method: 'POST',
@@ -27,18 +31,21 @@
 
       const data = await response.json()
       if (data.hasOwnProperty('error')) {
-        alert('No recipes found')
+        toast.error('No recipes found')
       } else {
         recipes = [data] 
         console.log(data)
         console.log(recipes.length)
       }
     } catch { 
-      alert('No database connection')
-    } 
+      toast.error('Something went wrong')
+    } finally {
+      loading = false
+    }
 	}
 
   async function fetchAllRecipes() { 
+    loading = true
     console.log(recipeName)
     try {
       const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
@@ -50,7 +57,7 @@
 
       const data = await response.json()
       if (data.hasOwnProperty('error')) {
-        alert('No recipes found')
+        toast.error('No recipes found')
       } else {
         recipes = data
         console.log("fetch all recipes: ", data)
@@ -58,11 +65,15 @@
         // console.log(recipes.length)
       }
     } catch { 
-      alert('No database connection')
-    } 
+      toast.error('No database connection')
+    } finally {
+      loading = false
+    }
+    
 	}
 
   async function fetchByIngredients() { 
+    loading = true
     console.log(recipeName)
     try {
       const response = await fetch('http://127.0.0.1:8000/api/recipes/sort-recipes/', {
@@ -75,19 +86,22 @@
 
       const data = await response.json()
       if (data.hasOwnProperty('error')) {
-        alert('No recipes found')
+        toast.error('No recipes found')
       } else {
         recipes = data 
         console.log(data)
         console.log(recipes.length)
       } 
     } catch { 
-      alert('No database connection')
-    }  
+      toast.error('No database connection')
+    } finally {
+      loading = false
+    }
 	}
 
 
   async function sortRecipes() { 
+    loading = true
     console.log(sort)
     try {
       is_negative = direction == 'ascending' ? true : false
@@ -104,10 +118,14 @@
       recipes = data 
       console.log(recipes) 
     } catch {
-      alert('No database connection')
-    } 
+      toast.error('No database connection')
+    } finally {
+      loading = false
+    }
   }
 </script> 
+
+<Toaster />
 
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->  
 
@@ -199,12 +217,18 @@
   </select> 
 </div>
 <!-- FLOWBITE https://flowbite.com/docs/components/tables/ -->  
-
+{#if loading}
+  <div class="h-full flex flex-col items-center justify-center gap-4">
+    <RecipesLoader />
+    <span class="text-gray-400 text-md">Loading recipes...</span>
+  </div>
+{:else}
 <div class="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   {#each recipes as recipe}
       <RecipeCard {...recipe} /> 
   {/each} 
 </div>
+{/if}
 
 
 

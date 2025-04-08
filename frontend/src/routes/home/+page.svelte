@@ -3,6 +3,8 @@
   import Cookies from "js-cookie"
 </script>
 
+
+
 {#if ($usernameStore) != ""}
   <h1 class="title-text">Welcome, {Cookies.get("username")}!</h1>
 {:else}

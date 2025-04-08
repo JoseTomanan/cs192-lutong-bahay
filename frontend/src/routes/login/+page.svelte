@@ -1,29 +1,29 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
-  import { isAuthenticated, setAdmin, setAuth } from '$lib/stores/auth'
+  import { goto } from "$app/navigation";
+  import { isAuthenticated, setAdmin, setAuth } from '$lib/stores/auth';
   import { onMount } from "svelte";
-  import { usernameStore } from '$lib/stores/auth'
+  import { usernameStore } from '$lib/stores/auth';
+  import toast, { Toaster } from "svelte-french-toast"
+  import BarLoader from "$lib/components/BarLoader.svelte";
 
   let username = '';
   let password = '';
   let error = '';
-  
+  let loading = false
+
   let loginMethods = [
-    {name: 'Google', icon: '/google.webp', loginFunction: loginWithGoogle}, 
-    {name: 'Facebook', icon: '/facebook.png', loginFunction: ()=>{}}, 
-    ] 
+    { name: 'Google', icon: '/google.webp', loginFunction: loginWithGoogle },
+    { name: 'Facebook', icon: '/facebook.png', loginFunction: () => {} },
+  ];
 
   onMount(async () => {
     const params = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = params.get("access_token");
 
     if (accessToken) {
-        // console.log("Google Access Token:", accessToken);
-        await handleGoogleLogin(accessToken);
-    } else {
-        console.log("No access token found!");
+      await handleGoogleLogin(accessToken);
     }
-  }); 
+  });
 
   function getCookie(name: String) {
     const value = `; ${document.cookie}`;
@@ -34,9 +34,10 @@
   }
 
   async function handleSubmit() {
-    try { 
+    loading = true; // Start loading
+    try {
       const response = await fetch('http://localhost:8000/api/users/login/', {
-        method: 'POST', 
+        method: 'POST',
         credentials: 'include',
         headers: {
           'X-CSRFToken': getCookie("csrftoken"),
@@ -46,51 +47,42 @@
       });
 
       const data = await response.json();
-      const success = data.success 
-      const message = data.message
-      const admin = data.is_staff 
-
-      console.log(admin)
-      console.log(data)
+      const success = data.success;
+      const message = data.message;
+      const admin = data.is_staff;
 
       if (!success) {
-        alert(message)
+        toast.error(message);
       } else {
-        setAuth(true)
-        $usernameStore = username  
-        
-        if (admin) { 
-          setAdmin(true)
-          goto('/admin') 
+        setAuth(true);
+        $usernameStore = username;
+
+        if (admin) {
+          setAdmin(true);
+          goto('/admin');
         } else {
-          goto('/home') 
-        } 
-      } 
-      
-      if (!response.ok) { 
-        const data = await response.json();
-        const error = data.error;
-        return;
+          goto('/home');
+        }
       }
-      
     } catch (err) {
-      alert('No database connection')
+      alert('No database connection');
+    } finally {
+      loading = false; // Stop loading
     }
   }
 
   function loginWithGoogle() {
-    const clientId = '408545476434-o2bvopje0mbmad7blibvl0l2pkm7g1kp.apps.googleusercontent.com'
-    const redirectUri = "http://localhost:5173"; // Change if needed
+    const clientId = '408545476434-o2bvopje0mbmad7blibvl0l2pkm7g1kp.apps.googleusercontent.com';
+    const redirectUri = "http://localhost:5173";
 
     const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
 
     window.location.href = authUrl;
   }
-  
+
   async function handleGoogleLogin(accessToken: string) {
-    try { 
-      console.log("\ngoogleFunction called\n")
-      console.log("Google Access Token:", accessToken)
+    loading = true; // Start loading
+    try {
       const response = await fetch('http://localhost:8000/auth/social/login/', {
         method: 'POST',
         headers: {
@@ -99,32 +91,32 @@
         body: JSON.stringify({ provider: "google", access_token: accessToken })
       });
 
-      
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const data = await response.json();
-      
 
       if (data.key) {
-        console.log("Django Token:", data.key);
         localStorage.setItem("authToken", data.key);
-        console.log("Stored Token:", localStorage.getItem("authToken"));
-        setAuth(true)
-        goto('/home') 
-        // setTimeout(() => {
-        //           window.location.href = "http://localhost:5173/home";
-        //       }, 2000);  // 500ms delay
-        // // window.location.href = "/home"; // Redirect after login
+        setAuth(true);
+        goto('/home');
       }
-      
-      
     } catch (err) {
-      console.error('Login failed')
+      console.error('Login failed');
+    } finally {
+      loading = false; // Stop loading
     }
   }
 </script>
+
+<Toaster />
+
+<!-- Progress Bar -->
+{#if loading}
+  <!-- <div class="fixed top-0 left-0 w-full h-1.5 bg-secondary animate-pulse"></div> -->
+   <BarLoader />
+{/if}
 
 <section class="bg-gradient-to-br from-white to-lime-50">
   <div
@@ -190,4 +182,19 @@
       </a>
     </div>
   </div>
-</section> 
+</section>
+
+<style>
+  .animate-pulse {
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+</style>
