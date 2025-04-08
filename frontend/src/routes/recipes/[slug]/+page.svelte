@@ -194,6 +194,13 @@
       );
 	};
 
+	const addIngredient = () => {
+		ingredients = [
+        ...ingredients,
+        {ingredientName: "", quantity: 0, unit: "pcs"}
+		];
+	};
+
 	console.log(data.id);
 	functionFetchRecipeById(data.id);
   
@@ -270,6 +277,10 @@
         >x</button>
 			</li>
 		{/each}
+		<button
+		class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
+		on:click={addIngredient}>Add Ingredient</button
+		>
 	{/if}
 </div>
 
