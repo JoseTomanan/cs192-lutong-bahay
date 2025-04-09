@@ -69,3 +69,19 @@ def user_get_saved_recipes(request):
         out.append(recipe)
     serializer = RecipeSerializer(out, many=True)
     return Response(serializer.data, status=200)
+
+
+@api_view(["POST"])
+def recipe_is_saved_by_user(request):
+    recipeId = request.data.get("recipeId", None)
+    userId = request.data.get("userId", None)
+    if not recipeId:
+        return Response({"error": "recipeId is required"}, status=400)
+    if not userId:
+        return Response({"error": "userId is required"}, status=400)
+
+    saved_recipe = SavedBy.objects.filter(recipe=recipeId, user=userId).first()
+    if saved_recipe:
+        return Response({"isSaved": True}, status=200)
+    else:
+        return Response({"isSaved": False}, status=200)
