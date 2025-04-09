@@ -10,6 +10,7 @@
 	import {isAdmin } from '$lib/stores/auth'
 	import Cookies from 'js-cookie';
 	import toast, { Toaster } from 'svelte-french-toast';
+	
 
   import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
 
@@ -24,6 +25,8 @@
 	let is_editing = $state(false);
 	let currentIngredient;
 	let ingredientQuantity = 0;
+
+	let loading = false
 
 	let recipe;
 	let retrievedRecipe;
@@ -204,6 +207,50 @@
 		} else {
 			toast.error('Recipe update fail');
 			console.log('Recipe update fail');
+		}
+	}
+
+	async function saveRecipe() {
+		// alert(`${user_id} ${recipeId}`)
+		try {
+			const response = await fetch("http://127.0.0.1:8000/api/savedby/user-save-recipe/", {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					"userId": user_id,
+					"recipeId": recipeId
+				})
+			})
+
+			toast.success("Recipe saved succesfully!")
+		} 
+		
+		catch {
+			toast.error("Failed to save recipe.")
+		}
+	}
+
+	async function unsaveRecipe() {
+		// alert(`${user_id} ${recipeId}`)
+		try {
+			const response = await fetch("http://127.0.0.1:8000/api/savedby/user-unsave-recipe/", {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					"userId": user_id,
+					"recipeId": recipeId
+				})
+			})
+
+			toast.success("Recipe unsaved succesfully!")
+		} 
+		
+		catch {
+			toast.error("Failed to unsave recipe.")
 		}
 	}
 
@@ -444,8 +491,17 @@
     <button
       class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
       onclick={ postReview }
-    >Submit review</button>
+    >Submit review</button> 
   </div>
+
+  <button
+      class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
+      onclick={ saveRecipe }
+>Save Recipe</button> 
+  <button
+      class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
+      onclick={ unsaveRecipe }
+>Unsave Recipe</button> 
 
   <hr />
 
