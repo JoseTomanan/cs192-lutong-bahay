@@ -20,7 +20,7 @@
 {#if $isAuthenticated}
   <div class="flex">
     <Navbar />
-    <main class="p-12 flex-1 ml-64 min-h-screen bg-gradient-to-tl from-white to-gray-50">
+    <main class="p-8 flex-1 ml-64 min-h-screen bg-gradient-to-tl from-white to-gray-50">
       {@render children()}
     </main>
   </div>

@@ -15,6 +15,7 @@ export default {
 				current: "currentColor",
 				main: "#8FBF64",
 				main_dark: "#6f964e",
+        "main-dark": "#6F964E",
 				secondary: "#D94D48",
 				secondary_dark: "#bf443f",
 				secondary_light: "#f0718d",

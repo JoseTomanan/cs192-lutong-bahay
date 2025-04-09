@@ -41,17 +41,19 @@ class RecipeSerializer(serializers.ModelSerializer):
     
 
 class RecipeIngredientsSerializer(serializers.ModelSerializer):
-    ingredientName = serializers.SerializerMethodField()
-    ingredientObject = serializers.SerializerMethodField()
+    # ingredientName = serializers.SerializerMethodField()
+    ingredientName = serializers.CharField(source="ingredientId.ingredientName", read_only=True)
+    # ingredientObject = serializers.SerializerMethodField()
+    ingredientObject = serializers.CharField(source="ingredientId", read_only=True)
 
     class Meta:
         model = RecipeIngredients
         fields = "__all__"
 
-    def get_ingredientName(self, recipe_ingredient):
-        ingredientName = IngredientsSerializer(Ingredients.objects.get(pk=recipe_ingredient.ingredientId.id)).data["ingredientName"]
-        return ingredientName
+    # def get_ingredientName(self, recipe_ingredient):
+    #     ingredientName = IngredientsSerializer(Ingredients.objects.get(pk=recipe_ingredient.ingredientId.id)).data["ingredientName"]
+    #     return ingredientName
     
-    def get_ingredientObject(self, recipe_ingredient):
-        ingredientObject = IngredientsSerializer(Ingredients.objects.get(pk=recipe_ingredient.ingredientId.id)).data
-        return ingredientObject
+    # def get_ingredientObject(self, recipe_ingredient):
+    #     ingredientObject = IngredientsSerializer(Ingredients.objects.get(pk=recipe_ingredient.ingredientId.id)).data
+    #     return ingredientObject

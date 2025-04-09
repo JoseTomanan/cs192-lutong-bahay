@@ -7,10 +7,18 @@
 	let { data }: PageProps = $props();
 	import { onMount } from 'svelte';
 	import RecipeReview from '$lib/components/RecipeReview.svelte';
+	import {isAdmin } from '$lib/stores/auth'
 	import Cookies from 'js-cookie';
 	import toast, { Toaster } from 'svelte-french-toast';
 
   import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
+
+  interface IngredientUnit {
+    ingredientId: number
+    ingredientName: string
+    quantity: number
+    unit: string
+  }
 
 	// for editing logic
 	let is_editing = $state(false);
@@ -23,9 +31,12 @@
 	let recipeName: String = $state('');
 	let cookDifficulty: String = $state('');
 	let recipeEquipment: String = $state('');
-	let recipeInstructions: String = $state('');  
-	let ingredients = $state<IngredientObject[]>([]);
-  let ingredientsDb = $state<IngredientObject[]>([])
+	let recipeInstructions: String = $state('');
+	let recipeServings = $state(0);
+	let recipePrice = $state(0);  
+	let recipeRating = $state(0);  
+	let ingredients = $state<IngredientUnit[]>([]);
+ 	let ingredientsDb = $state<IngredientObject[]>([])
 
 	// reviews
 	let reviewString = $state('');
@@ -40,6 +51,7 @@
 		fetchRecipeReviews();
 		user_id = Cookies.get('user_id');
     	fetchIngredients();
+		functionFetchRecipeById(data.id);
 	});
 
 	async function functionFetchRecipeById(input_id: String) {
@@ -65,6 +77,7 @@
 			recipeEquipment = retrievedRecipe.equipment;
       		// console.log("ingredients: " + ingredients)
 			recipeInstructions = retrievedRecipe.instructions;
+			recipeServings = retrievedRecipe.servings;
 			recipePrice = retrievedRecipe.price;
 			recipeRating = retrievedRecipe.ratings;
 			// goto('dbtest');
@@ -91,7 +104,8 @@
 
 		if (response.ok) {
 			toast.success('review post succesful');
-			location.reload();
+			fetchRecipeReviews()
+			location.reload()
 			console.log('Review post successful');
 			return;
 		} else {
@@ -151,8 +165,13 @@
 		console.log("RECIPE EDIT")
 		console.log(ingredients)
 
+		if (!$isAdmin) {
+			toast.error('No admin privileges');
+			is_editing = !is_editing
+			return
+		}
 
-		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe/", {
+		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe-from-page/", {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -178,62 +197,170 @@
 		});
 
 		if (response.ok) {
-			alert('Recipe update succesful');
+			toast.success('Recipe update succesful');
 			location.reload();
 			console.log('Recipe update successful');
 			return;
 		} else {
-			alert('Recipe update fail');
+			toast.error('Recipe update fail');
 			console.log('Recipe update fail');
 		}
 	}
 
-	const removeIngredient = (ingredient) => {
+	const removeIngredient = (ingredient: IngredientUnit) => {
 		ingredients = ingredients.filter(
         (i) => i.ingredientName !== ingredient.ingredientName
       );
 	};
 
+	const addIngredient = () => {
+		ingredients = [
+        ...ingredients,
+        {ingredientId: -1, ingredientName: "", quantity: 0, unit: ""}
+		];
+	};
+
 	console.log(data.id);
-	functionFetchRecipeById(data.id);
-  
-	// function removeIngredient(ingredient: IngredientObject): any {
-	// 	throw new Error('Function not implemented.');
-	// }
-	// i commented this out just for the sake of getting the program to run
-	// zach should fix this in his PR
-	// if this appears in a merge conflict, choose the other option 
+
+// 	functionFetchRecipeById(data.id); s
+
 </script>
 
 <Toaster />
 
-<div class="mb-10">
-	<h1 class="text-4xl font-bold">
-		{recipeName}
-	</h1>
-	<button
-    class="text-blue-600"
-    onclick={() => is_editing = !is_editing}
-  >Edit Recipe</button>
+<!-- Recipe Heading Div -->
+<div class="mb-10 space-y-4">
+	{#if !is_editing}
+    <div class="flex space-x-2">
+      <a
+        href="/recipes"
+        aria-label="back"
+      >
+        <svg
+          class="w-8 h-10 fill-gray-700 hover:fill-gray-500 hover:ring-1"
+          width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect transform="rotate(90 12 12)" opacity="0"/>
+          <path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z"/>
+        </svg>
+      </a>
+
+      <h1 class="text-4xl font-bold">
+        {recipeName}
+      </h1>
+
+      {#if $isAdmin}
+        <button
+          class="bg-zinc-200 hover:bg-zinc-300 px-3 text-blue-600 rounded"
+          onclick={() => is_editing = !is_editing}
+        >Edit</button>
+      {/if}
+    </div>
+    
+    <div class="flex">
+      <div class="w-20 mr-5">
+        <label
+          for=""
+          class="for-small-field"
+        >Difficulty</label>
+        <p>{cookDifficulty}</p>
+      </div>
+      <div class="w-20 mr-5">
+        <label
+          for=""
+          class="for-small-field"
+        >Servings</label>
+        <p>{recipeServings}</p>
+      </div>
+      <div class="w-20 mr-5">
+        <label
+          for=""
+          class="for-small-field"
+        >Price</label>
+        <p>{recipePrice}</p>
+      </div>
+      <div class="w-20 mr-5">
+        <label
+          for=""
+          class="for-small-field"
+        >Rating</label>
+        <p>{recipeRating}</p>
+      </div>
+    </div>
+	{:else}
+		<div class="flex">
+			<input
+        class="text-4xl font-bold border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none rounded"
+        bind:value={recipeName}
+      />
+			<button
+				class="bg-zinc-200 hover:bg-zinc-300 ml-2 px-2 text-blue-600 rounded"
+				onclick={() => is_editing = !is_editing}
+      >Edit</button>
+		</div>
+
+		<div class="flex">
+			<div class="w-20 mr-5">
+				<label
+          for=""
+          class="for-small-field"
+        >Difficulty</label>
+				<input
+          class="small-text-field w-full"
+				  bind:value={cookDifficulty}
+        />
+			</div>
+			<div class="w-20 mr-5">
+				<label
+          for=""
+          class="for-small-field"
+        >Servings</label>
+				<input
+          class="small-text-field w-full"
+				  bind:value={recipeServings}
+        />
+			</div>
+			<div class="w-20 mr-5">
+				<label
+          for=""
+          class="for-small-field"
+        >Price</label>
+				<input
+          class="small-text-field w-full"
+				  bind:value={recipePrice}
+        />
+			</div>
+
+			<div class="w-20 mr-5">
+				<label
+          for=""
+          class="for-small-field"
+        >Rating</label>
+				<input class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
+				bind:value={recipeRating}/>
+			</div>
+		</div>
+	{/if}
 </div>
+
 
 <div class="my-5">
 	<h1 class="text-xl font-bold">
-    Ingredients
-  </h1>
+    	Ingredients
+	</h1>
 
   {#if !is_editing}
     <ul class="list-disc">
       {#each ingredients as ingredient}
         <li class="ml-5">
-          {ingredientsDb[ingredient.ingredientId].ingredientName}
+          {ingredient.quantity}{ingredient.unit} {ingredient.ingredientName}
         </li>
       {/each}
     </ul>
   {/if}
 
 	{#if is_editing}
-		{#each ingredients as ingredient, index}
+		{#each ingredients as ingredient, i}
 			<li class="flex items-center align-text-bottom">
 				<!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
 				<!-- <input
@@ -245,10 +372,10 @@
 				{console.log(ingredient.ingredientName)}
        			<select
 					class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
-					bind:value={ingredient.ingredientName}
+					bind:value={ingredients[i].ingredientId}
 					>
 					{#each ingredientsDb as ingredient}
-						<option value={ingredient.ingredientName}> {ingredient.ingredientName} </option>
+						<option value={ingredient.id}> {ingredient.ingredientName} </option>
 					{/each}
 				</select>
 				<input
@@ -268,20 +395,28 @@
 				</select>
 				<button
 					type="button"
-					class="py-0.3 mb-2 me-2 rounded-full bg-red-700 px-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+					class="remove-item"
 					onclick={() => removeIngredient(ingredient)}
         >x</button>
 			</li>
 		{/each}
+		<button
+		  class="add-item"
+		  onclick={addIngredient}>+</button
+		>
 	{/if}
 </div>
 
 <div class="my-5">
 	<h1 class="text-xl font-bold">Instructions</h1>
 	{#if is_editing}
-		<input type="text" value={recipeInstructions}>
+		<textarea
+      class="w-full p-2.5"
+      placeholder="Instructions..."
+      bind:value={recipeInstructions}
+    ></textarea>
 	{:else}
-		<p>{recipeInstructions}</p>
+		<p class="whitespace-pre-wrap">{recipeInstructions}</p>
 	{/if}
 </div>
 
@@ -297,7 +432,10 @@
     <h1 class="text-xl font-bold">
       Leave a review
     </h1>
-    <textarea class="my-3 block w-full p-2.5" bind:value={reviewString}></textarea>
+    <textarea
+      class="my-3 block w-full p-2.5"
+      bind:value={reviewString}
+    ></textarea>
     <input
       class="block"
       type="number"
