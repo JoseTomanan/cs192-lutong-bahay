@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from savedby.models import SavedBy
 from recipes.models import Recipe
 from savedby.serializer import SavedBySerializer
+from recipes.serializer import RecipeSerializer
 
 
 """
@@ -56,12 +57,15 @@ def user_delete_recipe(request):
 @api_view(["POST"])
 def user_get_saved_recipes(request):
     userId = request.data.get("userId", None)
+    out = []
     if not userId:
         return Response({"error": "userId is required"}, status=400)
 
     saved_recipes = SavedBy.objects.filter(user=userId)
     if not saved_recipes:
         return Response({"message": "No saved recipes found"}, status=404)
-
-    serializer = SavedBySerializer(saved_recipes, many=True)
+    for saved_recipe in saved_recipes:
+        recipe = Recipe.objects.get(pk=saved_recipe.recipe)
+        out.append(recipe)
+    serializer = RecipeSerializer(out, many=True)
     return Response(serializer.data, status=200)
