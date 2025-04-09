@@ -1,246 +1,168 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
-  import RecipeCard from '$lib/components/RecipeCard.svelte'
-  import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte'
-  import RecipesLoader from '$lib/components/RecipesLoader.svelte'
+  import { onMount } from 'svelte';
+  import RecipeCard from '$lib/components/RecipeCard.svelte';
+  import RecipesLoader from '$lib/components/RecipesLoader.svelte';
   import toast, { Toaster } from 'svelte-french-toast';
+  import { recipesStore, recipesLoaded } from '$lib/stores/recipes';
 
-  interface RecipeItem {
-    id: number
-    recipeName: string
-    cookDifficulty: string
-    ratings: number
-    price: number
-    equipment: string
-    servings: number
-    ingredients: IngredientObject[]
+  interface IngredientObject {
+    ingredientName: string;
   }
 
-  let recipes: RecipeItem[] = []
-  let recipeName = '' 
-  let direction = 'ascending'
-  let is_negative = true
-  let sort= 'recipeName'
-  let loading = false
-  
- 
-  let ingredients = ''
+  interface RecipeObject {
+    cookDifficulty: string;
+    ratings: number;
+    price: number;
+    ingredients: IngredientObject[];
+    id: number;
+    recipeName: string;
+    equipment: string;
+    servings: number;
+  }
+
+  let recipes: RecipeObject[] = [];
+  let filteredRecipes: RecipeObject[] = [];
+  let recipeName = '';
+  let direction: 'ascending' | 'descending' = 'ascending';
+  let sort: keyof RecipeObject = 'recipeName';
+  let ingredients = '';
+  let loading = false;
 
   onMount(async () => {
-    fetchAllRecipes()
-	})
-
-  async function fetchRecipes() { 
-    loading = true
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }, 
-        body: JSON.stringify({recipeName})
-      })
-
-      const data = await response.json()
-      if (data.hasOwnProperty('error')) {
-        toast.error('No recipes found')
-      } else {
-        recipes = [data] 
-        console.log(data)
-        console.log(recipes.length)
-      }
-    } catch { 
-      toast.error('Something went wrong')
-    } finally {
-      loading = false
+    if (!$recipesLoaded) {
+      await fetchAllRecipes();
+    } else {
+      recipes = $recipesStore;
+      filteredRecipes = [...recipes];
     }
-	}
+  });
 
-  async function fetchAllRecipes() { 
-    loading = true
-    console.log(recipeName)
+  async function fetchAllRecipes() {
+    loading = true;
     try {
       const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
-        }, 
-      })
+          'Content-Type': 'application/json',
+        },
+      });
 
-      const data = await response.json()
+      const data: RecipeObject[] = await response.json();
       if (data.hasOwnProperty('error')) {
-        toast.error('No recipes found')
+        toast.error('No recipes found');
       } else {
-        recipes = data
-        console.log("fetch all recipes: ", data)
-        
-        // console.log(recipes.length)
+        recipesStore.set(data);
+        recipesLoaded.set(true);
+        recipes = data;
+        filteredRecipes = [...recipes];
       }
-    } catch { 
-      toast.error('No database connection')
-    } finally {
-      loading = false
-    }
-    
-	}
-
-  async function fetchByIngredients() { 
-    loading = true
-    console.log(recipeName)
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/recipes/sort-recipes/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({"sort": sort, "is_negative": is_negative, "ingredients": ingredients.split(", ")})
-      })
-
-      const data = await response.json()
-      if (data.hasOwnProperty('error')) {
-        toast.error('No recipes found')
-      } else {
-        recipes = data 
-        console.log(data)
-        console.log(recipes.length)
-      } 
-    } catch { 
-      toast.error('No database connection')
-    } finally {
-      loading = false
-    }
-	}
-
-
-  async function sortRecipes() { 
-    loading = true
-    console.log(sort)
-    try {
-      is_negative = direction == 'ascending' ? true : false
-      const response = await fetch('http://127.0.0.1:8000/api/recipes/sort-recipes/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({is_negative, sort})
-      }) 
-
-      console.log(JSON.stringify({sort}))
-      const data = await response.json()
-      recipes = data 
-      console.log(recipes) 
     } catch {
-      toast.error('No database connection')
+      toast.error('No database connection');
     } finally {
-      loading = false
+      loading = false;
     }
   }
-</script> 
+
+  function searchRecipes() {
+    filteredRecipes = recipes.filter((recipe) =>
+      recipe.recipeName.toLowerCase().includes(recipeName.toLowerCase())
+    );
+    sortRecipes();
+  }
+
+  function filterByIngredients() {
+    const ingredientList = ingredients.split(',').map((i) => i.trim().toLowerCase());
+    filteredRecipes = recipes.filter((recipe) =>
+      recipe.ingredients.some((ingredient) =>
+        ingredientList.includes(ingredient.ingredientName.toLowerCase())
+      )
+    );
+    sortRecipes();
+  }
+
+  function sortRecipes() {
+    filteredRecipes = [...filteredRecipes].sort((a, b) => {
+      const aValue = a[sort as keyof RecipeObject];
+      const bValue = b[sort as keyof RecipeObject];
+
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        return direction === 'ascending'
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      }
+
+      return direction === 'ascending' ? Number(aValue) - Number(bValue) : Number(bValue) - Number(aValue);
+    });
+  }
+</script>
 
 <Toaster />
 
-<!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->  
-
-<div class="flex gap-2">
-  <div class="space-y-5 w-1/3">
-    <form on:submit|preventDefault={fetchRecipes} class="max-w-md"> 
-      <label
-        for="search"
-        class="mb-2 text-sm font-medium text-black sr-only"
-      >Search</label>
-      <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex  ps-3 pointer-events-none">
-          <svg
-            class="w-4 h-4 text-dark_gray"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 20 20"
-          ></svg>
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-        </div>
-        <input 
-          type="search" 
-          id="default-search" 
-          class="block w-full p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
-          bind:value={recipeName}
-          placeholder="Search Recipes..." required
-        />
-        <button
-          type="submit"
-          class="text-white absolute end-2.5 bottom-2.5 bg-main hover:bg-main_dark font-medium rounded-lg text-sm px-4 py-2"
-        >Search</button>
-      </div> 
-    </form> 
+<div class="flex flex-wrap gap-4 items-center mb-4">
+  <!-- Search Recipes -->
+  <div class="flex-1">
+    <label for="search" class="sr-only">Search Recipes</label>
+    <div class="relative">
+      <input
+        type="search"
+        id="default-search"
+        class="block w-full p-3 text-sm rounded-lg border border-gray-300 focus:ring-main focus:border-main"
+        bind:value={recipeName}
+        placeholder="Search Recipes..."
+        on:input={searchRecipes}
+      />
+    </div>
   </div>
 
-  <div class="space-y-5 w-1/3"> 
-    <form on:submit|preventDefault={fetchByIngredients} class="max-w-md"> 
-      <label for="search" class="mb-2 text-sm font-medium text-black sr-only">Search</label>
-      <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex  ps-3 pointer-events-none">
-            <svg
-              class="w-4 h-4 text-dark_gray"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none" viewBox="0 0 20 20"
-            ></svg>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-            />
-        </div>
-        <input 
-          type="search" 
-          id="default-search" 
-          class="block w-full p-4 text-sm space-y-2 rounded border focs:border-none focus:outline-gray-700 focus:ring-0"
-          bind:value={ingredients}   
-          placeholder="Filter by ingredient..." required
-        />
-        <button
-          type="submit"
-          class="text-white absolute end-2.5 bottom-2.5 bg-gray-400 hover:bg-gray-500 font-medium rounded-lg text-sm px-4 py-2"
-        >Filter</button>
-      </div> 
-    </form> 
+  <!-- Filter by Ingredients -->
+  <div class="flex-1">
+    <label for="filter" class="sr-only">Filter by Ingredients</label>
+    <div class="relative">
+      <input
+        type="search"
+        id="filter-ingredients"
+        class="block w-full p-3 text-sm rounded-lg border border-gray-300 focus:ring-main focus:border-main"
+        bind:value={ingredients}
+        placeholder="Filter by Ingredients (comma-separated)..."
+        on:change={filterByIngredients}
+      />
+    </div>
   </div>
 
-  <!-- FLOWBITE https://flowbite.com/docs/forms/select/ -->
-  <select
-    bind:value={sort} 
-    on:change={() => sortRecipes()}
-    class="bg-white border border-gray-200 text-gray-700 text-sm rounded focus:ring-main focus:border-2 focus:border-gray-700 block w-3/12 p-2.5"
-  >
-    {#each ['id', 'recipeName', 'price', 'cookDifficulty', 'ratings'] as sortMethod}
-      <option value={sortMethod}>
-        sort by {sortMethod}
-      </option>
-    {/each} 
-  </select>
+  <!-- Sort Recipes -->
+  <div class="flex gap-2">
+    <select
+      bind:value={sort}
+      on:change={() => sortRecipes()}
+      class="bg-white border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-main focus:border-main p-3 h-[44px]"
+    >
+      {#each ['id', 'recipeName', 'price', 'cookDifficulty', 'ratings'] as sortMethod}
+        <option value={sortMethod}>Sort by {sortMethod}</option>
+      {/each}
+    </select>
 
-  <select
-    bind:value={direction}  
-    on:change={() => sortRecipes()} 
-    class="bg-white border border-gray-200 text-gray-700 text-sm rounded focus:ring-main focus:border-2 focus:border-gray-700 block w-3/12 p-2.5"
-  >
-    {#each ['ascending', 'descending'] as sortMethod} 
-      <option value={sortMethod}>
-        sort by {sortMethod}
-      </option>
-    {/each} 
-  </select> 
+    <select
+      bind:value={direction}
+      on:change={() => sortRecipes()}
+      class="bg-white border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-main focus:border-main p-3 h-[44px]"
+    >
+      {#each ['ascending', 'descending'] as sortMethod}
+        <option value={sortMethod}>{sortMethod}</option>
+      {/each}
+    </select>
+  </div>
 </div>
-<!-- FLOWBITE https://flowbite.com/docs/components/tables/ -->  
+
+<!-- Recipes List -->
 {#if loading}
   <div class="h-full flex flex-col items-center justify-center gap-4">
     <RecipesLoader />
     <span class="text-gray-400 text-md">Loading recipes...</span>
   </div>
 {:else}
-<div class="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {#each recipes as recipe}
-      <RecipeCard {...recipe} /> 
-  {/each} 
-</div>
+  <div class="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {#each filteredRecipes as recipe}
+      <RecipeCard {...recipe} />
+    {/each}
+  </div>
 {/if}
-
-
-

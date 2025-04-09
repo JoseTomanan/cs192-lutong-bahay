@@ -197,12 +197,12 @@
 		});
 
 		if (response.ok) {
-			alert('Recipe update succesful');
+			toast.success('Recipe update succesful');
 			location.reload();
 			console.log('Recipe update successful');
 			return;
 		} else {
-			alert('Recipe update fail');
+			toast.error('Recipe update fail');
 			console.log('Recipe update fail');
 		}
 	}
@@ -221,8 +221,9 @@
 	};
 
 	console.log(data.id);
-	
-  
+
+// 	functionFetchRecipeById(data.id);
+
 </script>
 
 <Toaster />
