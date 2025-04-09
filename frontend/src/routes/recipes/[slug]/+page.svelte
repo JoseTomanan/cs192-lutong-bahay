@@ -201,7 +201,7 @@
 	const addIngredient = () => {
 		ingredients = [
         ...ingredients,
-        {ingredientId: 0, ingredientName: "", quantity: 0, unit: "pcs"}
+        {ingredientId: -1, ingredientName: "", quantity: 0, unit: ""}
 		];
 	};
 
@@ -288,9 +288,9 @@
 <div class="my-5">
 	<h1 class="text-xl font-bold">Instructions</h1>
 	{#if is_editing}
-		<input type="text" value={recipeInstructions}>
+		<textarea class="w-full p-2.5" bind:value={recipeInstructions} />
 	{:else}
-		<p>{recipeInstructions}</p>
+		<p class="whitespace-pre-wrap">{recipeInstructions}</p>
 	{/if}
 </div>
 

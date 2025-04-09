@@ -339,6 +339,7 @@ def update_recipe(request):
         print("invalid recipe_serializer")
         print(request.data["recipe"])
     else:
+        print(recipeData)
         print("recipe_serializer valid")
     
     if recipe_serializer.is_valid():
