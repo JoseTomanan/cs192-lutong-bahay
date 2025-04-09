@@ -28,9 +28,9 @@ def login(request):
     username = request.data["username"]
     password = request.data["password"]
     user = authenticate(username=username, password=password)
-    
+
     if User.objects.filter(username=username).first() is not None:
-        if User.objects.filter(username=username).first().is_active == False: # type: ignore
+        if User.objects.filter(username=username).first().is_active == False:  # type: ignore
             return Response(
                 {
                     "success": False,
@@ -59,7 +59,7 @@ def login(request):
         )
         response.set_cookie(
             "user_id",
-            user.id, # type: ignore
+            user.id,  # type: ignore
             max_age=None,
             httponly=False,
             secure=True,
@@ -82,7 +82,7 @@ def login(request):
         )
         response.set_cookie(
             "user_id",
-            user.id, # type: ignore
+            user.id,  # type: ignore
             max_age=None,
             httponly=False,
             secure=True,
@@ -118,6 +118,8 @@ def fetch_user_by_id(request):
 @api_view(["POST"])
 def delete_user(request):
     user = User.objects.get(username=request.data["username"])
+    if user.is_superuser or user.is_staff:
+        return Response({"message": "Cannot delete admins"})
     user.delete()
     return Response({"message": "User deleted successfully"})
 
@@ -132,6 +134,8 @@ def logout(request):
 @permission_classes([IsAdminUser])
 def suspend_user(request):
     user = User.objects.get(username=request.data["username"])
+    if user.is_superuser or user.is_staff:
+        return Response({"message": "Cannot suspend admins"})
     user.is_active = False
     user.save()
     return Response({"message": "User suspended successfully"})
