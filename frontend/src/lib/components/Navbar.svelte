@@ -10,7 +10,7 @@
     ['admin', 'Administration'],
     ['submit_recipe', 'Add recipe'],
     ['edit_recipe', 'Edit recipe'],
-    ['manage_review', 'Manage reviews']
+    // ['manage_review', 'Manage reviews']
     ]
 </script>
   
