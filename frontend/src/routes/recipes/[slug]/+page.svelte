@@ -7,6 +7,7 @@
 	let { data }: PageProps = $props();
 	import { onMount } from 'svelte';
 	import RecipeReview from '$lib/components/RecipeReview.svelte';
+	import {isAdmin } from '$lib/stores/auth'
 	import Cookies from 'js-cookie';
 	import toast, { Toaster } from 'svelte-french-toast';
 
@@ -155,6 +156,11 @@
 		console.log("RECIPE EDIT")
 		console.log(ingredients)
 
+		if (!$isAdmin) {
+			toast.error('No admin privileges');
+			is_editing = !is_editing
+			return
+		}
 
 		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe/", {
 			method: 'POST',
@@ -214,15 +220,18 @@
 
 <!-- Recipe Heading Div -->
 <div class="mb-10">
+	{#if !is_editing}
 	<div class="flex">
 		<h1 class="text-4xl font-bold">
 			{recipeName}
 		</h1>
-		<button
-			class="bg-zinc-200 hover:bg-zinc-300 ml-2 px-2 text-blue-600 rounded"
-			onclick={() => is_editing = !is_editing}
-			>Edit
-		</button>
+		{#if $isAdmin}
+			<button
+				class="bg-zinc-200 hover:bg-zinc-300 ml-2 px-2 text-blue-600 rounded"
+				onclick={() => is_editing = !is_editing}
+				>Edit
+			</button>
+		{/if}
 	</div>
 	
 	<div class="flex">
@@ -243,6 +252,34 @@
 			<p>{recipeRating}</p>
 		</div>
 	</div>
+	{:else}
+		<div class="flex">
+			<input class="text-4xl font-bold" value={recipeName}/>
+			<button
+				class="bg-zinc-200 hover:bg-zinc-300 ml-2 px-2 text-blue-600 rounded"
+				onclick={() => is_editing = !is_editing}
+				>Edit
+			</button>
+		</div>
+		<div class="flex">
+			<div>
+				<h2>Difficulty</h2>
+				<p>{cookDifficulty}</p>
+			</div>
+			<div>
+				<h2>Servings</h2>
+				<p>{recipeServings}</p>
+			</div>
+			<div>
+				<h2>Price</h2>
+				<p>{recipePrice}</p>
+			</div>
+			<div>
+				<h2>Rating</h2>
+				<p>{recipeRating}</p>
+			</div>
+		</div>
+	{/if}
 </div>
 
 
