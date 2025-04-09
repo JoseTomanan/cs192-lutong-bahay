@@ -4,7 +4,7 @@
   import { usernameStore } from '$lib/stores/auth';
   import OutgoingLink from '$lib/static/outgoing_link.svg'
 
-  let pages = ['home', 'recipes', 'users', 'profile']
+  let pages = ['home', 'recipes', 'users', 'saved']
 
   let admin_pages = [
     ['admin', 'Administration'],
