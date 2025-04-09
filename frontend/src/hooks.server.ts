@@ -3,7 +3,7 @@ import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
     const unregisteredRoutes = ['/login', '/register']
-    const userRoutes = ['/home', '/recipes', '/users', '/saved', '/login', '/submit_recipe'];
+    const userRoutes = ['/recipes', '/profile', '/login', '/submit_recipe'];
     const adminRoutes = userRoutes.concat(['/admin'])
     
     const authenticated = event.cookies.get('authenticated')
@@ -29,7 +29,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     else if (!admin && authenticated) {
         // if (!userRoutes.includes(path)) {
         if (!isUserRoute) {
-            throw redirect(303, '/home')
+            throw redirect(303, '/recipes')
         }
     }
 

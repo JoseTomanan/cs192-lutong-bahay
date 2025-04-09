@@ -2,12 +2,19 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie
+
 from django.shortcuts import render
 from django.db import OperationalError, connection
 from django.db.models import Count
 
 from .models import Recipe, Ingredients, RecipeIngredients
-from .serializer import RecipeSerializer, IngredientsSerializer, RecipeIngredientsSerializer
+from .serializer import (
+    RecipeSerializer,
+    IngredientsSerializer,
+    RecipeIngredientsSerializer,
+)
 
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from .custom_permissions import IsAdminOrReadOnly
@@ -17,7 +24,7 @@ from django.db.models import Prefetch
 Recipe.objects.prefetch_related(
     Prefetch(
         "recipeingredient_set",  # or the related_name if set
-        queryset=RecipeIngredients.objects.select_related("ingredient")
+        queryset=RecipeIngredients.objects.select_related("ingredient"),
     )
 )
 
@@ -27,6 +34,8 @@ Get recipe, either all recipes or by search
 """
 
 
+@cache_page(60 * 15)
+@vary_on_cookie
 @api_view(["GET", "POST"])
 def get_recipes(request):
     if request.method == "GET":
@@ -307,44 +316,45 @@ def del_recipe(request):
     recipe.delete()
     return Response({"message": "Recipe deleted successfully"}, status=200)
 
+
 # """
 # Edit recipe (must exist already)
 # """
 # @api_view(["POST"])
 # def update_recipe(request):
 #     recipe_name = request.data.get("recipeName", None)
-    
+
 #     if not recipe_name:
 #         return Response({"error": "recipeName is required"}, status=400)
-    
+
 #     recipe = Recipe.objects.filter(recipeName=recipe_name).first()
-    
+
 #     if not recipe:
 #         return Response({"error": "Recipe not found"}, status=404)
-    
+
 #     ingredients = request.data["ingredients"]
 #     recipe_serializer = RecipeSerializer(recipe, data=request.data)
 #     # recipe_serializer = RecipeSerializer(recipe, many=False)
-    
+
 #     if recipe_serializer.is_valid():
 #         recipe_serializer.save()
 #         RecipeIngredients.objects.filter(recipe=recipe.id).delete() # type: ignore
-        
+
 #         for i in ingredients or []:
 #             temp = {}
 #             ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id # type: ignore
 #             temp["ingredient"] = ingredient_id
 #             temp["recipe"] = recipe.id # type: ignore
 #             cooked_by_serializer = RecipeIngredients(data=temp)
-            
+
 #             if cooked_by_serializer.is_valid():
 #                 cooked_by_serializer.save()
-            
+
 #             else:
 #                 return Response(cooked_by_serializer.errors)
 
 #         return Response(recipe_serializer.data)
-    
+
 #     return Response(recipe_serializer.errors)
 
 
@@ -357,34 +367,34 @@ Edit recipe (must exist already)
 def update_recipe_from_page(request):
     recipeData = request.data.get("recipe", None)
     recipe_id = recipeData["recipeId"]
-    
+
     # if not recipe_name:
     #     return Response({"error": "recipeName is required"}, status=400)
-    
+
     # recipe = Recipe.objects.filter(recipeName=recipe_name).first()
-    
+
     if not recipe_id:
         return Response({"error": "recipeName is required"}, status=400)
     recipe = Recipe.objects.filter(id=recipe_id).first()
 
     if not recipe:
         return Response({"error": "Recipe not found"}, status=404)
-    
+
     ingredients = request.data["ingredients"]
     # print(ingredients)
-    # 
+    #
     recipe_serializer = RecipeSerializer(recipe, data=request.data["recipe"])
-    if not(recipe_serializer.is_valid()):
+    if not (recipe_serializer.is_valid()):
         print(recipe_serializer.errors)
         print("invalid recipe_serializer")
         print(request.data["recipe"])
     else:
         print(recipeData)
         print("recipe_serializer valid")
-        
+
     if recipe_serializer.is_valid():
         recipe_serializer.save()
-        RecipeIngredients.objects.filter(recipe=recipe.id).delete() #type: ignore
+        RecipeIngredients.objects.filter(recipe=recipe.id).delete()  # type: ignore
 
         for i in ingredients or []:
             temp = {}

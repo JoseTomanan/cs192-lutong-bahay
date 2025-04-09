@@ -1,5 +1,5 @@
 <script lang="ts">
-  let pages = ['home', 'recipe', 'users', 'profile', 'submit_recipe']
+  let pages = ['recipe', 'profile', 'submit_recipe']
   console.log(pages);
 </script>
 
