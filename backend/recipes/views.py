@@ -318,15 +318,19 @@ def del_recipe(request):
 Edit recipe (must exist already)
 """
 @api_view(["POST"])
-def update_recipe(request):
+def update_recipe_from_page(request):
     recipeData = request.data.get("recipe", None)
-    recipe_name = recipeData["recipeName"]
+    recipe_id = recipeData["recipeId"]
     
-    if not recipe_name:
+    # if not recipe_name:
+    #     return Response({"error": "recipeName is required"}, status=400)
+    
+    # recipe = Recipe.objects.filter(recipeName=recipe_name).first()
+    
+    if not recipe_id:
         return Response({"error": "recipeName is required"}, status=400)
-    
-    recipe = Recipe.objects.filter(recipeName=recipe_name).first()
-    
+    recipe = Recipe.objects.filter(id=recipe_id).first()
+
     if not recipe:
         return Response({"error": "Recipe not found"}, status=404)
     

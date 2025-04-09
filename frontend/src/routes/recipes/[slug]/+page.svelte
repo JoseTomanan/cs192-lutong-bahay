@@ -44,6 +44,7 @@
 		fetchRecipeReviews();
 		user_id = Cookies.get('user_id');
     	fetchIngredients();
+		functionFetchRecipeById(data.id);
 	});
 
 	async function functionFetchRecipeById(input_id: String) {
@@ -162,7 +163,7 @@
 			return
 		}
 
-		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe/", {
+		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe-from-page/", {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -212,7 +213,7 @@
 	};
 
 	console.log(data.id);
-	functionFetchRecipeById(data.id);
+	
   
 </script>
 
@@ -235,26 +236,26 @@
 	</div>
 	
 	<div class="flex">
-		<div>
+		<div class="w-20 mr-5">
 			<h2>Difficulty</h2>
 			<p>{cookDifficulty}</p>
 		</div>
-		<div>
+		<div class="w-20 mr-5">
 			<h2>Servings</h2>
 			<p>{recipeServings}</p>
 		</div>
-		<div>
+		<div class="w-20 mr-5">
 			<h2>Price</h2>
 			<p>{recipePrice}</p>
 		</div>
-		<div>
+		<div class="w-20 mr-5">
 			<h2>Rating</h2>
 			<p>{recipeRating}</p>
 		</div>
 	</div>
 	{:else}
 		<div class="flex">
-			<input class="text-4xl font-bold" value={recipeName}/>
+			<input class="text-4xl font-bold" bind:value={recipeName}/>
 			<button
 				class="bg-zinc-200 hover:bg-zinc-300 ml-2 px-2 text-blue-600 rounded"
 				onclick={() => is_editing = !is_editing}
@@ -262,21 +263,25 @@
 			</button>
 		</div>
 		<div class="flex">
-			<div>
+			<div class="w-20 mr-5">
 				<h2>Difficulty</h2>
-				<p>{cookDifficulty}</p>
+				<input class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
+				bind:value={cookDifficulty}/>
 			</div>
-			<div>
+			<div class="w-20 mr-5">
 				<h2>Servings</h2>
-				<p>{recipeServings}</p>
+				<input class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
+				bind:value={recipeServings}/>
 			</div>
-			<div>
+			<div class="w-20 mr-5">
 				<h2>Price</h2>
-				<p>{recipePrice}</p>
+				<input class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
+				bind:value={recipePrice}/>
 			</div>
-			<div>
+			<div class="w-20 mr-5">
 				<h2>Rating</h2>
-				<p>{recipeRating}</p>
+				<input class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
+				bind:value={recipeRating}/>
 			</div>
 		</div>
 	{/if}
