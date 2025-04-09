@@ -221,66 +221,100 @@
 <Toaster />
 
 <!-- Recipe Heading Div -->
-<div class="mb-10">
+<div class="mb-10 space-y-4">
 	{#if !is_editing}
-	<div class="flex">
-		<h1 class="text-4xl font-bold">
-			{recipeName}
-		</h1>
-		{#if $isAdmin}
-			<button
-				class="bg-zinc-200 hover:bg-zinc-300 ml-2 px-2 text-blue-600 rounded"
-				onclick={() => is_editing = !is_editing}
-				>Edit
-			</button>
-		{/if}
-	</div>
-	
-	<div class="flex">
-		<div class="w-20 mr-5">
-			<h2>Difficulty</h2>
-			<p>{cookDifficulty}</p>
-		</div>
-		<div class="w-20 mr-5">
-			<h2>Servings</h2>
-			<p>{recipeServings}</p>
-		</div>
-		<div class="w-20 mr-5">
-			<h2>Price</h2>
-			<p>{recipePrice}</p>
-		</div>
-		<div class="w-20 mr-5">
-			<h2>Rating</h2>
-			<p>{recipeRating}</p>
-		</div>
-	</div>
+    <div class="flex">
+      <h1 class="text-4xl font-bold">
+        {recipeName}
+      </h1>
+      {#if $isAdmin}
+        <button
+          class="bg-zinc-200 hover:bg-zinc-300 ml-2 px-2 text-blue-600 rounded"
+          onclick={() => is_editing = !is_editing}
+          >Edit
+        </button>
+      {/if}
+    </div>
+    
+    <div class="flex">
+      <div class="w-20 mr-5">
+        <label
+          for=""
+          class="for-small-field"
+        >Difficulty</label>
+        <p>{cookDifficulty}</p>
+      </div>
+      <div class="w-20 mr-5">
+        <label
+          for=""
+          class="for-small-field"
+        >Servings</label>
+        <p>{recipeServings}</p>
+      </div>
+      <div class="w-20 mr-5">
+        <label
+          for=""
+          class="for-small-field"
+        >Price</label>
+        <p>{recipePrice}</p>
+      </div>
+      <div class="w-20 mr-5">
+        <label
+          for=""
+          class="for-small-field"
+        >Rating</label>
+        <p>{recipeRating}</p>
+      </div>
+    </div>
 	{:else}
 		<div class="flex">
-			<input class="text-4xl font-bold" bind:value={recipeName}/>
+			<input
+        class="text-4xl font-bold border-gray-200 bg-gray-200 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none rounded"
+        bind:value={recipeName}
+      />
 			<button
 				class="bg-zinc-200 hover:bg-zinc-300 ml-2 px-2 text-blue-600 rounded"
 				onclick={() => is_editing = !is_editing}
-				>Edit
-			</button>
+      >Edit</button>
 		</div>
+
 		<div class="flex">
 			<div class="w-20 mr-5">
-				<h2>Difficulty</h2>
-				<input class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
-				bind:value={cookDifficulty}/>
+				<label
+          for=""
+          class="for-small-field"
+        >Difficulty</label>
+				<input
+          class="small-text-field w-full"
+				  bind:value={cookDifficulty}
+        />
 			</div>
 			<div class="w-20 mr-5">
-				<h2>Servings</h2>
-				<input class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
-				bind:value={recipeServings}/>
+				<label
+          for=""
+          class="for-small-field"
+        >Servings</label>
+				<input
+          class="small-text-field w-full"
+				  bind:value={recipeServings}
+        />
 			</div>
 			<div class="w-20 mr-5">
-				<h2>Price</h2>
-				<input class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
-				bind:value={recipePrice}/>
+				<label
+          for=""
+          class="for-small-field"
+        >Price</label>
+				<input
+          class="small-text-field w-full"
+				  bind:value={recipePrice}
+        />
 			</div>
+
 			<div class="w-20 mr-5">
-				<h2>Rating</h2>
+				<label
+          for=""
+          class="for-small-field"
+        >Rating</label>
 				<input class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-2 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
 				bind:value={recipeRating}/>
 			</div>
@@ -340,14 +374,14 @@
 				</select>
 				<button
 					type="button"
-					class="py-0.3 mb-2 me-2 rounded-full bg-red-700 px-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+					class="remove-item"
 					onclick={() => removeIngredient(ingredient)}
         >x</button>
 			</li>
 		{/each}
 		<button
-		class="bg-main hover:bg-main_dark my-2 rounded px-12 font-bold text-white"
-		onclick={addIngredient}>+</button
+		  class="add-item"
+		  onclick={addIngredient}>+</button
 		>
 	{/if}
 </div>
@@ -355,7 +389,11 @@
 <div class="my-5">
 	<h1 class="text-xl font-bold">Instructions</h1>
 	{#if is_editing}
-		<textarea class="w-full p-2.5" bind:value={recipeInstructions} />
+		<textarea
+      class="w-full p-2.5"
+      placeholder="Instructions..."
+      bind:value={recipeInstructions}
+    ></textarea>
 	{:else}
 		<p class="whitespace-pre-wrap">{recipeInstructions}</p>
 	{/if}
@@ -373,7 +411,10 @@
     <h1 class="text-xl font-bold">
       Leave a review
     </h1>
-    <textarea class="my-3 block w-full p-2.5" bind:value={reviewString}></textarea>
+    <textarea
+      class="my-3 block w-full p-2.5"
+      bind:value={reviewString}
+    ></textarea>
     <input
       class="block"
       type="number"
