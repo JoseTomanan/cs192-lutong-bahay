@@ -23,9 +23,12 @@
 	let recipeName: String = $state('');
 	let cookDifficulty: String = $state('');
 	let recipeEquipment: String = $state('');
-	let recipeInstructions: String = $state('');  
+	let recipeInstructions: String = $state('');
+	let recipeServings = $state(0);
+	let recipePrice = $state(0);  
+	let recipeRating = $state(0);  
 	let ingredients = $state<IngredientObject[]>([]);
-  let ingredientsDb = $state<IngredientObject[]>([])
+ 	let ingredientsDb = $state<IngredientObject[]>([])
 
 	// reviews
 	let reviewString = $state('');
@@ -65,6 +68,7 @@
 			recipeEquipment = retrievedRecipe.equipment;
       		// console.log("ingredients: " + ingredients)
 			recipeInstructions = retrievedRecipe.instructions;
+			recipeServings = retrievedRecipe.servings;
 			recipePrice = retrievedRecipe.price;
 			recipeRating = retrievedRecipe.ratings;
 			// goto('dbtest');
@@ -197,16 +201,13 @@
 	const addIngredient = () => {
 		ingredients = [
         ...ingredients,
-        {ingredientName: "", quantity: 0, unit: "pcs"}
+        {ingredientId: 0, ingredientName: "", quantity: 0, unit: "pcs"}
 		];
 	};
 
 	console.log(data.id);
 	functionFetchRecipeById(data.id);
   
-	function removeIngredient(ingredient: IngredientObject): any {
-		throw new Error('Function not implemented.');
-	}
 </script>
 
 <Toaster />
@@ -230,14 +231,14 @@
     <ul class="list-disc">
       {#each ingredients as ingredient}
         <li class="ml-5">
-          {ingredientsDb[ingredient.ingredientId].ingredientName}
+          {ingredient.ingredientName}
         </li>
       {/each}
     </ul>
   {/if}
 
 	{#if is_editing}
-		{#each ingredients as ingredient, index}
+		{#each ingredients as ingredient, i}
 			<li class="flex items-center align-text-bottom">
 				<!-- <p class="pr-4">{ingredient.ingredientName}</p>-->
 				<!-- <input
@@ -249,10 +250,10 @@
 				{console.log(ingredient.ingredientName)}
        			<select
 					class="block w-max appearance-none rounded border border-gray-200 bg-gray-200 px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-zinc-100 focus:outline-none"
-					bind:value={ingredient.ingredientName}
+					bind:value={ingredients[i].ingredientId}
 					>
 					{#each ingredientsDb as ingredient}
-						<option value={ingredient.ingredientName}> {ingredient.ingredientName} </option>
+						<option value={ingredient.id}> {ingredient.ingredientName} </option>
 					{/each}
 				</select>
 				<input
@@ -279,7 +280,7 @@
 		{/each}
 		<button
 		class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
-		on:click={addIngredient}>Add Ingredient</button
+		onclick={addIngredient}>Add Ingredient</button
 		>
 	{/if}
 </div>

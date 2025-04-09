@@ -42,9 +42,9 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 class RecipeIngredientsSerializer(serializers.ModelSerializer):
     # ingredientName = serializers.SerializerMethodField()
-    ingredientName = serializers.CharField(source="ingredientId.ingredientName")
+    ingredientName = serializers.CharField(source="ingredientId.ingredientName", read_only=True)
     # ingredientObject = serializers.SerializerMethodField()
-    ingredientObject = serializers.CharField(source="ingredientId")
+    ingredientObject = serializers.CharField(source="ingredientId", read_only=True)
 
     class Meta:
         model = RecipeIngredients
