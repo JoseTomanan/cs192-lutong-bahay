@@ -211,7 +211,7 @@
 	}
 
 	async function saveRecipe() {
-		alert(`${user_id} ${recipeId}`)
+		// alert(`${user_id} ${recipeId}`)
 		try {
 			const response = await fetch("http://127.0.0.1:8000/api/savedby/user-save-recipe/", {
 				method: 'POST',
@@ -224,18 +224,18 @@
 				})
 			})
 
-			toast.success("sdksfs")
+			toast.success("Recipe saved succesfully!")
 		} 
 		
 		catch {
-			toast.error("wwaaaaaaa")
+			toast.error("Failed to save recipe.")
 		}
 	}
 
 	async function unsaveRecipe() {
-		// loading = true
+		// alert(`${user_id} ${recipeId}`)
 		try {
-			const data = await fetch("http://127.0.0.1:8000/api/recipes/user-unsave-recipe", {
+			const response = await fetch("http://127.0.0.1:8000/api/savedby/user-unsave-recipe/", {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -244,13 +244,13 @@
 					"userId": user_id,
 					"recipeId": recipeId
 				})
-			}) 
+			})
 
-			toast.success("Recipe unsaved!")
-		} catch {
+			toast.success("Recipe unsaved succesfully!")
+		} 
+		
+		catch {
 			toast.error("Failed to unsave recipe.")
-		} finally {
-			// loading = false
 		}
 	}
 
