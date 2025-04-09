@@ -24,14 +24,14 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
       >{ recipeName }</a>
     </div>
     
-    <span class="text-gray-600 text-base mb-2">
+    <span class="text-gray-600 text-sm mb-2">
       <span class="font-semibold">
         Cooking Difficulty:
       </span>
       { cookDifficulty }
     </span>
 
-    <p class="text-gray-700 text-base">
+    <p class="text-gray-700 text-sm">
       <span class="font-semibold">
         Rating:
       </span>
@@ -42,28 +42,28 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
       {/if}
     </p>
     
-    <p class="text-gray-700 text-base">
+    <p class="text-gray-700 text-sm">
       <span class="font-semibold">
         Price (PHP):
       </span>
       { price }.00
     </p>
     
-    <p class="text-gray-700 text-base">
+    <!-- <p class="text-gray-700 text-sm">
       <span class="font-semibold">
         ID:
       </span>
       { id }
-    </p>
+    </p> -->
     
-    <p class="text-gray-700 text-base">
+    <p class="text-gray-700 text-sm">
       <span class="font-semibold">
         Equipment:
       </span>
       { equipment }
     </p>
     
-    <p class="text-gray-700 text-base">
+    <p class="text-gray-700 text-sm">
       <span class="font-semibold">
         Servings:
       </span>
