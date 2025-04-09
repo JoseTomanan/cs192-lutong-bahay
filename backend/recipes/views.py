@@ -188,7 +188,7 @@ def add_recipe(request):
             )
 
             temp["recipe"] = recipe_id
-            cooked_by_serializer = CookedBySerializer(data=temp)
+            cooked_by_serializer = RecipeIngredientsSerializer(data=temp)
 
             if cooked_by_serializer.is_valid():
                 cooked_by_serializer.save()
