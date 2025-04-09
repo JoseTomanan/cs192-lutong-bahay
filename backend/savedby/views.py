@@ -28,17 +28,19 @@ def user_save_recipe(request):
     user = User.objects.get(pk=userId)
     if not user:
         return Response({"error": "User not found"}, status=404)
-
-    saved_recipe = SavedBySerializer(data={"recipe": recipeId, "user": userId})
-    if saved_recipe.is_valid():
-        saved_recipe.save()
-        return Response({"message": "Recipe saved successfully"}, status=201)
+    if not SavedBy.objects.filter(recipe=recipe, user=user).exists():
+        saved_recipe = SavedBySerializer(data={"recipe": recipeId, "user": userId})
+        if saved_recipe.is_valid():
+            saved_recipe.save()
+            return Response({"message": "Recipe saved successfully"}, status=201)
+        else:
+            return Response({"error": "Failed to save recipe"}, status=400)
     else:
-        return Response({"error": "Failed to save recipe"}, status=400)
+        return Response({"error": "Recipe already saved"}, status=400)
 
 
 @api_view(["POST"])
-def user_delete_recipe(request):
+def user_unsave_recipe(request):
     recipeId = request.data.get("recipeId", None)
     userId = request.data.get("userId", None)
     if not recipeId:
