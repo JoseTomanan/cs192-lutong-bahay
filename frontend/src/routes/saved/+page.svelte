@@ -4,6 +4,7 @@
   import toast, { Toaster } from 'svelte-french-toast';
   import Cookies from "js-cookie"
   import { onMount } from "svelte";
+  import RecipeCard from "$lib/components/RecipeCard.svelte";
 
 
   interface IngredientObject {
@@ -25,24 +26,7 @@
     servings: number;
   }
 
-  let recipes: number[] = []
-
-  async function getRecipeById() {
-    try {
-      const response = await fetch('http://localhost:8000/api/recipes/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          "userId": userId
-        })
-      });
-  
-    } catch {
-      toast.error("Error in fetching recipes.")
-    }
-  }
+  let recipes: RecipeObject[] = []
 
   async function fetchSavedRecipes() {
     loading = true
@@ -76,7 +60,8 @@
 
 <h1 class="title-text">Saved</h1>
 
-<p>{$usernameStore}, {userId}</p>
-<p>{JSON.stringify(recipes)}</p>
-
-
+<div class="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+{#each recipes as recipe}
+  <RecipeCard {...recipe} />
+{/each}
+</div>
