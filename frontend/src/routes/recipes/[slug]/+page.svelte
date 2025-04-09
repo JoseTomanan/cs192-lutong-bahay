@@ -13,6 +13,13 @@
 
   import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
 
+  interface IngredientUnit {
+    ingredientId: number
+    ingredientName: string
+    quantity: number
+    unit: string
+  }
+
 	// for editing logic
 	let is_editing = $state(false);
 	let currentIngredient;
@@ -28,7 +35,7 @@
 	let recipeServings = $state(0);
 	let recipePrice = $state(0);  
 	let recipeRating = $state(0);  
-	let ingredients = $state<IngredientObject[]>([]);
+	let ingredients = $state<IngredientUnit[]>([]);
  	let ingredientsDb = $state<IngredientObject[]>([])
 
 	// reviews
@@ -200,7 +207,7 @@
 		}
 	}
 
-	const removeIngredient = (ingredient) => {
+	const removeIngredient = (ingredient: IngredientUnit) => {
 		ingredients = ingredients.filter(
         (i) => i.ingredientName !== ingredient.ingredientName
       );
