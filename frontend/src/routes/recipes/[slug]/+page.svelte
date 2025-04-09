@@ -97,7 +97,8 @@
 
 		if (response.ok) {
 			toast.success('review post succesful');
-			location.reload();
+			fetchRecipeReviews()
+			location.reload()
 			console.log('Review post successful');
 			return;
 		} else {
