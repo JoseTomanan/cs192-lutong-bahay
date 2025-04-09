@@ -212,20 +212,44 @@
 
 <Toaster />
 
+<!-- Recipe Heading Div -->
 <div class="mb-10">
-	<h1 class="text-4xl font-bold">
-		{recipeName}
-	</h1>
-	<button
-    class="text-blue-600"
-    onclick={() => is_editing = !is_editing}
-  >Edit Recipe</button>
+	<div class="flex">
+		<h1 class="text-4xl font-bold">
+			{recipeName}
+		</h1>
+		<button
+			class="bg-zinc-200 hover:bg-zinc-300 ml-2 px-2 text-blue-600 rounded"
+			onclick={() => is_editing = !is_editing}
+			>Edit
+		</button>
+	</div>
+	
+	<div class="flex">
+		<div>
+			<h2>Difficulty</h2>
+			<p>{cookDifficulty}</p>
+		</div>
+		<div>
+			<h2>Servings</h2>
+			<p>{recipeServings}</p>
+		</div>
+		<div>
+			<h2>Price</h2>
+			<p>{recipePrice}</p>
+		</div>
+		<div>
+			<h2>Rating</h2>
+			<p>{recipeRating}</p>
+		</div>
+	</div>
 </div>
+
 
 <div class="my-5">
 	<h1 class="text-xl font-bold">
-    Ingredients
-  </h1>
+    	Ingredients
+	</h1>
 
   {#if !is_editing}
     <ul class="list-disc">
@@ -279,8 +303,8 @@
 			</li>
 		{/each}
 		<button
-		class="bg-main hover:bg-main_dark my-5 rounded px-4 py-2 font-bold text-white"
-		onclick={addIngredient}>Add Ingredient</button
+		class="bg-main hover:bg-main_dark my-2 rounded px-12 font-bold text-white"
+		onclick={addIngredient}>+</button
 		>
 	{/if}
 </div>
