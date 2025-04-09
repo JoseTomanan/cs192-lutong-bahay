@@ -5,6 +5,7 @@
   import Cookies from "js-cookie"
   import { onMount } from "svelte";
   import RecipeCard from "$lib/components/RecipeCard.svelte";
+  import RecipesLoader from "$lib/components/RecipesLoader.svelte";
 
 
   interface IngredientObject {
@@ -60,8 +61,15 @@
 
 <h1 class="title-text">Saved</h1>
 
-<div class="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-{#each recipes as recipe}
-  <RecipeCard {...recipe} />
-{/each}
-</div>
+{#if loading}
+  <div class="h-full flex flex-col items-center justify-center gap-4">
+    <RecipesLoader />
+    <span class="text-gray-400 text-md">Loading recipes...</span>
+  </div>
+{:else}
+  <div class="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {#each recipes as recipe}
+      <RecipeCard {...recipe} />
+    {/each}
+  </div>
+{/if}
