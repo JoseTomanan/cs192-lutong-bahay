@@ -212,7 +212,7 @@
         {ingredientId: -1, ingredientName: "", quantity: 0, unit: ""}
 		];
 	};
-gut 
+
 	console.log(data.id);
 
 // 	functionFetchRecipeById(data.id);
