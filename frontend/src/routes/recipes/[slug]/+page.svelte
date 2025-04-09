@@ -13,6 +13,13 @@
 
   import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
 
+  interface IngredientUnit {
+    ingredientId: number
+    ingredientName: string
+    quantity: number
+    unit: string
+  }
+
 	// for editing logic
 	let is_editing = $state(false);
 	let currentIngredient;
@@ -28,7 +35,7 @@
 	let recipeServings = $state(0);
 	let recipePrice = $state(0);  
 	let recipeRating = $state(0);  
-	let ingredients = $state<IngredientObject[]>([]);
+	let ingredients = $state<IngredientUnit[]>([]);
  	let ingredientsDb = $state<IngredientObject[]>([])
 
 	// reviews
@@ -190,17 +197,17 @@
 		});
 
 		if (response.ok) {
-			alert('Recipe update succesful');
+			toast.success('Recipe update succesful');
 			location.reload();
 			console.log('Recipe update successful');
 			return;
 		} else {
-			alert('Recipe update fail');
+			toast.error('Recipe update fail');
 			console.log('Recipe update fail');
 		}
 	}
 
-	const removeIngredient = (ingredient) => {
+	const removeIngredient = (ingredient: IngredientUnit) => {
 		ingredients = ingredients.filter(
         (i) => i.ingredientName !== ingredient.ingredientName
       );
@@ -214,8 +221,9 @@
 	};
 
 	console.log(data.id);
-	
-  
+
+// 	functionFetchRecipeById(data.id); s
+
 </script>
 
 <Toaster />
@@ -223,16 +231,29 @@
 <!-- Recipe Heading Div -->
 <div class="mb-10 space-y-4">
 	{#if !is_editing}
-    <div class="flex">
+    <div class="flex space-x-2">
+      <a
+        href="/recipes"
+        aria-label="back"
+      >
+        <svg
+          class="w-8 h-10 fill-gray-700 hover:fill-gray-500 hover:ring-1"
+          width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect transform="rotate(90 12 12)" opacity="0"/>
+          <path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z"/>
+        </svg>
+      </a>
+
       <h1 class="text-4xl font-bold">
         {recipeName}
       </h1>
+
       {#if $isAdmin}
         <button
-          class="bg-zinc-200 hover:bg-zinc-300 ml-2 px-2 text-blue-600 rounded"
+          class="bg-zinc-200 hover:bg-zinc-300 px-3 text-blue-600 rounded"
           onclick={() => is_editing = !is_editing}
-          >Edit
-        </button>
+        >Edit</button>
       {/if}
     </div>
     
