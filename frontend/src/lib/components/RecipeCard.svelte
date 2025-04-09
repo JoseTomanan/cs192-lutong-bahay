@@ -51,13 +51,6 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
     
     <p class="text-gray-700 text-base">
       <span class="font-semibold">
-        ID:
-      </span>
-      { id }
-    </p>
-    
-    <p class="text-gray-700 text-base">
-      <span class="font-semibold">
         Equipment:
       </span>
       { equipment }
