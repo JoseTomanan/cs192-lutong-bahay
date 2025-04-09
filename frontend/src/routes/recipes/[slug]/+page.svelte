@@ -231,7 +231,7 @@
     <ul class="list-disc">
       {#each ingredients as ingredient}
         <li class="ml-5">
-          {ingredient.ingredientName}
+          {ingredient.quantity}{ingredient.unit} {ingredient.ingredientName}
         </li>
       {/each}
     </ul>
