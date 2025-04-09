@@ -44,6 +44,7 @@
       });
       const data: RecipeObject[] = await response.json()
       recipes = data
+
   
     } catch {
       toast.error("Error in fetching recipe.")

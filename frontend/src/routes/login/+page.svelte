@@ -65,7 +65,7 @@
         }
       }
     } catch (err) {
-      alert('No database connection');
+      toast.error('No database connection');
     } finally {
       loading = false; // Stop loading
     }
