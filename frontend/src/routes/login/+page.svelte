@@ -61,7 +61,7 @@
           setAdmin(true);
           goto('/admin');
         } else {
-          goto('/home');
+          goto('/recipes');
         }
       }
     } catch (err) {
@@ -100,7 +100,7 @@
       if (data.key) {
         localStorage.setItem("authToken", data.key);
         setAuth(true);
-        goto('/home');
+        goto('/recipes');
       }
     } catch (err) {
       console.error('Login failed');

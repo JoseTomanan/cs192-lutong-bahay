@@ -4,13 +4,13 @@
   import { usernameStore } from '$lib/stores/auth';
   import OutgoingLink from '$lib/static/outgoing_link.svg'
 
-  let pages = ['home', 'recipes', 'users', 'profile']
+  let pages = ['recipes', 'profile']
 
   let admin_pages = [
     ['admin', 'Administration'],
     ['submit_recipe', 'Add recipe'],
     ['edit_recipe', 'Edit recipe'],
-    ['manage_review', 'Manage reviews']
+    // ['manage_review', 'Manage reviews']
     ]
 </script>
   

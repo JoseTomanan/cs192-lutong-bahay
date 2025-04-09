@@ -97,7 +97,7 @@
         localStorage.setItem("authToken", data.key);
         console.log("Stored Token:", localStorage.getItem("authToken"));
         setAuth(true)
-        goto('/home') 
+        goto('/recipes') 
         // setTimeout(() => {
         //           window.location.href = "http://localhost:5173/home";
         //       }, 2000);  // 500ms delay
