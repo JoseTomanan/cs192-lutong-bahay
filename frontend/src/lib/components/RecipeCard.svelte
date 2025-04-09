@@ -24,9 +24,9 @@ hover:bg-gradient-to-br hover:from-white hover:to-amber-50 RecipeCard">
       >{ recipeName }</a>
     </div>
     
-    <span class="text-gray-600 text-sm mb-2">
+    <span class="text-gray-600 text-sm">
       <span class="font-semibold">
-        Cooking Difficulty:
+        Difficulty:
       </span>
       { cookDifficulty }
     </span>
