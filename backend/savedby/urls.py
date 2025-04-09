@@ -17,10 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from savedby.views import user_save_recipe, user_delete_recipe, user_get_saved_recipes
+from savedby.views import user_save_recipe, user_unsave_recipe, user_get_saved_recipes
 
 urlpatterns = [
     path("user-save-recipe/", user_save_recipe),
-    path("user-delete-recipe/", user_delete_recipe),
+    path("user-unsave-recipe/", user_unsave_recipe),
     path("user-get-saved_recipes/", user_get_saved_recipes),
 ]
