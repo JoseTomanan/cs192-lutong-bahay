@@ -384,14 +384,14 @@ def update_recipe_from_page(request):
         
     if recipe_serializer.is_valid():
         recipe_serializer.save()
-        CookedBy.objects.filter(recipe=recipe.id).delete()  # type: ignore
+        RecipeIngredients.objects.filter(recipe=recipe.id).delete() #type: ignore
 
         for i in ingredients or []:
             temp = {}
             ingredient_id = Ingredients.objects.filter(ingredientName=i).first().id  # type: ignore
             temp["ingredient"] = ingredient_id
             temp["recipe"] = recipe.id  # type: ignore
-            cooked_by_serializer = CookedBySerializer(data=temp)
+            cooked_by_serializer = RecipeIngredientsSerializer(data=temp)
 
             if cooked_by_serializer.is_valid():
                 cooked_by_serializer.save()
