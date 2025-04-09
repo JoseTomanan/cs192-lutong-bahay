@@ -65,7 +65,7 @@ def user_get_saved_recipes(request):
     if not saved_recipes:
         return Response({"message": "No saved recipes found"}, status=404)
     for saved_recipe in saved_recipes:
-        recipe = Recipe.objects.get(pk=saved_recipe.recipe)
+        recipe = saved_recipe.recipe
         out.append(recipe)
     serializer = RecipeSerializer(out, many=True)
     return Response(serializer.data, status=200)
