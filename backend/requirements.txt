@@ -7,6 +7,7 @@ psycopg2-binary
 
 # Deployment & WSGI server
 gunicorn
+whitenoise
 
 # CORS for API access
 django-cors-headers
