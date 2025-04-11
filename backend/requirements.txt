@@ -18,6 +18,3 @@ python-dotenv
 django-allauth
 dj_rest_auth
 jwt
-
-# Cookies
-js-cookie
