@@ -19,3 +19,6 @@ python-dotenv
 django-allauth
 dj_rest_auth
 jwt
+
+# Idk why it needs this one but here sure
+requests
