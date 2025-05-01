@@ -5,7 +5,6 @@ export default defineConfig({
 	plugins: [sveltekit()],
   resolve: {
     alias: {
-      'svelte-toasts': 'svelte-toasts/src/index.js'
     }
   }
 });
