@@ -3,7 +3,6 @@
   import { isAuthenticated, setAuth } from '$lib/stores/auth'
   import { onMount } from "svelte";
   import { usernameStore } from '$lib/stores/auth';
-  import toast, { Toaster } from "svelte-french-toast"
   import BarLoader from "$lib/components/BarLoader.svelte";
 
   let username = '';
@@ -50,13 +49,13 @@
       console.log(data)
 
       if (!success) {
-        toast.error(data.message)
+        alert(data.message)
       } else {
         // alert(message)
         goto('/login')
       }       
     } catch (err) {
-      toast.error('No database connection')
+      alert('No database connection')
     } finally {
       loading = false
     }
@@ -111,7 +110,6 @@
   }
 </script>
 
-<Toaster />
 
 
 

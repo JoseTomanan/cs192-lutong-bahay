@@ -1,6 +1,5 @@
 <script lang="ts">
   import DefaultLoader from "$lib/components/DefaultLoader.svelte";
-  import toast, { Toaster } from 'svelte-french-toast';
 
   let username: string = ""
   let loading: boolean = false
@@ -31,9 +30,9 @@
         body: JSON.stringify({username})
       });
 
-      toast(`${username} suspended!`, {icon: '🔒'})
+      alert(`${username} suspended!`)
     } catch {
-      toast.error(`Failed to suspend ${username}`)
+      alert(`Failed to suspend ${username}`)
     } finally {
       loading = false
     }
@@ -53,16 +52,14 @@
         body: JSON.stringify({username})
       });
 
-      toast(`${username} reactivated!`, {icon: '✅'})
+      alert(`${username} reactivated!`)
     } catch {
-      toast.error(`Failed to reactivate ${username}!`)
+      alert(`Failed to reactivate ${username}!`)
     } finally {
       loading = false
     }
   }
 </script>
-
-<Toaster />
 
 <h1 class="title-text text-2xl font-bold mb-6">Administration</h1>
 

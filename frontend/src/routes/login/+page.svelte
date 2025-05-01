@@ -3,7 +3,6 @@
   import { isAuthenticated, setAdmin, setAuth } from '$lib/stores/auth';
   import { onMount } from "svelte";
   import { usernameStore } from '$lib/stores/auth';
-  import toast, { Toaster } from "svelte-french-toast"
   import BarLoader from "$lib/components/BarLoader.svelte";
 
   let username = '';
@@ -52,7 +51,7 @@
       const admin = data.is_staff;
 
       if (!success) {
-        toast.error(message);
+        alert(message);
       } else {
         setAuth(true);
         $usernameStore = username;
@@ -65,7 +64,7 @@
         }
       }
     } catch (err) {
-      toast.error('No database connection');
+      alert('No database connection');
     } finally {
       loading = false; // Stop loading
     }
@@ -109,8 +108,6 @@
     }
   }
 </script>
-
-<Toaster />
 
 <!-- Progress Bar -->
 {#if loading}

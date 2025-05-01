@@ -1,7 +1,6 @@
 <script lang="ts">
   let username = "testuser"
   import { usernameStore } from "$lib/stores/auth";
-  import toast, { Toaster } from 'svelte-french-toast';
   import Cookies from "js-cookie"
   import { onMount } from "svelte";
   import RecipeCard from "$lib/components/RecipeCard.svelte";
@@ -47,7 +46,7 @@
 
   
     } catch {
-      toast.error("Error in fetching recipe.")
+      alert("Error in fetching recipe.")
     }
 
     loading = false
@@ -58,7 +57,6 @@
   })
 </script>
 
-<Toaster />
 
 <h1 class="title-text">Saved</h1>
 

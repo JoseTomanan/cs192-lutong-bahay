@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-  import toast, { Toaster } from 'svelte-french-toast';
   import DefaultLoader from '$lib/components/DefaultLoader.svelte';
   import BarLoader from '$lib/components/BarLoader.svelte';
 
@@ -64,7 +63,7 @@
 
 			const data = await response.json();
 			if (data.hasOwnProperty('error')) {
-				toast.error('No recipes found');
+				alert('No recipes found');
 			} else {
 				const result = data;
 				ingredientsDb = result.map((val: { id: any; ingredientName: any; }) => {
@@ -73,7 +72,7 @@
 				console.log(ingredientsDb);
 			}
 		} catch {
-			toast.error('No database connection');
+			alert('No database connection');
 		} finally {
       loading = false
     }
@@ -110,14 +109,14 @@
 
 			const data = await response.json();
 			if (data.hasOwnProperty('error')) {
-				toast.error('No recipes found');
+				alert('No recipes found');
 			} else {
 				const result = data[0].toString();
         console.log(result)
-        toast.success(`Recipe added successfully!`)
+        alert(`Recipe added successfully!`)
 			}
 		} catch {
-			toast.error('No database connection');
+			alert('No database connection');
 		} finally {
       loading = false
     }
@@ -155,7 +154,6 @@
 	};
 </script>
 
-<Toaster />
 
 <!-- FLOWBITE https://flowbite.com/docs/forms/search-input/ -->
 

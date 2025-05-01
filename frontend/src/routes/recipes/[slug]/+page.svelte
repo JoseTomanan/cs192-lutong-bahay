@@ -9,7 +9,6 @@
 	import RecipeReview from '$lib/components/RecipeReview.svelte';
 	import {isAdmin } from '$lib/stores/auth'
 	import Cookies from 'js-cookie';
-	import toast, { Toaster } from 'svelte-french-toast';
 	
 
   import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
@@ -106,13 +105,13 @@
 		});
 
 		if (response.ok) {
-			toast.success('review post succesful');
+			alert('review post succesful');
 			fetchRecipeReviews()
 			location.reload()
 			console.log('Review post successful');
 			return;
 		} else {
-			toast.error('review post fail');
+			alert('review post fail');
 			console.log('Review post fail');
 		}
 	}
@@ -150,7 +149,7 @@
 			const data = await response.json();
       
 			if (data.hasOwnProperty('error')) {
-				toast.error('No recipes found');
+				alert('No recipes found');
 			}
       else {
 				const result = data;
@@ -160,7 +159,7 @@
 				// console.log(ingredientsDb);
 			}
 		} catch {
-			toast.error('No database connection');
+			alert('No database connection');
 		}
 	}
 
@@ -169,7 +168,7 @@
 		console.log(ingredients)
 
 		if (!$isAdmin) {
-			toast.error('No admin privileges');
+			alert('No admin privileges');
 			is_editing = !is_editing
 			return
 		}
@@ -200,12 +199,12 @@
 		});
 
 		if (response.ok) {
-			toast.success('Recipe update succesful');
+			alert('Recipe update succesful');
 			location.reload();
 			console.log('Recipe update successful');
 			return;
 		} else {
-			toast.error('Recipe update fail');
+			alert('Recipe update fail');
 			console.log('Recipe update fail');
 		}
 	}
@@ -224,11 +223,11 @@
 				})
 			})
 
-			toast.success("Recipe saved succesfully!")
+			alert("Recipe saved succesfully!")
 		} 
 		
 		catch {
-			toast.error("Failed to save recipe.")
+			alert("Failed to save recipe.")
 		}
 	}
 
@@ -246,11 +245,11 @@
 				})
 			})
 
-			toast.success("Recipe unsaved succesfully!")
+			alert("Recipe unsaved succesfully!")
 		} 
 		
 		catch {
-			toast.error("Failed to unsave recipe.")
+			alert("Failed to unsave recipe.")
 		}
 	}
 
@@ -272,8 +271,6 @@
 // 	functionFetchRecipeById(data.id); s
 
 </script>
-
-<Toaster />
 
 <!-- Recipe Heading Div -->
 <div class="mb-10 space-y-4">
