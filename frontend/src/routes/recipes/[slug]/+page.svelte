@@ -13,6 +13,8 @@
 
   import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   interface IngredientUnit {
     ingredientId: number
     ingredientName: string
@@ -58,7 +60,7 @@
 
 	async function functionFetchRecipeById(input_id: String) {
 		console.log(input_id);
-		const response = await fetch('http://127.0.0.1:8000/api/recipes/get_recipe_by_id/', {
+		const response = await fetch(`${baseUrl}/api/recipes/get_recipe_by_id/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -90,7 +92,7 @@
 	}
 
 	async function postReview() {
-		const response = await fetch('http://127.0.0.1:8000/api/reviews/post-review/', {
+		const response = await fetch(`${baseUrl}/api/reviews/post-review/`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -117,7 +119,7 @@
 	}
 
 	async function fetchRecipeReviews() {
-		const response = await fetch('http://127.0.0.1:8000/api/reviews/fetch-reviews/', {
+		const response = await fetch(`${baseUrl}/api/reviews/fetch-reviews/`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -139,7 +141,7 @@
   async function fetchIngredients() {
 		console.log(recipeName);
 		try {
-			const response = await fetch('http://127.0.0.1:8000/api/recipes/get_ingredients/', {
+			const response = await fetch(`${baseUrl}/api/recipes/get_ingredients/`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json'
@@ -173,7 +175,7 @@
 			return
 		}
 
-		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe-from-page/", {
+		const response = await fetch(`${baseUrl}/api/recipes/update-recipe-from-page/`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -212,7 +214,7 @@
 	async function saveRecipe() {
 		// alert(`${user_id} ${recipeId}`)
 		try {
-			const response = await fetch("http://127.0.0.1:8000/api/savedby/user-save-recipe/", {
+			const response = await fetch(`${baseUrl}/api/savedby/user-save-recipe/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -234,7 +236,7 @@
 	async function unsaveRecipe() {
 		// alert(`${user_id} ${recipeId}`)
 		try {
-			const response = await fetch("http://127.0.0.1:8000/api/savedby/user-unsave-recipe/", {
+			const response = await fetch(`${baseUrl}/api/savedby/user-unsave-recipe/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

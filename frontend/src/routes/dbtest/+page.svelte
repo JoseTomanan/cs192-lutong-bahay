@@ -2,13 +2,15 @@
 	import { goto } from '$app/navigation';
 	import UserRow from './UserRow.svelte';
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 	let users: any[] = [];
 	let inputEmail: string = '';
 	let inputPassword: string = '';
 	let error: string = '';
 
 	async function fetchUsers() {
-		const response = await fetch('http://127.0.0.1:8000/users/');
+		const response = await fetch(`${baseUrl}/users/`);
 		users = await response.json();
 	}
 
@@ -16,7 +18,7 @@
 
 	async function submitUserForm() {
 		console.log(inputEmail, inputPassword);
-		const response = await fetch('http://127.0.0.1:8000/add-user/', {
+		const response = await fetch(`${baseUrl}/add-user/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -38,7 +40,7 @@
 	async function functionDeleteUserForm(input_id: number) {
 		console.log(input_id);
 
-		const response = await fetch('http://127.0.0.1:8000/delete-user/', {
+		const response = await fetch(`${baseUrl}/delete-user/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

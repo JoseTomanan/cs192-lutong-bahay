@@ -6,6 +6,7 @@
   import RecipeCard from "$lib/components/RecipeCard.svelte";
   import RecipesLoader from "$lib/components/RecipesLoader.svelte";
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   interface IngredientObject {
     ingredientName: string;
@@ -32,7 +33,7 @@
     loading = true
 
     try {
-      const response = await fetch('http://localhost:8000/api/savedby/user-get-saved-recipes/', {
+      const response = await fetch(`${baseUrl}/api/savedby/user-get-saved-recipes/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

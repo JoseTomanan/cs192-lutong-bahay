@@ -1,6 +1,8 @@
 <script lang="ts">
   import DefaultLoader from "$lib/components/DefaultLoader.svelte";
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   let username: string = ""
   let loading: boolean = false
   let loadingText: string = ""
@@ -20,7 +22,7 @@
     loadingText = "Suspending user..."
     
     try {
-      const response = await fetch('http://localhost:8000/api/users/suspend-user/', {
+      const response = await fetch(`${baseUrl}/api/users/suspend-user/`, {
         method: 'POST', 
         credentials: 'include',
         headers: {
@@ -42,7 +44,7 @@
     loading = true
     loadingText = "Reactivating user..."
     try {
-      await fetch('http://localhost:8000/api/users/activate-user/', {
+      await fetch(`${baseUrl}/api/users/activate-user/`, {
         method: 'POST', 
         credentials: 'include',
         headers: {

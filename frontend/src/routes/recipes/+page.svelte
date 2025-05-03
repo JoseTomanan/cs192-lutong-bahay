@@ -4,6 +4,8 @@
   import RecipesLoader from '$lib/components/RecipesLoader.svelte';
   import { recipesStore, recipesLoaded } from '$lib/stores/recipes';
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   interface IngredientObject {
     ingredientName: string;
   }
@@ -39,7 +41,7 @@
   async function fetchAllRecipes() {
     loading = true;
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
+      const response = await fetch(`${baseUrl}/api/recipes/get-recipes/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -5,6 +5,8 @@
   import { usernameStore } from '$lib/stores/auth';
   import BarLoader from "$lib/components/BarLoader.svelte";
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   let username = '';
   let password = '';
   let error = '';
@@ -35,7 +37,7 @@
   async function handleSubmit() {
     loading = true; // Start loading
     try {
-      const response = await fetch('http://localhost:8000/api/users/login/', {
+      const response = await fetch(`${baseUrl}/api/users/login/`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -82,7 +84,7 @@
   async function handleGoogleLogin(accessToken: string) {
     loading = true; // Start loading
     try {
-      const response = await fetch('http://localhost:8000/auth/social/login/', {
+      const response = await fetch(`${baseUrl}/auth/social/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

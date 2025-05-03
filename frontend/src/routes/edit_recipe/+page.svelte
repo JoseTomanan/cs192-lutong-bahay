@@ -2,6 +2,8 @@
   import DeleteRecipe from "$lib/components/DeleteRecipe.svelte";
   import DefaultLoader from "$lib/components/DefaultLoader.svelte";
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   let username: string = "Admin";
   let userSearchbar: string = "";
 
@@ -20,7 +22,7 @@
     loading = true
     loadingText = "Editing the recipe..."
     try {
-      const response = await fetch("http://localhost:8000/api/recipes/update-recipe/", {
+      const response = await fetch(`${baseUrl}/api/recipes/update-recipe/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

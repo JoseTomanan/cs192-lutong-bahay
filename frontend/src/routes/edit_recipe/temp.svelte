@@ -1,6 +1,8 @@
 <script lang="ts">
 	import TitleText from "$lib/components/TitleText.svelte";
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   let isRecipeReturned: boolean = true
 
   let username = "Admin";
@@ -26,7 +28,7 @@
         //     "ratings": 0,
         //     "price": price,
         // })
-        const response = await fetch("http://localhost:8000/api/recipes/edit-recipe/", {
+        const response = await fetch(`${baseUrl}/api/recipes/edit-recipe/`, {
 
             method: "POST",
             headers: {
