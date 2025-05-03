@@ -74,7 +74,7 @@
 
   function loginWithGoogle() {
     const clientId = '408545476434-o2bvopje0mbmad7blibvl0l2pkm7g1kp.apps.googleusercontent.com';
-    const redirectUri = "http://localhost:5173";
+    const redirectUri = `${window.location.origin}`;
 
     const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
 
