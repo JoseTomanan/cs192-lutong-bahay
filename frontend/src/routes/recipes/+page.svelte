@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import RecipeCard from '$lib/components/RecipeCard.svelte';
   import RecipesLoader from '$lib/components/RecipesLoader.svelte';
+  import { recipesStore, recipesLoaded } from '$lib/stores/recipes';
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -29,7 +30,12 @@
   let loading = false;
 
   onMount(async () => {
-    await fetchAllRecipes();
+    if (!$recipesLoaded) {
+      await fetchAllRecipes();
+    } else {
+      recipes = $recipesStore;
+      filteredRecipes = [...recipes];
+    }
   });
 
   async function fetchAllRecipes() {
@@ -46,6 +52,8 @@
       if (data.hasOwnProperty('error')) {
         alert('No recipes found');
       } else {
+        recipesStore.set(data);
+        recipesLoaded.set(true);
         recipes = data;
         filteredRecipes = [...recipes];
       }
