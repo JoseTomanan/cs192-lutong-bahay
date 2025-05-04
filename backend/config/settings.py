@@ -196,13 +196,11 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://cs192-lutong-bahay.vercel.app"
-    "https://lb-api.up.railway.app"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "https://cs192-lutong-bahay.vercel.app"
-    "https://lb-api.up.railway.app"
 ]
 
 SESSION_COOKIE_SAMESITE = "None"

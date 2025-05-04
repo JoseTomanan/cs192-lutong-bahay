@@ -53,7 +53,7 @@ def login(request):
             "username",
             username,
             max_age=None,
-            httponly=False,
+            httponly=True,
             secure=True,
             samesite="Lax",
         )
@@ -61,7 +61,7 @@ def login(request):
             "user_id",
             user.id,  # type: ignore
             max_age=None,
-            httponly=False,
+            httponly=True,
             secure=True,
             samesite="Lax",
         )
