@@ -53,17 +53,17 @@ def login(request):
             "username",
             username,
             max_age=None,
-            httponly=True,
+            httponly=False,
             secure=True,
-            samesite="None",
+            samesite="Lax",
         )
         response.set_cookie(
             "user_id",
             user.id,  # type: ignore
             max_age=None,
-            httponly=True,
+            httponly=False,
             secure=True,
-            samesite="None",
+            samesite="Lax",
         )
         return response
 
