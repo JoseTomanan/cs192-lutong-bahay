@@ -4,6 +4,7 @@
   import { onMount } from "svelte";
   import { usernameStore } from '$lib/stores/auth';
   import BarLoader from "$lib/components/BarLoader.svelte";
+  import Cookies from 'js-cookie';
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -41,7 +42,7 @@
         method: 'POST',
         credentials: 'include',
         headers: {
-          'X-CSRFToken': getCookie("csrftoken"),
+          'X-CSRFToken': Cookies.get("csrftoken"),
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password })
