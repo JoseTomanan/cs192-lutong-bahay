@@ -14,7 +14,7 @@
 
   let loginMethods = [
     { name: 'Google', icon: '/google.webp', loginFunction: loginWithGoogle },
-    { name: 'Facebook', icon: '/facebook.png', loginFunction: () => {} },
+    // { name: 'Facebook', icon: '/facebook.png', loginFunction: () => {} },
   ];
 
   onMount(async () => {
