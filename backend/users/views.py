@@ -16,12 +16,18 @@ from dj_rest_auth.registration.views import SocialLoginView
 from users.serializer import UserSerializer
 
 
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import JsonResponse
+
 class LoginForm(AuthenticationForm):
     error_messages = {
         "invalid_login": "Invalid username or password",
         "inactive": "This account is currently suspended",
     }
 
+@ensure_csrf_cookie
+def csrf(request):
+    return JsonResponse({"message": "CSRF cookie set"})
 
 @api_view(["POST"])
 def login(request):

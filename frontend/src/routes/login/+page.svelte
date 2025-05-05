@@ -25,6 +25,11 @@
     if (accessToken) {
       await handleGoogleLogin(accessToken);
     }
+
+      await fetch(`${baseUrl}/api/users/csrf/`, {
+      method: "GET",
+      credentials: "include",
+    });
   });
 
   function getCookie(name: String) {
@@ -45,7 +50,7 @@
         credentials: 'include',
         headers: {
           // 'X-CSRFToken': Cookies.get("csrftoken"),
-          'X-CSRFToken': getCookie("csrftoken"),
+          // 'X-CSRFToken': getCookie("csrftoken"),
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password })
