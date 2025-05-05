@@ -3,6 +3,8 @@
   import DefaultLoader from '$lib/components/DefaultLoader.svelte';
   import BarLoader from '$lib/components/BarLoader.svelte';
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   let loading = false
   let loadingText = ""
 
@@ -54,7 +56,7 @@
     loadingText = "Fetching ingredients..."
 		console.log(recipeName);
 		try {
-			const response = await fetch('http://127.0.0.1:8000/api/recipes/get_ingredients/', {
+			const response = await fetch(`${baseUrl}/api/recipes/get_ingredients/`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json'
@@ -99,7 +101,7 @@
 		// console.log(JSON.stringify(ingredients))
 
 		try {
-			const response = await fetch('http://127.0.0.1:8000/api/recipes/create_recipe/', {
+			const response = await fetch(`${baseUrl}/api/recipes/create_recipe/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
