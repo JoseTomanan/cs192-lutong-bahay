@@ -36,6 +36,7 @@
   }
 
   async function handleSubmit() {
+    console.log(Cookies.get("csrftoken"))
     loading = true; // Start loading
     try {
       const response = await fetch(`${baseUrl}/api/users/login/`, {
