@@ -44,7 +44,8 @@
         method: 'POST',
         credentials: 'include',
         headers: {
-          'X-CSRFToken': Cookies.get("csrftoken"),
+          // 'X-CSRFToken': Cookies.get("csrftoken"),
+          'X-CSRFToken': getCookie("csrftoken"),
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password })
