@@ -50,12 +50,22 @@
 
 	let user_id: String | undefined;
 
+	let csrfToken = '';
+
 	// onstart
 	onMount(async () => {
 		fetchRecipeReviews();
 		user_id = Cookies.get('user_id');
     	fetchIngredients();
 		functionFetchRecipeById(data.id);
+
+		await fetch(`${baseUrl}/api/users/csrf/`, {
+		method: "GET",
+		credentials: "include",
+		}).then(res => res.json())
+		.then(data => {
+			csrfToken = data.csrfToken;
+		});
 	});
 
 	async function functionFetchRecipeById(input_id: String) {
@@ -96,6 +106,7 @@
 			method: 'POST',
 			credentials: 'include',
 			headers: {
+				'X-CSRFToken': csrfToken,
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
