@@ -17,6 +17,7 @@ from users.serializer import UserSerializer
 
 
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.middleware.csrf import get_token
 from django.http import JsonResponse
 
 class LoginForm(AuthenticationForm):
@@ -27,7 +28,8 @@ class LoginForm(AuthenticationForm):
 
 @ensure_csrf_cookie
 def csrf(request):
-    return JsonResponse({"message": "CSRF cookie set"})
+    token = get_token(request)
+    return JsonResponse({"csrfToken": token})
 
 @api_view(["POST"])
 def login(request):
