@@ -7,12 +7,14 @@
 	let reviewId = props.recipeReview.id
 	let username = $state("");
 
+	const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 	onMount(async () => {
 		functionUserById() 
 	})
 
 	async function fetchRecipeReviews() {
-		const response = await fetch('http://127.0.0.1:8000/api/reviews/fetch-reviews/', {
+		const response = await fetch(`${baseUrl}/api/reviews/fetch-reviews/`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -32,7 +34,7 @@
 	}
 
 	async function functionUserById() {
-		const response = await fetch('http://127.0.0.1:8000/api/users/fetch-user-by-id/', {
+		const response = await fetch(`${baseUrl}/api/users/fetch-user-by-id/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -52,7 +54,7 @@
   	}
 
 	  async function deleteReviewById() {
-		const response = await fetch('http://127.0.0.1:8000/api/reviews/delete-review-by-id', {
+		const response = await fetch(`${baseUrl}/api/reviews/delete-review-by-id`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
