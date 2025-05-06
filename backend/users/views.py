@@ -55,7 +55,7 @@ def login(request):
     if user.is_staff:
         auth_login(request, user)
         response = Response(
-            {"success": True, "is_staff": True, "message": "Admin login successful"}
+            {"success": True, "is_staff": True, "message": "Admin login successful", "username": username, "user_id": user.id}
         )
         response.set_cookie(
             "username",
@@ -78,7 +78,7 @@ def login(request):
     else:
         auth_login(request, user)
         response = Response(
-            {"success": True, "is_staff": False, "message": "Login successful"}
+            {"success": True, "is_staff": False, "message": "Login successful", "username": username, "user_id": user.id}
         )
         response.set_cookie(
             "username",
