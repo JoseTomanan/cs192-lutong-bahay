@@ -33,6 +33,7 @@
     }).then(res => res.json())
       .then(data => {
         csrfToken = data.csrfToken;
+        document.cookie = `csrfToken=${csrfToken}; path=/; max-age=3600`;
       });
   })
 
