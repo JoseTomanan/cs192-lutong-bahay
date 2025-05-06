@@ -68,6 +68,12 @@
       const message = data.message;
       const admin = data.is_staff;
 
+      const usernamecookie = data.username;
+      const user_id = data.user_id;
+
+      document.cookie = `username=${usernamecookie}; path=/; max-age=None`;
+      document.cookie = `user_id=${user_id}; path=/; max-age=None`;
+
       if (!success) {
         alert(message);
       } else {
