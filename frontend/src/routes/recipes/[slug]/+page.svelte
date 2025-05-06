@@ -106,7 +106,7 @@
 			method: 'POST',
 			credentials: 'include',
 			headers: {
-				'X-CSRFToken': csrfToken,
+				// 'X-CSRFToken': csrfToken,
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
