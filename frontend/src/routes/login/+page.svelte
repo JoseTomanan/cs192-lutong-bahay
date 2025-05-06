@@ -56,6 +56,7 @@
         headers: {
           // 'X-CSRFToken': Cookies.get("csrftoken"),
           // 'X-CSRFToken': getCookie("csrftoken"),
+          'X-CSRFToken': csrfToken,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password })
