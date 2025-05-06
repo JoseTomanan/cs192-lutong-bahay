@@ -1,5 +1,4 @@
 <script lang="ts">
-  import toast, { Toaster } from 'svelte-french-toast';
   import DefaultLoader from './DefaultLoader.svelte';
 
   let recipeName = ""
@@ -28,18 +27,16 @@
         body: JSON.stringify({recipeName})
       });
       
-      toast.success(`${recipeName} deleted`)
+      alert(`${recipeName} deleted`)
     }
     
     catch {
-      toast.error(`failed to delete ${recipeName}`)
+      alert(`failed to delete ${recipeName}`)
     } finally {
       loading = false
     }
   }
 </script>
-
-<Toaster/>
 
 <div class="max-w-md mt-8 p-6 bg-white rounded-lg border-2 space-y-6">
   <h2 class="text-lg font-semibold mb-4">

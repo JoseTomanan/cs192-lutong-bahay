@@ -3,8 +3,10 @@
   import { isAuthenticated, setAdmin, setAuth } from '$lib/stores/auth';
   import { onMount } from "svelte";
   import { usernameStore } from '$lib/stores/auth';
-  import toast, { Toaster } from "svelte-french-toast"
   import BarLoader from "$lib/components/BarLoader.svelte";
+  import Cookies from 'js-cookie';
+
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   let username = '';
   let password = '';
@@ -13,7 +15,7 @@
 
   let loginMethods = [
     { name: 'Google', icon: '/google.webp', loginFunction: loginWithGoogle },
-    { name: 'Facebook', icon: '/facebook.png', loginFunction: () => {} },
+    // { name: 'Facebook', icon: '/facebook.png', loginFunction: () => {} },
   ];
 
   onMount(async () => {
@@ -23,6 +25,11 @@
     if (accessToken) {
       await handleGoogleLogin(accessToken);
     }
+
+      await fetch(`${baseUrl}/api/users/csrf/`, {
+      method: "GET",
+      credentials: "include",
+    });
   });
 
   function getCookie(name: String) {
@@ -34,13 +41,16 @@
   }
 
   async function handleSubmit() {
+    console.log("js-cookie: " + Cookies.get("csrftoken"))
+    console.log("getCookie: " + getCookie("csrftoken"))
     loading = true; // Start loading
     try {
-      const response = await fetch('http://localhost:8000/api/users/login/', {
+      const response = await fetch(`${baseUrl}/api/users/login/`, {
         method: 'POST',
         credentials: 'include',
         headers: {
-          'X-CSRFToken': getCookie("csrftoken"),
+          // 'X-CSRFToken': Cookies.get("csrftoken"),
+          // 'X-CSRFToken': getCookie("csrftoken"),
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password })
@@ -52,7 +62,7 @@
       const admin = data.is_staff;
 
       if (!success) {
-        toast.error(message);
+        alert(message);
       } else {
         setAuth(true);
         $usernameStore = username;
@@ -65,7 +75,7 @@
         }
       }
     } catch (err) {
-      toast.error('No database connection');
+      alert('No database connection');
     } finally {
       loading = false; // Stop loading
     }
@@ -73,7 +83,7 @@
 
   function loginWithGoogle() {
     const clientId = '408545476434-o2bvopje0mbmad7blibvl0l2pkm7g1kp.apps.googleusercontent.com';
-    const redirectUri = "http://localhost:5173";
+    const redirectUri = `${window.location.origin}`;
 
     const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
 
@@ -83,7 +93,7 @@
   async function handleGoogleLogin(accessToken: string) {
     loading = true; // Start loading
     try {
-      const response = await fetch('http://localhost:8000/auth/social/login/', {
+      const response = await fetch(`${baseUrl}/auth/social/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,8 +119,6 @@
     }
   }
 </script>
-
-<Toaster />
 
 <!-- Progress Bar -->
 {#if loading}

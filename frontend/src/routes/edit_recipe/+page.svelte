@@ -1,7 +1,8 @@
 <script lang="ts">
   import DeleteRecipe from "$lib/components/DeleteRecipe.svelte";
-  import toast, { Toaster } from 'svelte-french-toast';
   import DefaultLoader from "$lib/components/DefaultLoader.svelte";
+
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   let username: string = "Admin";
   let userSearchbar: string = "";
@@ -21,7 +22,7 @@
     loading = true
     loadingText = "Editing the recipe..."
     try {
-      const response = await fetch("http://localhost:8000/api/recipes/update-recipe/", {
+      const response = await fetch(`${baseUrl}/api/recipes/update-recipe/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -43,7 +44,7 @@
       console.log(data)
   
       if (response['status'] == 200) {
-        toast.success("Recipe edited successfully!");
+        alert("Recipe edited successfully!");
         
         // Reset form fields
         recipeName = ""
@@ -55,12 +56,12 @@
       }
       
       else {
-        toast.error(data.message || "Error in editing recipe")
+        alert("Error in editing recipe")
       }
     }
     
     catch (err) {
-      toast.error("Error connecting to the server.");
+      alert("Error connecting to the server.");
     } finally {
       loading = false
     }

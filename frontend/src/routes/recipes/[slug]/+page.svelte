@@ -9,10 +9,11 @@
 	import RecipeReview from '$lib/components/RecipeReview.svelte';
 	import {isAdmin } from '$lib/stores/auth'
 	import Cookies from 'js-cookie';
-	import toast, { Toaster } from 'svelte-french-toast';
 	
 
   import IngredientObject from '$lib/../routes/submit_recipe/+page.svelte';
+
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   interface IngredientUnit {
     ingredientId: number
@@ -59,7 +60,7 @@
 
 	async function functionFetchRecipeById(input_id: String) {
 		console.log(input_id);
-		const response = await fetch('http://127.0.0.1:8000/api/recipes/get_recipe_by_id/', {
+		const response = await fetch(`${baseUrl}/api/recipes/get_recipe_by_id/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -91,7 +92,7 @@
 	}
 
 	async function postReview() {
-		const response = await fetch('http://127.0.0.1:8000/api/reviews/post-review/', {
+		const response = await fetch(`${baseUrl}/api/reviews/post-review/`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -106,19 +107,19 @@
 		});
 
 		if (response.ok) {
-			toast.success('review post succesful');
+			alert('review post succesful');
 			fetchRecipeReviews()
 			location.reload()
 			console.log('Review post successful');
 			return;
 		} else {
-			toast.error('review post fail');
+			alert('review post fail');
 			console.log('Review post fail');
 		}
 	}
 
 	async function fetchRecipeReviews() {
-		const response = await fetch('http://127.0.0.1:8000/api/reviews/fetch-reviews/', {
+		const response = await fetch(`${baseUrl}/api/reviews/fetch-reviews/`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -140,7 +141,7 @@
   async function fetchIngredients() {
 		console.log(recipeName);
 		try {
-			const response = await fetch('http://127.0.0.1:8000/api/recipes/get_ingredients/', {
+			const response = await fetch(`${baseUrl}/api/recipes/get_ingredients/`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json'
@@ -150,7 +151,7 @@
 			const data = await response.json();
       
 			if (data.hasOwnProperty('error')) {
-				toast.error('No recipes found');
+				alert('No recipes found');
 			}
       else {
 				const result = data;
@@ -160,7 +161,7 @@
 				// console.log(ingredientsDb);
 			}
 		} catch {
-			toast.error('No database connection');
+			alert('No database connection');
 		}
 	}
 
@@ -169,12 +170,12 @@
 		console.log(ingredients)
 
 		if (!$isAdmin) {
-			toast.error('No admin privileges');
+			alert('No admin privileges');
 			is_editing = !is_editing
 			return
 		}
 
-		const response = await fetch("http://127.0.0.1:8000/api/recipes/update-recipe-from-page/", {
+		const response = await fetch(`${baseUrl}/api/recipes/update-recipe-from-page/`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -200,12 +201,12 @@
 		});
 
 		if (response.ok) {
-			toast.success('Recipe update succesful');
+			alert('Recipe update succesful');
 			location.reload();
 			console.log('Recipe update successful');
 			return;
 		} else {
-			toast.error('Recipe update fail');
+			alert('Recipe update fail');
 			console.log('Recipe update fail');
 		}
 	}
@@ -213,7 +214,7 @@
 	async function saveRecipe() {
 		// alert(`${user_id} ${recipeId}`)
 		try {
-			const response = await fetch("http://127.0.0.1:8000/api/savedby/user-save-recipe/", {
+			const response = await fetch(`${baseUrl}/api/savedby/user-save-recipe/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -224,18 +225,18 @@
 				})
 			})
 
-			toast.success("Recipe saved succesfully!")
+			alert("Recipe saved succesfully!")
 		} 
 		
 		catch {
-			toast.error("Failed to save recipe.")
+			alert("Failed to save recipe.")
 		}
 	}
 
 	async function unsaveRecipe() {
 		// alert(`${user_id} ${recipeId}`)
 		try {
-			const response = await fetch("http://127.0.0.1:8000/api/savedby/user-unsave-recipe/", {
+			const response = await fetch(`${baseUrl}/api/savedby/user-unsave-recipe/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -246,11 +247,11 @@
 				})
 			})
 
-			toast.success("Recipe unsaved succesfully!")
+			alert("Recipe unsaved succesfully!")
 		} 
 		
 		catch {
-			toast.error("Failed to unsave recipe.")
+			alert("Failed to unsave recipe.")
 		}
 	}
 
@@ -272,8 +273,6 @@
 // 	functionFetchRecipeById(data.id); s
 
 </script>
-
-<Toaster />
 
 <!-- Recipe Heading Div -->
 <div class="mb-10 space-y-4">

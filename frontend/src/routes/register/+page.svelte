@@ -3,8 +3,9 @@
   import { isAuthenticated, setAuth } from '$lib/stores/auth'
   import { onMount } from "svelte";
   import { usernameStore } from '$lib/stores/auth';
-  import toast, { Toaster } from "svelte-french-toast"
   import BarLoader from "$lib/components/BarLoader.svelte";
+
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   let username = '';
   let password = '';
@@ -34,7 +35,7 @@
   async function handleSubmit() {
     loading = true
     try { 
-      const response = await fetch('http://localhost:8000/api/users/add-user/', {
+      const response = await fetch(`${baseUrl}/api/users/add-user/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,13 +51,13 @@
       console.log(data)
 
       if (!success) {
-        toast.error(data.message)
+        alert(data.message)
       } else {
         // alert(message)
         goto('/login')
       }       
     } catch (err) {
-      toast.error('No database connection')
+      alert('No database connection')
     } finally {
       loading = false
     }
@@ -64,7 +65,10 @@
 
   function loginWithGoogle() {
     const clientId = '408545476434-o2bvopje0mbmad7blibvl0l2pkm7g1kp.apps.googleusercontent.com'
-    const redirectUri = "http://localhost:5173"; // Change if needed
+    const redirectUri = `${window.location.origin}`; // Dynamically set based on the current origin
+    // Expected value:
+    // - In development: "http://localhost:5173"
+    // - In production: The production domain, e.g., "https://your-production-domain.com"
 
     const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=email%20profile`;
 
@@ -76,7 +80,7 @@
     try { 
       console.log("\ngoogleFunction called\n")
       console.log("Google Access Token:", accessToken)
-      const response = await fetch('http://localhost:8000/auth/social/login/', {
+      const response = await fetch(`${baseUrl}/auth/social/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,7 +115,6 @@
   }
 </script>
 
-<Toaster />
 
 
 

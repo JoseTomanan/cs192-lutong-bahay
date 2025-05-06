@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { usernameStore } from '$lib/stores/auth';
-	import toast from "svelte-french-toast";
 
 	let props = $props();
 	let reviewerId = props.recipeReview.reviewer
@@ -65,12 +64,12 @@
 
 		if (response.ok) {
 			username = userObject.username;
-			toast.success('review delete success')
+			alert('review delete success')
 			fetchRecipeReviews()
 			console.log('Review delete successful');
 			return;
 		} else {
-			toast.error('review delete fail')
+			alert('review delete fail')
 			console.log('Review delete fail');
 		}
   	}

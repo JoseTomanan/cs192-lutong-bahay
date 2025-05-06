@@ -2,8 +2,9 @@
   import { onMount } from 'svelte';
   import RecipeCard from '$lib/components/RecipeCard.svelte';
   import RecipesLoader from '$lib/components/RecipesLoader.svelte';
-  import toast, { Toaster } from 'svelte-french-toast';
   import { recipesStore, recipesLoaded } from '$lib/stores/recipes';
+
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   interface IngredientObject {
     ingredientName: string;
@@ -40,7 +41,7 @@
   async function fetchAllRecipes() {
     loading = true;
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/recipes/get-recipes/', {
+      const response = await fetch(`${baseUrl}/api/recipes/get-recipes/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +50,7 @@
 
       const data: RecipeObject[] = await response.json();
       if (data.hasOwnProperty('error')) {
-        toast.error('No recipes found');
+        alert('No recipes found');
       } else {
         recipesStore.set(data);
         recipesLoaded.set(true);
@@ -57,7 +58,7 @@
         filteredRecipes = [...recipes];
       }
     } catch {
-      toast.error('No database connection');
+      alert('No database connection');
     } finally {
       loading = false;
     }
@@ -95,8 +96,6 @@
     });
   }
 </script>
-
-<Toaster />
 
 <div class="flex flex-wrap gap-4 items-center mb-4">
   <!-- Search Recipes -->

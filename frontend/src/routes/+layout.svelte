@@ -8,6 +8,7 @@
   import { initAuth } from '$lib/stores/auth'
 
   
+
   onMount(() => {
       initAuth()
       console.log(`isAuthenticated: ${$isAuthenticated}`)
