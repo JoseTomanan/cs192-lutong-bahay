@@ -33,7 +33,8 @@
     }).then(res => res.json())
       .then(data => {
         csrfToken = data.csrfToken;
-  });
+      });
+  })
 
   function getCookie(name: String) {
     const value = `; ${document.cookie}`;
