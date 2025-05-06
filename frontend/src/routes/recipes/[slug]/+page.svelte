@@ -73,6 +73,7 @@
 		const response = await fetch(`${baseUrl}/api/recipes/get_recipe_by_id/`, {
 			method: 'POST',
 			headers: {
+				'X-CSRFToken': csrfToken,
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ id: input_id })
@@ -106,7 +107,7 @@
 			method: 'POST',
 			credentials: 'include',
 			headers: {
-				// 'X-CSRFToken': csrfToken,
+				'X-CSRFToken': csrfToken,
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
@@ -134,6 +135,7 @@
 			method: 'POST',
 			credentials: 'include',
 			headers: {
+				'X-CSRFToken': csrfToken,
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ recipeId: data.id })
@@ -155,6 +157,7 @@
 			const response = await fetch(`${baseUrl}/api/recipes/get_ingredients/`, {
 				method: 'GET',
 				headers: {
+					'X-CSRFToken': csrfToken,
 					'Content-Type': 'application/json'
 				}
 			});
@@ -190,6 +193,7 @@
 			method: 'POST',
 			credentials: 'include',
 			headers: {
+				'X-CSRFToken': csrfToken,
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
