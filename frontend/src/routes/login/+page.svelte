@@ -12,6 +12,7 @@
   let password = '';
   let error = '';
   let loading = false
+  let csrfToken = '';
 
   let loginMethods = [
     { name: 'Google', icon: '/google.webp', loginFunction: loginWithGoogle },
@@ -26,10 +27,12 @@
       await handleGoogleLogin(accessToken);
     }
 
-      await fetch(`${baseUrl}/api/users/csrf/`, {
+    await fetch(`${baseUrl}/api/users/csrf/`, {
       method: "GET",
       credentials: "include",
-    });
+    }).then(res => res.json())
+      .then(data => {
+        csrfToken = data.csrfToken;
   });
 
   function getCookie(name: String) {
@@ -43,6 +46,7 @@
   async function handleSubmit() {
     console.log("js-cookie: " + Cookies.get("csrftoken"))
     console.log("getCookie: " + getCookie("csrftoken"))
+    console.log("csrfToken: " + csrfToken)
     loading = true; // Start loading
     try {
       const response = await fetch(`${baseUrl}/api/users/login/`, {
