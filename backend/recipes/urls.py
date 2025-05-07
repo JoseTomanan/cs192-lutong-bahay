@@ -43,7 +43,7 @@ urlpatterns = [
     path("get_ingredients/", recipe.get_ingredients),
     path("create_recipe/", recipe.create_recipe),
     path("fetch-all-recipes/", recipe.fetch_all_recipes),
-    # path("update-recipe/", recipe.update_recipe),
+    path("update-recipe/", recipe.update_recipe),
     path("update-recipe-from-page/", recipe.update_recipe_from_page),
     path("del-recipe/", recipe.del_recipe),
     # path("delete-recipe/", recipe.del_recipe)
