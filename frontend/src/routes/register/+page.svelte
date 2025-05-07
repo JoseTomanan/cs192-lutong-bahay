@@ -161,16 +161,16 @@
       <button type="submit" class="w-full rounded bg-stone-600 hover:shadow-md p-2 text-white hover:bg-stone-400">
         Sign up
       </button>
-      <div class="flex items-center justify-center pt-4 pb-2">
+      <!-- <div class="flex items-center justify-center pt-4 pb-2">
         <hr class="flex-grow border-gray-200">
         <span class="px-4 text-gray-400">
           OR
         </span>
         <hr class="flex-grow border-gray-200">
-      </div>
+      </div> -->
     </form>
 
-    <div class="space-y-3 flex flex-col items-center ">
+    <!-- <div class="space-y-3 flex flex-col items-center ">
       {#each loginMethods as {name, icon, loginFunction}} 
         <button
           type="submit"
@@ -182,7 +182,7 @@
           Sign in with {name}
         </button>  
       {/each}   
-    </div> 
+    </div>  -->
 
       <div class="flex justify-end"> 
         <a
