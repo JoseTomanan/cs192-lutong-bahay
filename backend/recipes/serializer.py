@@ -17,19 +17,19 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     def get_ingredients(self, recipe):
         ingredients = RecipeIngredientsSerializer(
-            RecipeIngredients.objects.filter(recipe=recipe.id), many=True
+            RecipeIngredients.objects.filter(recipe_id=recipe.id), many=True
         ).data
-        # ingredient_ids = [
-        #     Ingredients.objects.get(id=i["ingredientId"]).id
-        #     for i in ingredients
-        # ]
+        ingredient_ids = [
+            Ingredients.objects.get(id=i["ingredientId"]).id
+            for i in ingredients
+        ]
         # ingredient_objects = Ingredients.objects.filter(id__in=ingredient_ids)
         # serialized_ingredients = IngredientsSerializer(ingredient_objects, many=True).data
-        return ingredients
+        return ingredients_ids
 
     def get_ingredientsString(self, recipe):
         ingredients = RecipeIngredientsSerializer(
-            RecipeIngredients.objects.filter(recipe=recipe.id), many=True
+            RecipeIngredients.objects.filter(recipe_id=recipe.id), many=True
         ).data
         ingredientsString = [
             Ingredients.objects.get(id=i["ingredientId"]).ingredientName
