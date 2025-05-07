@@ -189,9 +189,6 @@
 			return
 		}
 
-    if (recipeInstructions == "")
-      recipeInstructions = "-";
-
 		const response = await fetch(`${baseUrl}/api/recipes/update-recipe-from-page/`, {
 			method: 'POST',
 			credentials: 'include',
@@ -201,11 +198,12 @@
 			},
 			body: JSON.stringify({
 				recipe: {
+					// recipeId: data.id,
 					recipeId: recipeId,
 					recipeName: recipeName,
 					cookDifficulty: cookDifficulty,
 					equipment: recipeEquipment,
-					ingredients: ingredients,
+					// ingredients: ingredients,
 					// console.log("ingredients: " + ingredients)
 					instructions: recipeInstructions,
 					servings: recipeServings,
@@ -218,14 +216,11 @@
 		});
 
 		if (response.ok) {
-			console.log('Recipe update successful', response);
 			alert('Recipe update succesful');
 			location.reload();
-
+			console.log('Recipe update successful');
 			return;
-		}
-    
-    else {
+		} else {
 			alert('Recipe update fail');
 			console.log('Recipe update fail');
 		}
